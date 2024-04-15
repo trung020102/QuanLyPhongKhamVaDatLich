@@ -1,0 +1,136 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/app"
+>
+<th:block layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1>Quản lý người dùng</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Tạo mới user</li>
+        </ol>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content-body">
+<!--   body table hiển thị các user:-->
+    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <div class="row">
+            <div class="col-sm-12 col-md-6"></div>
+            <div class="col-sm-12 col-md-6"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="example2"
+                       class="table table-bordered table-hover dataTable dtr-inline"
+                       aria-describedby="example2_info">
+                    <thead>
+                    <tr>
+                        <th class="sorting"
+                            aria-label="Rendering engine: activate to sort column descending">
+                            STT
+                        </th>
+                        <th class="sorting">Mã GV</th>
+                        <th class="sorting">Họ và tên</th>
+                        <th class="sorting">Vai trò</th>
+                        <th class="sorting">Ngày tạo</th>
+                        <th class="sorting">Trạng thái</th>
+                        <th class="sorting">
+                           Thao tác
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">1</td>
+                        <td>GV2011</td>
+                        <td>Nguyễn Văn A</td>
+                        <td>Giảng Viên</td>
+                        <td>20-11-2020</td>
+                        <td>Hoạt động</td>
+                        <td>
+                            <a href="#">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">2</td>
+                        <td>GV2011</td>
+                        <td>Nguyễn Văn B</td>
+                        <td>Giảng Viên</td>
+                        <td>20-11-2020</td>
+                        <td>Ngừng hoạt động</td>
+                        <td>
+                            <a href="#">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">3</td>
+                        <td>GV2011</td>
+                        <td>Nguyễn Văn C</td>
+                        <td>Giảng Viên</td>
+                        <td>20-11-2020</td>
+                        <td>Hoạt động</td>
+                        <td>
+                            <a href="#">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <style>
+        #example2 th,
+        #example2 td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        #example2 th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        #example2 tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        #example2 tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        #example2 a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        #example2 a:hover {
+            color: #0056b3;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="user-script">
+    <script type="module" src="/js/user.js"></script>
+</th:block>
+</html>

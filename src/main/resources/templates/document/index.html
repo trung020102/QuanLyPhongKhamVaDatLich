@@ -1,0 +1,91 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/app"
+>
+<th:block layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1>Văn bản khoa CNTT</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Văn bản khoa CNTT</li>
+        </ol>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <div class="row">
+            <div class="col-sm-12 col-md-6"></div>
+            <div class="col-sm-12 col-md-6"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="example2"
+                       class="table table-bordered table-hover dataTable dtr-inline"
+                       aria-describedby="example2_info">
+                    <thead>
+                    <tr>
+                        <th class="sorting"
+                            aria-label="Rendering engine: activate to sort column descending">
+                            STT
+                        </th>
+                        <th class="sorting">Số-Ký hiệu</th>
+                        <th class="sorting">Ngày phát hành</th>
+                        <th class="sorting">Tên văn bản</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">1</td>
+                        <td>300/QĐ-ĐHH</td>
+                        <td>27-03-2024</td>
+                        <td>300/QĐ-ĐHH : Quyết định ban hành Quy định soạn thảo và ban hành
+                            văn bản quản lý của Đại học Huế
+                        </td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">2</td>
+                        <td>300/QĐ-ĐHH</td>
+                        <td>27-03-2024</td>
+                        <td>300/QĐ-ĐHH : Quyết định ban hành Quy định soạn thảo và ban hành
+                            văn bản quản lý của Đại học Huế
+                        </td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">3</td>
+                        <td>300/QĐ-ĐHH</td>
+                        <td>27-03-2024</td>
+                        <td>300/QĐ-ĐHH : Quyết định ban hành Quy định soạn thảo và ban hành
+                            văn bản quản lý của Đại học Huế
+                        </td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">4</td>
+                        <td>300/QĐ-ĐHH</td>
+                        <td>27-03-2024</td>
+                        <td>300/QĐ-ĐHH : Quyết định ban hành Quy định soạn thảo và ban hành
+                            văn bản quản lý của Đại học Huế
+                        </td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">5</td>
+                        <td>300/QĐ-ĐHH</td>
+                        <td>27-03-2024</td>
+                        <td>300/QĐ-ĐHH : Quyết định ban hành Quy định soạn thảo và ban hành
+                            văn bản quản lý của Đại học Huế
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="document-script">
+    <script src="/js/document.js"></script>
+</th:block>
+</html>
