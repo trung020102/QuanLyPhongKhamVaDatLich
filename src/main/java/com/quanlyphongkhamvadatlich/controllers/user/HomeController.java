@@ -17,7 +17,7 @@ public class HomeController {
         return "user/pages/about";
     }
 
-    @GetMapping("/procedure")
+        @GetMapping("/procedure")
     public String procedure() {
         return "user/pages/procedure";
     }

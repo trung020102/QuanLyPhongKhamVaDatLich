@@ -1,0 +1,177 @@
+<html lang="vi"
+
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/app"
+>
+<head>
+
+    <link rel="stylesheet" href="/css/doctor/history_exam.css"/>
+    <title>history_exam</title>>
+</head>
+<th:block layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1>Lịch sử khám bệnh</h1>
+    </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Lịch sử khám bệnh</li>
+        </ol>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <form>
+        <p style="font-size:30px; color: #0c84ff " >Bộ lọc  <i class="fa fa-filter"  aria-hidden="true"></i></p>
+        <div class="row">
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class=" form-group">
+                    <label>Từ ngày:</label>
+                    <input class="form-control" type="date" style="width: 70%">
+                </div>
+
+            </div>
+
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class=" form-group">
+                    <label>Từ ngày:</label>
+                    <input class="form-control" type="date" style="width: 70%">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <!-- text input -->
+                <div class=" form-group">
+                    <button class="button-app">Ứng dụng </button>
+                    <button class="button-refresh">Cài lại </button>
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </form>
+    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <!--body-->
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="example1"
+                       class="table table-bordered table-hover dataTable dtr-inline table-striped"
+                       aria-describedby="example2_info">
+                    <thead>
+                    <tr>
+                        <th class="sorting"
+                            aria-label="Rendering engine: activate to sort column descending">
+                            STT
+                        </th>
+                        <th class="sorting">Thời gian</th>
+                        <th class="sorting">Lý do</th>
+                        <th class="sorting">Bác sĩ khám bệnh</th>
+                        <th class="sorting">Đơn thuốc</th>
+                        <th class="sorting">Lời dặn bác sĩ</th>
+                        <th class="sorting">Hóa đơn</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">1</td>
+                        <td>13:00-15:00</td>
+                        <td>Đau đầu</td>
+                        <td>Trần Văn Hiếu</td>
+                        <td>
+                            <div class="prescription">
+                                <p>1. paracetamon /2 viên /2 buổi</p>
+                                <p>2. vitamin c/1 viên/sáng</p>
+                                <p>3. vitamin b6/2 viên/2 buổi</p>
+                                <p>4. paracetamon /2 viên /2 buổi</p>
+                                <p>5. vitamin c/1 viên/sáng</p>
+                                <p>6. vitamin b6/2 viên/2 buổi</p>
+
+                            </div>
+
+                        </td>
+                        <td>Uống thuốc đúng giờ</td>
+                        <td><a style="color: #0c84ff">Xem</a></td>
+                    </tr>
+
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">1</td>
+                        <td>15:00-16:00</td>
+                        <td>Gãy tay</td>
+                        <td>Trần Văn A</td>
+                        <td>
+                            <div class="prescription">
+                                <p>1. paracetamon /2 viên /2 buổi</p>
+                                <p>2. vitamin c/1 viên/sáng</p>
+                                <p>3. vitamin b6/2 viên/2 buổi</p>
+                                <p>4. paracetamon /2 viên /2 buổi</p>
+                                <p>5. vitamin c/1 viên/sáng</p>
+                                <p>6. vitamin b6/2 viên/2 buổi</p>
+
+                            </div>
+
+                        </td>
+                        <td>Uống thuốc đúng giờ</td>
+                        <td><a style="color: #0c84ff">Xem</a></td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">1</td>
+                        <td>16:00-17:00</td>
+                        <td>Đau đầu</td>
+                        <td>Trần Văn B</td>
+                        <td>
+                            <div class="prescription">
+                                <p>1. paracetamon /2 viên /2 buổi</p>
+                                <p>2. vitamin c/1 viên/sáng</p>
+                                <p>3. vitamin b6/2 viên/2 buổi</p>
+                                <p>4. paracetamon /2 viên /2 buổi</p>
+                                <p>5. vitamin c/1 viên/sáng</p>
+                                <p>6. vitamin b6/2 viên/2 buổi</p>
+
+                            </div>
+
+                        </td>
+                        <td>Uống thuốc đúng giờ</td>
+                        <td><a style="color: #0c84ff">Xem</a></td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">1</td>
+                        <td>9:00-12:00</td>
+                        <td>Đau đầu</td>
+                        <td>Trần Văn C</td>
+                        <td>
+                            <div class="prescription">
+                                <p>1. paracetamon /2 viên /2 buổi</p>
+                                <p>2. vitamin c/1 viên/sáng</p>
+                                <p>3. vitamin b6/2 viên/2 buổi</p>
+                                <p>4. paracetamon /2 viên /2 buổi</p>
+                                <p>5. vitamin c/1 viên/sáng</p>
+                                <p>6. vitamin b6/2 viên/2 buổi</p>
+                            </div>
+
+                        </td>
+                        <td>Uống thuốc đúng giờ</td>
+                        <td><a style="color: #0c84ff">Xem</a></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="document-script">
+    <script src="/js/document.js"></script>
+</th:block>
+</html>
