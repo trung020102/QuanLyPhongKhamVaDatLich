@@ -21,4 +21,9 @@ public class HomeController {
     public String procedure() {
         return "user/pages/procedure";
     }
+
+    @GetMapping("/faqs")
+    public String faqs() {
+        return "user/pages/faqs";
+    }
 }
