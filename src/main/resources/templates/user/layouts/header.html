@@ -1,4 +1,4 @@
-<header id="nav-box-shadow" th:fragment="header" xmlns:th="http://www.w3.org/1999/xhtml">
+<header id="nav-box-shadow" th:fragment="header">
     <nav class="navbar navbar-expand-lg navigation" id="navbar nav-box-shadow">
         <div class="container">
             <a class="navbar-brand" href="index.html">
@@ -26,10 +26,10 @@
                         <a class="nav-link" th:href="@{/about}">Giới thiệu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:hrefhref="@{procedure}">Quy trình đặt khám</a>
+                        <a class="nav-link" th:href="@{/procedure}">Quy trình đặt khám</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="faq.html">Thắc mắc</a>
+                        <a class="nav-link" th:href="@{/faqs}">Thắc mắc</a>
                     </li>
 
                     <li class="nav-item dropdown">
