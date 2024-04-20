@@ -7,6 +7,27 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
+    @GetMapping("/login")
+    public String login(){
+        return "user/pages/login";
+    }
+    @GetMapping("/register")
+    public String register(){
+        return "user/pages/register";
+    }
+    @GetMapping("/changepassword")
+    public String changepassword(){
+        return "user/pages/changepassword";
+    }
+    @GetMapping("/forgotpassword")
+    public String forgotpassword(){
+        return "user/pages/forgotpassword";
+    }
+    @GetMapping("/personalinfo")
+    public String personalinfo(){
+        return "user/pages/personalinfo";
+    }
+
     @GetMapping("/home")
     public String index() {
         return "user/pages/index";
