@@ -10,4 +10,9 @@ public class DashboardController {
     public ModelAndView toHomePage() {
         return new ModelAndView("admin/index");
     }
+    @GetMapping("/doctor/physical_exam")
+    public ModelAndView toPhysicalExam(){
+
+        return new ModelAndView("doctor/physical_exam");
+    }
 }
