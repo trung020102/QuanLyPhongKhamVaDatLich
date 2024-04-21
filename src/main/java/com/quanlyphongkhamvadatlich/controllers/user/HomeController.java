@@ -18,7 +18,5 @@ public class HomeController {
     }
 
     @GetMapping("/procedure")
-    public String procedure() {
-        return "user/pages/procedure";
-    }
+    public String procedure() { return "user/pages/procedure";}
 }

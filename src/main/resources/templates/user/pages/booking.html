@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/user/layouts/base_layout"
+>
+
+<th:block layout:fragment="additional-link-at-head">
+    <link rel="stylesheet" href="/user_assets/css/booking.css.css">
+</th:block>
+
+<th:block layout:fragment="main-content">
+    <section class="section">
+        <div class="container">
+            <div id="section-about" class="card">
+                <div class="form_heading">
+                    <p class="form_heading-text">Tạo hồ sơ bệnh nhân</p>
+                    <div class="form_heading-line"></div>
+                </div>
+                <div class="form_content">
+
+                    <div class="form_content-ask">Bạn đã đặt khám khám ở phòng khám WeMed &#63;</div>
+                    <!-- Tab links -->
+                    <div class="tab_form">
+                        <a class="tablinks text-uppercase showLine" onclick="openForm(event, 'hasRecord')">
+                            Đã từng khám
+                        </a>
+                        <a class="tablinks text-uppercase showLine" onclick="openForm(event, 'notHasRecord')">
+                            Chưa từng khám
+                        </a>
+                    </div>
+
+                    <div class="tab_form-line"></div>
+
+                    <!-- Tab content -->
+                    <div id="hasRecord" class="tabcontent">
+                        <p class="text-uppercase heading">Vui lòng nhập mã số bệnh nhân</p>
+                        <form action="#" method="post">
+                            <input class="form_input form-control"type="text" name="patient_ID" value="" placeholder="Nhập mã số bệnh nhân" autofocus>
+                            <button class="form-btn text-uppercase" type="submit">Xác nhận</button>
+                        </form>
+
+                    </div>
+
+                    <div id="notHasRecord" class="tabcontent">
+                        <p class="text-uppercase heading">Nhập thông tin bệnh nhân</p>
+                        <form action="#" method="post">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group text-left">
+                                        <label>Họ và tên <sup style="color: red;">*</sup></label>
+                                        <input type="text" name="name" value="" class="form-control rounded" placeholder="Nhập đầy đủ họ và tên" autofocus>
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label>Số điện thoại <sup style="color: red;">*</sup></label>
+                                        <input type="text" name="phone" value="" class="form-control rounded" placeholder="Nhập số điện thoại">
+                                    </div>
+
+                                    <div class="form-group text-left" style="margin-bottom: 34px;">
+                                        <label class="d-block">Giới tính</label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                Nam
+                                                <i class="fa-solid fa-person" style="color: #0d3e91;"></i>
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                                            <label class="form-check-label" for="flexRadioDefault2">
+                                                Nữ
+                                                <i class="fa-solid fa-person-dress" style="color: #ee20ad;"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label>Ngày sinh <sup style="color: red;">*</sup></label>
+                                        <input type="text" name="date_of_birth" value="" class="form-control rounded" placeholder="Nhập đầy đủ họ và tên">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group text-left">
+                                        <label>Địa chỉ <sup style="color: red;">*</sup></label>
+                                        <input type="text" name="address" value="" class="form-control rounded" placeholder="Nhập địa chỉ nhà">
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label>Nghề nghiệp</label>
+                                        <input type="text" name="career" value="" class="form-control rounded" placeholder="Nhập nghề nghiệp">
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label>Số CMND/CCCD <sup style="color: red;">*</sup></label>
+                                        <input type="text" name="citizen_number" value="" class="form-control rounded" placeholder="Nhập số CMND hoặc số CCCD">
+                                    </div>
+                                    <div class="form-group text-left">
+                                        <label>Số bảo hiểm y tế</label>
+                                        <input type="text" name="insurance_number" value="" class="form-control rounded" placeholder="Nhập số bảo hiểm y tế">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="form-btn text-uppercase" type="submit">Xác nhận</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block layout:fragment="additional-link-at-bottom">
+    <script>
+        function openForm(evt, situation) {
+            $(".tabcontent").hide();
+
+            $(".tablinks").removeClass("active");
+
+            $("#" + situation ).show();
+
+            $(evt.currentTarget).addClass("active");
+        }
+
+        $(document).ready(function() {
+            $(".showLine").click(function() {
+
+                $(".tab_form-line").show();
+            });
+        });
+    </script>
+</th:block>

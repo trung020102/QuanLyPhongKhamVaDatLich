@@ -3,6 +3,11 @@ html {
   overflow-x: hidden;
 }
 
+:root {
+  --main-color: #e12454;
+  --sub-color: #223a66;
+}
+
 body {
   line-height: 1.6;
   font-family: "Roboto", sans-serif;
