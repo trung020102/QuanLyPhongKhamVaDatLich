@@ -75,6 +75,7 @@
 .tablinks:hover {
     transform: translateY(-2px);
     color: var(--sub-color);
+    text-decoration: none;
 }
 
 .tab_form a.active {
@@ -246,6 +247,7 @@
 .btn_main:hover {
     transform: translateY(-2px);
     color: white;
+    text-decoration: none;
 }
 
 .btn_sub {
@@ -265,6 +267,7 @@
 .btn_sub:hover {
     transform: translateY(-2px);
     color: var(--main-color);
+    text-decoration: none;
 }
 
 .success_number_tag {
@@ -311,8 +314,6 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
 }
-
-
 
 .history_item {
     height: auto;

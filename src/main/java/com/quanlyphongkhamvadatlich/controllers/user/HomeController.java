@@ -2,11 +2,34 @@ package com.quanlyphongkhamvadatlich.controllers.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
+    @GetMapping("/login")
+    public String login() {
+        return "user/pages/login";
+    }
+
+    @GetMapping("/register")
+    public String register() {
+        return "user/pages/register";
+    }
+
+    @GetMapping("/changepassword")
+    public String changepassword() {
+        return "user/pages/changepassword";
+    }
+
+    @GetMapping("/forgotpassword")
+    public String forgotpassword() {
+        return "user/pages/forgotpassword";
+    }
+
+    @GetMapping("/personalinfo")
+    public String personalinfo() {
+        return "user/pages/personalinfo";
+    }
+
     @GetMapping("/home")
     public String index() {
         return "user/pages/index";
@@ -18,14 +41,28 @@ public class HomeController {
     }
 
     @GetMapping("/procedure")
-    public String procedure() { return "user/pages/procedure";}
+    public String procedure() {
+        return "user/pages/procedure";
+    }
 
     @GetMapping("/booking")
-    public String booking() { return "user/pages/booking";}
+    public String booking() {
+        return "user/pages/booking";
+    }
 
     @GetMapping("/booking/appointment")
-    public String appointment() { return  "user/pages/appointment";}
+    public String appointment() {
+        return "user/pages/appointment";
+    }
 
     @GetMapping("/booking/appointment/success")
-    public String success() { return  "user/pages/success-booking";}
+    public String success() {
+        return "user/pages/success-booking";
+    }
+
+    @GetMapping("/faqs")
+    public String faqs() {
+        return "user/pages/faqs";
+    }
+
 }
