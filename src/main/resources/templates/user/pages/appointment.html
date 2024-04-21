@@ -5,8 +5,9 @@
 >
 
 <th:block layout:fragment="additional-link-at-head">
+    <link rel="stylesheet" href="/user_assets/css/booking.css">
     <link rel="stylesheet" th:href="@{/user_assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css}"/>
-    <script th:src="@{/user_assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js}"></script>
+
 </th:block>
 
 <th:block layout:fragment="main-content">
@@ -80,6 +81,7 @@
 </th:block>
 
 <th:block layout:fragment="additional-link-at-bottom">
+    <script th:src="@{/user_assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js}"></script>
     <script>
         $(document).ready(function () {
             $('.date-picker').datepicker({

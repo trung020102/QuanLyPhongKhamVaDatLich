@@ -19,4 +19,13 @@ public class HomeController {
 
     @GetMapping("/procedure")
     public String procedure() { return "user/pages/procedure";}
+
+    @GetMapping("/booking")
+    public String booking() { return "user/pages/booking";}
+
+    @GetMapping("/booking/appointment")
+    public String appointment() { return  "user/pages/appointment";}
+
+    @GetMapping("/booking/appointment/success")
+    public String success() { return  "user/pages/success-booking";}
 }
