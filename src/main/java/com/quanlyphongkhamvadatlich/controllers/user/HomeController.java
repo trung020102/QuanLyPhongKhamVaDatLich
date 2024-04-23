@@ -1,29 +1,32 @@
 package com.quanlyphongkhamvadatlich.controllers.user;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
     @GetMapping("/home")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("activePage", "home");
         return "user/pages/index";
     }
 
     @GetMapping("/about")
-    public String about() {
+    public String about(Model model) {
+        model.addAttribute("activePage", "about");
         return "user/pages/about";
     }
 
     @GetMapping("/procedure")
-    public String procedure() {
+    public String procedure(Model model) {
+        model.addAttribute("activePage", "procedure");
         return "user/pages/procedure";
     }
 
     @GetMapping("/faqs")
-    public String faqs() {
+    public String faqs(Model model) {
+        model.addAttribute("activePage", "faqs");
         return "user/pages/faqs";
     }
 }
