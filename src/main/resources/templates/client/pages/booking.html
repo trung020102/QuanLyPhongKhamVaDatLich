@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/user/layouts/base_layout"
+      layout:decorate="/client/layouts/base_layout"
 >
 
 <th:block layout:fragment="additional-link-at-head">
-    <link rel="stylesheet" href="/user_assets/css/booking.css">
+    <link rel="stylesheet" href="/client/css/booking.css">
 </th:block>
 
 <th:block layout:fragment="main-content">
@@ -34,7 +34,7 @@
                     <!-- Tab content -->
                     <div id="hasRecord" class="tabcontent">
                         <p class="text-uppercase heading">Vui lòng nhập mã số bệnh nhân</p>
-                        <form action="#" method="post">
+                        <form action="/booking/appointment" method="get">
                             <input class="form_input form-control"type="text" name="patient_ID" value="" placeholder="Nhập mã số bệnh nhân" autofocus>
                             <button class="form-btn text-uppercase" type="submit">Xác nhận</button>
                         </form>
@@ -43,7 +43,7 @@
 
                     <div id="notHasRecord" class="tabcontent">
                         <p class="text-uppercase heading">Nhập thông tin bệnh nhân</p>
-                        <form action="#" method="post">
+                        <form action="/booking/appointment" method="get">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group text-left">

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/user/layouts/base_layout"
+      layout:decorate="/client/layouts/base_layout"
 >
 
 <th:block layout:fragment="additional-link-at-head">
-    <link rel="stylesheet" href="/user_assets/css/booking.css">
-    <link rel="stylesheet" th:href="@{/user_assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css}"/>
+    <link rel="stylesheet" href="/client/css/booking.css">
+    <link rel="stylesheet" th:href="@{/client/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css}"/>
 
 </th:block>
 
@@ -22,7 +22,7 @@
 
                     <div class="appointment_info">
                         <p class="text-uppercase heading"></p>
-                        <form action="#" method="post">
+                        <form action="/booking/appointment/success" method="get">
 
                             <div class="row justify-content-center">
                                 <div class="col-md-6">
@@ -81,7 +81,7 @@
 </th:block>
 
 <th:block layout:fragment="additional-link-at-bottom">
-    <script th:src="@{/user_assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js}"></script>
+    <script th:src="@{/client/plugins/bootstrap-datepicker/bootstrap-datepicker.js}"></script>
     <script>
         $(document).ready(function () {
             $('.date-picker').datepicker({
