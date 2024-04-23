@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/client/layouts/base_layout"
+>
+
+<th:block layout:fragment="additional-link-at-head">
+    <link rel="stylesheet" href="/client/css/booking.css">
+</th:block>
+
+<th:block layout:fragment="main-content">
+    <section class="section">
+        <div class="container">
+            <div id="section-success" class="card">
+                <div class="row">
+                    <div class="col-md-6 text-center d-flex flex-column justify-content-center">
+                        <div class="success_icon">
+                            <i class="fa-solid fa-circle-check fa-bounce" style="color: #11d49a;"></i>
+                        </div>
+                        <p class="success_heading-text">Bạn đã đặt lịch khám thành công !</p>
+                        <p class="text-justify small"> Cảm ơn bạn đã sử dụng dịch vụ đặt lịch khám trực tuyến của chúng
+                            tôi.
+
+                            Sự tin tưởng của bạn trong dịch vụ là động lực lớn để chúng tôi không ngừng nỗ lực và cải
+                            thiện để mang lại trải nghiệm tốt nhất cho quý vị.</p>
+
+                        <div class="btn-action">
+                            <a href="#" class="btn_main">Xem lịch sử đặt lịch</a>
+                            <a href="index.html" class="btn_sub">Về trang chủ</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="success_number_tag text-center d-flex flex-column">
+                            <span class="success_number-heading">Số thứ tự của bạn là</span>
+                            <div class="success_number">10</div>
+                        </div>
+
+                        <div class="success_info_tag d-flex flex-column">
+                            <p class="text-center success_info-heading">Thông tin đặt khám</p>
+                            <div class="success_info m-3">
+                                <div class="row">
+                                    <div class="col-md-6 info_title">
+                                        <ul class="info_wrap list-unstyled">
+                                            <li>Họ và tên:</li>
+                                            <li>Số điện thoại:</li>
+                                            <li>Ngày khám:</li>
+                                            <li>Ca khám:</li>
+                                            <li>Triệu chứng:</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="info_detail list-unstyled text-right">
+                                            <li>Lê Bá Nhật Minh</li>
+                                            <li>0942482492</li>
+                                            <li>22-05-2024</li>
+                                            <li>Chiều</li>
+                                            <li>Ho, hắt xì, sổ mũi, khó chịu trong người</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>

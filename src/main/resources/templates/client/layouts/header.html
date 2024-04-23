@@ -1,7 +1,7 @@
-<header id="nav-box-shadow" th:fragment="header">
+<header id="nav-box-shadow" th:fragment="header" class="header">
     <nav class="navbar navbar-expand-lg navigation" id="navbar nav-box-shadow">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" th:href="@{/home}">
                 <img th:src="@{/client/images/logo.png}" alt="" class="img-fluid" />
             </a>
 
@@ -67,6 +67,7 @@
                                 <a class="dropdown-item" href="logout.html"
                                 >Đăng xuất</a
                                 >
+
                             </li>
                         </ul>
                     </li>

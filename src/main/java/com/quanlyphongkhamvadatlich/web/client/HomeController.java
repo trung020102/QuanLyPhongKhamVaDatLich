@@ -50,4 +50,19 @@ public class HomeController {
         model.addAttribute("activePage", "faqs");
         return "client/pages/faqs";
     }
+
+    @GetMapping("/booking")
+    public String booking() {
+        return "client/pages/booking";
+    }
+
+    @GetMapping("/booking/appointment")
+    public String appointment() {
+        return "client/pages/appointment";
+    }
+
+    @GetMapping("/booking/appointment/success")
+    public String success() {
+        return "client/pages/success-booking";
+    }
 }
