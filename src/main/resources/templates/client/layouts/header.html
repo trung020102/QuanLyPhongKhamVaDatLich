@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navigation" id="navbar nav-box-shadow">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img th:src="@{client}" alt="" class="img-fluid" />
+                <img th:src="@{/client/images/logo.png}" alt="" class="img-fluid" />
             </a>
 
             <button
@@ -19,16 +19,16 @@
 
             <div class="collapse navbar-collapse" id="navbarmain">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <li th:class="${activePage == 'home'} ? 'active' : '' " class="nav-item">
                         <a class="nav-link" th:href="@{/home}">Trang chủ</a>
                     </li>
-                    <li class="nav-item">
+                    <li th:class="${activePage == 'about'} ? 'active' : '' " class="nav-item">
                         <a class="nav-link" th:href="@{/about}">Giới thiệu</a>
                     </li>
-                    <li class="nav-item">
+                    <li th:class="${activePage == 'procedure'} ? 'active' : '' " class="nav-item">
                         <a class="nav-link" th:href="@{/procedure}">Quy trình đặt khám</a>
                     </li>
-                    <li class="nav-item">
+                    <li th:class="${activePage == 'faqs'} ? 'active' : '' " class="nav-item">
                         <a class="nav-link" th:href="@{/faqs}">Thắc mắc</a>
                     </li>
 

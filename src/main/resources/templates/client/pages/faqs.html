@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/user/layouts/base_layout"
+      layout:decorate="/client/layouts/base_layout"
 >
 
 <th:block layout:fragment="additional-link-at-head">
@@ -353,5 +353,5 @@
 </th:block>
 
 <th:block layout:fragment="additional-link-at-bottom">
-    <script th:src="@{client}"></script>
+    <script th:src="@{/client/js/faqs.js}"></script>
 </th:block>
