@@ -26,6 +26,10 @@ public class HomeController {
     public String personalinfo(){
         return "client/pages/personalinfo";
     }
+    @GetMapping("/personalinfo/edit")
+    public String editpersonalinfo(){
+        return "client/pages/editpersonalinfo";
+    }
 
     @GetMapping("/home")
     public String index(Model model) {
