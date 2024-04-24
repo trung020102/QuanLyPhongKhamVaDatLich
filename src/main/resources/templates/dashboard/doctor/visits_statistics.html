@@ -2,11 +2,11 @@
 
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layout/app"
+      layout:decorate="/dashboard/layout/app">
 >
 <head>
 
-    <link rel="stylesheet" href="/css/doctor/visits_statistics.css"/>
+    <link rel="stylesheet" href="/dashboard/css/visits_statistics.css"/>
     <title>Thống kê số lượt khám</title>>
 </head>
 <th:block layout:fragment="content-header">
@@ -32,7 +32,7 @@
             <option value="bac-si-3">Trần Văn Hải</option>
         </select>
 
-        <label for="date-range">Khoảng thời gian:</label>
+        <label>Khoảng thời gian:</label>
         <input type="date" id="start-date">
         <input type="date" id="end-date">
     </div>
