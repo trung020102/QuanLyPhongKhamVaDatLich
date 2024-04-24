@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/user/layouts/base_layout"
+      layout:decorate="/client/layouts/base_layout"
 >
 
 <th:block layout:fragment="main-content">
@@ -26,7 +26,7 @@
                         </p>
                         <div class="btn-container">
                             <a
-                                    href="appoinment.html"
+                                    href="/booking"
                                     target="_blank"
                                     class="btn btn-main-2 btn-icon btn-round-full"
                             >Đặt lịch khám ngay <i class="icofont-simple-right ml-2"></i
@@ -102,12 +102,12 @@
                 <div class="col-lg-4 col-sm-6">
                     <div class="about-img">
                         <img
-                                th:src="@{client}"
+                                th:src="@{/client/images/about/Feature1.webp}"
                                 alt=""
                                 class="img-fluid"
                         />
                         <img
-                                th:src="@{client}"
+                                th:src="@{/client/images/about/54a320ac-1a85-4a86-bc83-57e99265fc9c-thumnail-video.webp}"
                                 alt=""
                                 class="img-fluid mt-4"
                         />
@@ -116,7 +116,7 @@
                 <div class="col-lg-4 col-sm-6">
                     <div class="about-img mt-4 mt-lg-0">
                         <img
-                                th:src="@{client}"
+                                th:src="@{/client/images/about/chup-anh-profile-bac-si-phong-kham-657d4478271fd.jpg}"
                                 alt=""
                                 class="img-fluid"
                         />
@@ -197,7 +197,7 @@
 
                         <div class="testimonial-thumb">
                             <img
-                                    th:src="@{client}"
+                                    th:src="@{/client/images/feedbacks/unnamed.jpg}"
                                     alt=""
                                     class="img-fluid"
                             />
@@ -217,7 +217,7 @@
                     <div class="testimonial-block style-2 gray-bg">
                         <div class="testimonial-thumb">
                             <img
-                                    th:src="@{client}"
+                                    th:src="@{/client/images/feedbacks/hale3676-1595059945030660339004-1595314054469702559449.jpg}"
                                     alt=""
                                     class="img-fluid"
                             />
@@ -239,7 +239,7 @@
                     <div class="testimonial-block style-2 gray-bg">
                         <div class="testimonial-thumb">
                             <img
-                                    th:src="@{client}"
+                                    th:src="@{/client/images/feedbacks/4.png}"
                                     alt=""
                                     class="img-fluid"
                             />
@@ -261,7 +261,7 @@
                     <div class="testimonial-block style-2 gray-bg">
                         <div class="testimonial-thumb">
                             <img
-                                    th:src="@{client}"
+                                    th:src="@{/client/images/feedbacks/1680832968_kh-nh-vy-3.jpg.webp}"
                                     alt=""
                                     class="img-fluid"
                             />
@@ -282,7 +282,7 @@
                     <div class="testimonial-block style-2 gray-bg">
                         <div class="testimonial-thumb">
                             <img
-                                    th:src="@{client}"
+                                    th:src="@{/client/images/feedbacks/thuy-tien-5-8536-16468768225181332094802.jpg.webp}"
                                     alt=""
                                     class="img-fluid"
                             />

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/user/layouts/base_layout"
+      layout:decorate="/client/layouts/base_layout"
 >
 
 <th:block layout:fragment="additional-link-at-head">
     <link
             rel="stylesheet"
-            th:href="@{client}"
+            th:href="@{/client/css/procedure.css}"
     />
     <link
             rel="stylesheet"
-            th:href="@{client}"
+            th:href="@{/client/css/modernizr.css}"
     />
-    <script th:src="@{client}"></script>
+    <script th:src="@{/client/js/timeline.js}"></script>
 </th:block>
 
 
