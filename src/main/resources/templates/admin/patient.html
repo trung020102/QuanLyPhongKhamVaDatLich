@@ -1,111 +1,79 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/app"
+>
 
-    <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
-    <style>
-        td button {
-            display: inline-block;
-            margin-right: 5px;
-        }
-    </style>
-</head>
-
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-        <div class="content-wrapper">
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-8">
-                            <h1>Patient</h1>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">List of patient</h3>
-                                </div>
-
-                                <div class="card-body">
-                                    <table id="patientTable" class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
-                                                <th>Phone</th>
-                                                <th>Date of birth</th>
-                                                <th>Gender</th>
-                                                <th>Address</th>
-                                                <th>Citizen ID</th>
-                                                <th>Career</th>
-                                                <th>Insurance</th>
-                                                <th>User_ID</th>
-                                                <th>Operation</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody id="patientTableBody">
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Nguyễn B</td>
-                                                <td>09XX XXX XXX</td>
-                                                <td>19/06/1966</td>
-                                                <td>Male</td>
-                                                <td>59 Street</td>
-                                                <td>20402456</td>
-                                                <td>Engineer</td>
-                                                <td>GKS797</td>
-                                                <td>HKO9905</td>
-                                                <td>
-                                                    <a href="patient_edit.html" class="btn btn-success">Edit</a>
-                                                    <button type="button" class="btn btn-danger">Delete</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+<th:block layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1>Quản lý bệnh nhân</h1>
     </div>
 
-    <script>
-        var patients = JSON.parse(localStorage.getItem('patients')) || [];
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Quản lý bệnh nhân</li>
+        </ol>
+    </div>
+</th:block>
 
-        var tableBody = document.getElementById('patientTableBody');
-        patients.forEach(function(patient, index){
-            var newRow = tableBody.insertRow();
-            newRow.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${patient.name}</td>
-                <td>${patient.phone}</td>
-                <td>${patient.dob}</td>
-                <td>${patient.gender}</td>
-                <td>${patient.address}</td>
-                <td>${patient.citizen_ID}</td>
-                <td>${patient.career}</td>
-                <td>${patient.insurance}</td>
-                <td>
-                    <button type="button" class="btn btn-success" onclick="editPatient(${index})">Edit</button>
-                    <button type="button" class="btn btn-danger" onclick="deletePatient(${index})">Delete</button>
-                </td>`;
-        });
-
-        
-    </script>
-</body>
+<th:block layout:fragment="content-body">
+    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <!--body-->
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="example1"
+                       class="table table-bordered table-hover dataTable dtr-inline"
+                       aria-describedby="example2_info">
+                    <thead>
+                    <tr>
+                        <th class="sorting"
+                            aria-label="Rendering engine: activate to sort column descending">
+                            STT
+                        </th>
+                        <th class="sorting">Họ và tên</th>
+                        <th class="sorting">Số điện thoại</th>
+                        <th class="sorting">Ngày sinh</th>
+                        <th class="sorting">Giới tính</th>
+                        <th class="sorting">Địa chỉ</th>
+                        <th class="sorting">Căn cước</th>
+                        <th class="sorting">Nghề nghiệp</th>
+                        <th class="sorting">Mã BHYT</th>
+                        <th class="sorting">Mã bệnh nhân</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">1</td>
+                        <td>Nguyễn A</td>
+                        <td>0969 699 669</td>
+                        <td>01/01/2002</td>
+                        <td>Nam</td>
+                        <td>123 Đường</td>
+                        <td>235551</td>
+                        <td>Lập trình viên</td>
+                        <td>3434NWNDF23</td>
+                        <td>FEF334</td>
+                        <td class="pr-3"> <button type="button" class="btn btn-success mr-2">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button> </td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">2</td>
+                        <td>Nguyễn A</td>
+                        <td>0969 699 669</td>
+                        <td>01/01/2002</td>
+                        <td>Nam</td>
+                        <td>123 Đường</td>
+                        <td>235551</td>
+                        <td>Lập trình viên</td>
+                        <td>3434NWNDF23</td>
+                        <td>FEF334</td>
+                        <td class="pr-3"> <button type="button" class="btn btn-success mr-2">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button> </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>

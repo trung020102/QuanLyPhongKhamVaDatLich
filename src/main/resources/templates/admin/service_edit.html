@@ -1,64 +1,52 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/app"
+>
 
-    <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
-    <style>
-        .content-wrapper {
-            width: 70%;
-            margin: 30px auto;
-        }
-    </style>
-</head>
-
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-        <div class="content-wrapper">
-            <section class="content">
-                <div class="container-fluid">
-                    <form>
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Edit Service's Detail</h3>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" id="name" class="form-control" placeholder="Enter name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <input type="text" id="description" class="form-control" placeholder="Enter description">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="price">Price</label>
-                                    <input type="text" id="price" class="form-control" placeholder="Enter price">
-                                </div>
-                            </div>
-
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Confirm</button>
-                                <button type="submit" class="btn btn-default float-right" onclick="cancel(event)">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        </div>
+<th:block layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1>Chỉnh sửa dịch vụ</h1>
     </div>
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Quản lý dịch vụ</li>
+        </ol>
+    </div>
+</th:block>
 
-    <script>
-        function cancel(event) {
-            event.preventDefault();
-            window.location.href = 'service.html';
-        }
-    </script>
-</body>
+<th:block layout:fragment="content-body">
+    <form>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Tên dịch vụ: </label>
+                    <input type="text" class="form-control" placeholder="Enter" id="doctor_name">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Giá: </label>
+                    <input type="text"class="form-control" placeholder="Enter" id="doctor_specialty">
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Mô tả: </label>
+                    <textarea class="form-control" rows="3" placeholder="Enter" id="doctor_diploma"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary float-right">Xác nhận</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-default">Hủy bỏ</button>
+            </div>
+        </div>
+    </form>
+</th:block>
+</html>

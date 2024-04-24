@@ -1,181 +1,102 @@
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../dist/css/adminlte.min.css">
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/app"
+>
 
-    <link rel="stylesheet" href="../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" href="../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-    
-    <style>
-        .content-wrapper {
-            width: 70%;
-            margin: 30px auto;
-        }
-    </style>
-</head>
-
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-        <div class="content-wrapper">
-            <section class="content">
-                <div class="container-fluid">
-                    <form id="patientForm" autocomplete="off">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">Edit Patient's Detail</h3>
-                            </div>
-
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" id="name" class="form-control" placeholder="Enter name">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="phone">Phone</label>
-                                    <input type="number" id="phone" class="form-control" placeholder="Enter phone number">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="dob">Date of birth</label>
-                                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                        <input type="date" id="dob" class="form-control datetimepicker-input" data-target="#reservationdate">
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" id="maleRadio" name="gender">
-                                                <label for="maleRadio" class="custom-control-label">Male</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input" id="femaleRadio" name="gender">
-                                            <label for="femaleRadio" class="custom-control-label">Female</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    <input type="text" id="address" class="form-control" placeholder="Enter home address">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="citizen_ID">Citizen number</label>
-                                    <input type="text" id="citizen_ID" class="form-control" placeholder="Enter citizen number">
-                                </div>
-
-                            <div class="form-group">
-                                    <label for="career">Career</label>
-                                    <input type="text" id="career" class="form-control" placeholder="Enter career">
-                            </div>
-
-                            <div class="form-group">
-                                    <label for="insurance">Insurance</label>
-                                    <input type="text" id="insurance" class="form-control" placeholder="Enter insurance number">
-                            </div>
-                            </div>
-
-                            <div class="card-footer">
-                                <button type="button" class="btn btn-primary" onclick="onFormSubmit()">Confirm</button>
-                                <button type="button" class="btn btn-default float-right" onclick="cancel(event)">Cancel</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        </div>
+<th:block layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1>Chỉnh sửa bệnh nhân</h1>
     </div>
 
-    <script>
-        function onFormSubmit() {
-            var formData = readFormData();
-            insertNewRecord(formData);
-            window.location.href = 'patient.html';
-        }
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Quản lý bệnh nhân</li>
+        </ol>
+    </div>
+</th:block>
 
-        function readFormData() {
-            function getSelectedGender() {
-                var genderRadios = document.getElementsByName("gender");
-                console.log(genderRadios);
-                for (var i = 0; i < genderRadios.length; i++) {
-                    if(genderRadios[i].checked) {
-                        return genderRadios[i].value;
-                    }
-                }
-                return "";
-            }
-            var formData = {
-                name: document.getElementById("name").value,
-                phone: document.getElementById("phone").value,
-                dob: document.getElementById("dob").value,
-                gender: getSelectedGender(),
-                address: document.getElementById("address").value,
-                citizen_ID: document.getElementById("citizen_ID").value,
-                career: document.getElementById("career").value,
-                insurance: document.getElementById("insurance").value
-            };
-            return formData;
-        }
+<th:block layout:fragment="content-body">
+    <form>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Họ và tên: </label>
+                    <input type="text" class="form-control" placeholder="Enter">
+                </div>
+            </div>
 
-        function saveFormDataLocally(formData) {
-            var patients = JSON.parse(localStorage.getItem('patients')) || [];
-            patients.push(formData);
-            localStorage.setItem('patients', JSON.stringify(patients));
-        }
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Số điện thoại: </label>
+                    <input type="text" class="form-control" placeholder="Enter">
+                </div>
+            </div>
 
-        function insertNewRecord(data) {
-            fetch('patient.html')
-                .then(response => response.text())
-                .then(html => {
-                    var tempContainer = document.createElement('div');
-                    tempContainer.innerHTML = html;
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Ngày sinh: </label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
 
-                    var table = tempContainer.querySelector('#patientTable');
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Giới tính: </label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="gender" id="Nam" value="Nam">
+                                <label for="Nam" class="form-check-label">Nam</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" name="gender" id="Nu" value="Nu">
+                                <label for="Nu" class="form-check-label">Nữ</label>
+                            </div>
+                        </div>
 
-                    if (table) {
-                        var tableBody = table.querySelector('tbody');
-                        var newRow = tableBody.insertRow(tableBody.rows.length);
+                    </div>
+                </div>
+            </div>
 
-                        var nameCell = newRow.insertCell(0);
-                        var phoneCell = newRow.insertCell(1);
-                        var dobCell = newRow.insertCell(2);
-                        var genderCell = newRow.insertCell(3);
-                        var addressCell = newRow.insertCell(4);
-                        var citizen_IDCell = newRow.insertCell(5);
-                        var careerCell = newRow.insertCell(6);
-                        var insuranceCell = newRow.insertCell(7);
-                        var buttonCell = newRow.insertCell(8);
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Địa chỉ: </label>
+                    <input type="text" class="form-control" placeholder="Enter">
+                </div>
+            </div>
 
-                        nameCell.innerHTML = data.name;
-                        phoneCell.innerHTML = data.phone;
-                        dobCell.innerHTML = data.dob;
-                        genderCell.innerHTML = data.gender;
-                        addressCell.innerHTML = data.address;
-                        citizen_IDCell.innerHTML = data.citizen_ID;
-                        careerCell.innerHTML = data.career;
-                        insuranceCell.innerHTML = data.insurance;
-                        buttonCell.innerHTML = `<a href="patient_edit.html"> <button type="button" class="btn btn-success">Edit</button> </a>
-                                                    <button type="button" class="btn btn-danger">Delete</button>`;
-                    } else {
-                        console.log('Table not found in fetched HTML.');
-                    }
-                })
-                    .catch(error => console.error('Error fetching HTML:', error));
-        }
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Căn cước: </label>
+                    <input type="text" class="form-control" placeholder="Enter">
+                </div>
+            </div>
 
-        function cancel(event) {
-            event.preventDefault();
-            window.location.href = 'patient.html';
-        }
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Nghề nghiệp: </label>
+                    <input type="text" class="form-control" placeholder="Enter">
+                </div>
+            </div>
 
-    </script>
-</body>
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Mã BHYT: </label>
+                    <input type="text" class="form-control" placeholder="Enter">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary float-right">Xác nhận</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-default">Hủy bỏ</button>
+            </div>
+        </div>
+    </form>
+</th:block>
+</html>
