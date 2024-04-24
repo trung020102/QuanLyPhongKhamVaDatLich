@@ -10,12 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class DashboardController {
     @GetMapping("/")
     public ModelAndView toHomePage() {
-        return new ModelAndView("admin/index");
+        return new ModelAndView("dashboard/admin/index");
     }
     @GetMapping("/physical_exam")
     public ModelAndView toPhysicalExam(){
 
-        return new ModelAndView("doctor/physical_exam");
+        return new ModelAndView("dashboard/doctor/physical_exam");
     }
 
 
