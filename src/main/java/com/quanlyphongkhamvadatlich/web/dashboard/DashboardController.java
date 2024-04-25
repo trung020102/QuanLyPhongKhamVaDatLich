@@ -12,20 +12,19 @@ public class DashboardController {
     }
     @GetMapping("/doctor/physical_exam")
     public ModelAndView toPhysicalExam(){
-
         return new ModelAndView("dashboard/doctor/physical_exam");
     }
     @GetMapping("/admin/doctor")
     public ModelAndView toDoctor() {
-        return new ModelAndView("dashboard/admin/doctor");
+        return new ModelAndView("admin/doctor");
     }
     @GetMapping("/admin/patient")
     public ModelAndView toPatient() {
-        return new ModelAndView("dashboard/admin/patient");
+        return new ModelAndView("admin/patient");
     }
     @GetMapping("/admin/patient_edit")
     public ModelAndView toPatientEdit() {
-        return new ModelAndView("dashboard/admin/patient_edit");
+        return new ModelAndView("admin/patient_edit");
     }
     @GetMapping("/doctor/appointment_schedule")
     public ModelAndView appointmentSchedule() {
