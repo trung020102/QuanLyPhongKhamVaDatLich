@@ -31,4 +31,19 @@ public class DashboardController {
     public ModelAndView toPatientEdit() {
         return new ModelAndView("admin/patient_edit");
     }
+    @GetMapping("/doctor/appointment_schedule")
+    public ModelAndView appointmentSchedule() {
+        return new ModelAndView("dashboard/doctor/appointment_schedule");
+    }
+
+
+    @GetMapping("/doctor/visits_statistics") //  thống kê sô lượt khám cua bác sĩ
+    public ModelAndView VisitsStatistics() {
+        return new ModelAndView("dashboard/doctor/visits_statistics");
+    }
+
+    @GetMapping("/doctor/history_exam")
+    public ModelAndView historyExam() {
+        return new ModelAndView("dashboard/doctor/history_exam");
+    }
 }
