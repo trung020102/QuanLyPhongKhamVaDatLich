@@ -8,28 +8,28 @@ import org.springframework.web.servlet.ModelAndView;
 public class DashboardController {
     @GetMapping("/")
     public ModelAndView toHomePage() {
-        return new ModelAndView("admin/index");
+        return new ModelAndView("dashboard/admin/index");
     }
     @GetMapping("/doctor/physical_exam")
     public ModelAndView toPhysicalExam(){
 
-        return new ModelAndView("doctor/physical_exam");
+        return new ModelAndView("dashboard/doctor/physical_exam");
     }
     @GetMapping("/admin/doctor")
     public ModelAndView toDoctor() {
-        return new ModelAndView("admin/doctor");
+        return new ModelAndView("dashboard/admin/doctor");
     }
     @GetMapping("/admin/doctor_edit")
     public ModelAndView toDoctorEdit() {
-        return new ModelAndView("admin/doctor_edit");
+        return new ModelAndView("dashboard/admin/doctor_edit");
     }
     @GetMapping("/admin/patient")
     public ModelAndView toPatient() {
-        return new ModelAndView("admin/patient");
+        return new ModelAndView("dashboard/admin/patient");
     }
     @GetMapping("/admin/patient_edit")
     public ModelAndView toPatientEdit() {
-        return new ModelAndView("admin/patient_edit");
+        return new ModelAndView("dashboard/admin/patient_edit");
     }
     @GetMapping("/doctor/appointment_schedule")
     public ModelAndView appointmentSchedule() {
