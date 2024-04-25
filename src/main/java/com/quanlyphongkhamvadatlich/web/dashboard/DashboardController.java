@@ -19,10 +19,6 @@ public class DashboardController {
     public ModelAndView toDoctor() {
         return new ModelAndView("dashboard/admin/doctor");
     }
-    @GetMapping("/admin/doctor_edit")
-    public ModelAndView toDoctorEdit() {
-        return new ModelAndView("dashboard/admin/doctor_edit");
-    }
     @GetMapping("/admin/patient")
     public ModelAndView toPatient() {
         return new ModelAndView("dashboard/admin/patient");
