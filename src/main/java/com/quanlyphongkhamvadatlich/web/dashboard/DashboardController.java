@@ -16,15 +16,15 @@ public class DashboardController {
     }
     @GetMapping("/admin/doctor")
     public ModelAndView toDoctor() {
-        return new ModelAndView("admin/doctor");
+        return new ModelAndView("dashboard/admin/doctor");
     }
     @GetMapping("/admin/patient")
     public ModelAndView toPatient() {
-        return new ModelAndView("admin/patient");
+        return new ModelAndView("dashboard/admin/patient");
     }
     @GetMapping("/admin/patient_edit")
     public ModelAndView toPatientEdit() {
-        return new ModelAndView("admin/patient_edit");
+        return new ModelAndView("dashboard/admin/patient_edit");
     }
     @GetMapping("/doctor/appointment_schedule")
     public ModelAndView appointmentSchedule() {
@@ -39,6 +39,6 @@ public class DashboardController {
 
     @GetMapping("/doctor/history_exam")
     public ModelAndView historyExam() {
-        return new ModelAndView("dashboard/doctor/history_exam");
+        return new ModelAndView("dashboard/doctor/physical_examr/");
     }
 }
