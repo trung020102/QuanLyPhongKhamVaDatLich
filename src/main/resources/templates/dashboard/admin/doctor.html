@@ -1,8 +1,12 @@
 <html lang="vi"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layout/app"
+      layout:decorate="/dashboard/layout/app"
 >
+
+<head>
+    <link rel="stylesheet" href="/static/dashboard/css/doctor.css" />
+</head>
 
 <th:block layout:fragment="content-header">
     <div class="col-sm-6">
@@ -18,48 +22,45 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#doctor_add_model">
+    <button class="button-detail openDoctorModalBtn">
         Thêm bác sĩ
     </button>
 
-    <div class="model fade" id="doctor_add_model" tabindex="-1" role="dialog" aria-labelledby="doctor_label_model">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="doctor_label_model">Thêm bác sĩ</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    <div id="doctorModal" class="modal">
+        <div class="modal-content">
+            <span class="doctorClose">&times;</span>
+            <p class="modal-title">Thông tin bác sĩ</p>
+            <div class="modal-content-body">
+                <hr>
+                <div class="input-row">
+                    <div class="input-container">
+                        <label for="doctor_name">Họ và tên</label>
+                        <input class="form-control" type="text" id="doctor_name" placeholder="Nhập họ và tên">
+                    </div>
+                    <div class="input-container">
+                        <label for="doctor_specialty">Chuyên môn</label>
+                        <input class="form-control" type="text" id="doctor_specialty" placeholder="Nhập chuyên môn">
+                    </div>
+                    <div class="input-container">
+                        <label for="doctor_diploma">Bằng cấp</label>
+                        <input class="form-control" type="email" id="doctor_diploma" placeholder="Nhập bằng cấp">
+                    </div>
                 </div>
 
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="doctor_name">Họ và tên:</label>
-                            <input type="text" class="form-control" id="doctor_name" placeholder="Nhập họ và tên">
-                        </div>
-                        <div class="form-group">
-                            <label for="doctor_specialty">Chuyên môn:</label>
-                            <input type="text" class="form-control" id="doctor_specialty" placeholder="Nhập chuyên môn">
-                        </div>
-                        <div class="form-group">
-                            <label for="doctor_diploma">Bằng cấp:</label>
-                            <input type="text" class="form-control" id="doctor_diploma" placeholder="Nhập bằng cấp">
-                        </div>
-                        <div class="form-group">
-                            <label for="doctor_workplace">Nơi làm việc:</label>
-                            <input type="text" class="form-control" id="doctor_workplace" placeholder="Nhập nơi làm việc">
-                        </div>
-                        <div class="form-group">
-                            <label for="doctor_introduction">Giới thiệu:</label>
-                            <textarea class="form-control" id="doctor_introduction" rows="3" placeholder="Nhập giới thiệu"></textarea>
-                        </div>
-                    </form>
-                </div>
+                <div class="input-row">
+                    <div class="input-container">
+                        <label for="doctor_workplace">Nơi làm việc</label>
+                        <input class="form-control" type="text" id="doctor_workplace" placeholder="Nhập nơi làm việc">
+                    </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Xác nhận</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
+                    <div class="input-container">
+                        <label for="doctor_introduction">Giới thiệu</label>
+                        <textarea class="form-control" rows="3" id="doctor_introduction" placeholder="Nhập giới thiệu"></textarea>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button id="okBtn">OK</button>
+
                 </div>
             </div>
         </div>
@@ -114,5 +115,9 @@
             </div>
         </div>
     </div>
+</th:block>
+
+<th:block layout:fragment="document-script">
+    <script src="/static/dashboard/js/appointment_schedule.js"></script>
 </th:block>
 </html>
