@@ -5,7 +5,7 @@
 >
 
 <head>
-    <link rel="stylesheet" href="/static/dashboard/css/doctor.css" />
+    <link rel="stylesheet" href="/dashboard/css/doctor.css" />
 </head>
 
 <th:block layout:fragment="content-header">
@@ -22,10 +22,12 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
+    <!-- Add doctor modal button-->
     <button class="button-detail openDoctorModalBtn">
         Thêm bác sĩ
     </button>
 
+    <!-- Add doctor modal -->
     <div id="doctorModal" class="modal">
         <div class="modal-content">
             <span class="doctorClose">&times;</span>
@@ -60,7 +62,6 @@
                 </div>
                 <div class="button-container">
                     <button id="okBtn">OK</button>
-
                 </div>
             </div>
         </div>
@@ -96,7 +97,7 @@
                         <td>Bệnh viện Lang Băm</td>
                         <td>Bác sĩ giỏi nhất thế giới...</td>
                         <td>GJH934</td>
-                        <td class="pr-3"> <button type="button" class="btn btn-success mr-2">Edit</button>
+                        <td class="pr-3"> <button type="button" class="btn btn-success mr-2 openDoctorEditModal">Edit</button>
                             <button type="button" class="btn btn-danger">Delete</button> </td>
                     </tr>
                     <tr class="odd">
@@ -107,7 +108,7 @@
                         <td>Bệnh viện Lang Băm</td>
                         <td>Bác sĩ giỏi nhất thế giới...</td>
                         <td>GJH934</td>
-                        <td class="pr-3"> <button type="button" class="btn btn-success mr-2">Edit</button>
+                        <td class="pr-3"> <button type="button" class="btn btn-success mr-2 openDoctorEditModal">Edit</button>
                             <button type="button" class="btn btn-danger">Delete</button> </td>
                     </tr>
                     </tbody>
@@ -115,9 +116,50 @@
             </div>
         </div>
     </div>
+
+    <!-- Edit doctor modal -->
+    <div id="doctorEditModal" class="modal">
+        <div class="modal-content">
+            <span class="doctorEditClose">&times;</span>
+            <p class="modal-title">Cập nhật thông tin bác sĩ</p>
+            <div class="modal-content-body">
+                <hr>
+                <div class="input-row">
+                    <div class="input-container">
+                        <label for="doctor_name_edit">Họ và tên</label>
+                        <input class="form-control" type="text" id="doctor_name_edit" placeholder="Nhập họ và tên">
+                    </div>
+                    <div class="input-container">
+                        <label for="doctor_specialty_edit">Chuyên môn</label>
+                        <input class="form-control" type="text" id="doctor_specialty_edit" placeholder="Nhập chuyên môn">
+                    </div>
+                    <div class="input-container">
+                        <label for="doctor_diploma_edit">Bằng cấp</label>
+                        <input class="form-control" type="email" id="doctor_diploma_edit" placeholder="Nhập bằng cấp">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-container">
+                        <label for="doctor_workplace_edit">Nơi làm việc</label>
+                        <input class="form-control" type="text" id="doctor_workplace_edit" placeholder="Nhập nơi làm việc">
+                    </div>
+
+                    <div class="input-container">
+                        <label for="doctor_introduction_edit">Giới thiệu</label>
+                        <textarea class="form-control" rows="3" id="doctor_introduction_edit" placeholder="Nhập giới thiệu"></textarea>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button id="okEditBtn">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </th:block>
 
 <th:block layout:fragment="document-script">
-    <script src="/static/dashboard/js/appointment_schedule.js"></script>
+    <script src="/dashboard/js/doctor_modal.js"></script>
 </th:block>
 </html>

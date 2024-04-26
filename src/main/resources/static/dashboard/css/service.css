@@ -23,7 +23,7 @@
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
-.doctorClose {
+.serviceClose {
     color: #aaa;
     position: absolute; /* Đặt vị trí tuyệt đối */
     top: 10px; /* Khoảng cách từ phía trên */
@@ -33,20 +33,24 @@
     cursor: pointer;
 }
 
-.modal-content .modal-title{
-    font-weight: 0.6;
-    opacity: 0.7;
-    font-size: 30px;
-
+.openServiceModalBtn {
+    background-color: rgba(60,179,113,1);
+    border-radius: 10px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 15px;
+    margin-bottom: 20px;
 }
 
-.modal-content .modal-content-body{
-    width: 100%;
-    height: 100%;
-
+.openServiceModalBtn:hover {
+    background-color: rgba(60,149,113,1);
 }
 
-#okBtn {
+
+#okServiceEditBtn {
     background-color: rgba(99,169,255,1);
     border-radius: 10px;
     border: none;
@@ -59,7 +63,7 @@
     margin-top: 5px;
 }
 
-#okBtn:hover {
+#okServiceEditBtn {
     background-color: rgba(99,169,227,1);
 }
 
@@ -70,23 +74,7 @@
     margin-top: 20px;
 }
 
-.openDoctorModalBtn {
-    background-color: rgba(60,179,113,1);
-    border-radius: 10px;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    padding: 10px 15px;
-    margin-bottom: 20px;
-}
-
-.openDoctorModalBtn:hover {
-    background-color: rgba(60,149,113,1);
-}
-
-.doctorEditClose {
+.serviceEditClose {
         color: #aaa;
         position: absolute; /* Đặt vị trí tuyệt đối */
         top: 10px; /* Khoảng cách từ phía trên */
@@ -96,7 +84,7 @@
         cursor: pointer;
 }
 
-#okEditBtn {
+#okServiceBtn {
         background-color: rgba(99,169,255,1);
         border-radius: 10px;
         border: none;
@@ -109,6 +97,6 @@
         margin-top: 5px;
 }
 
-#okEditBtn:hover {
+#okServiceBtn:hover {
     background-color: rgba(99,169,227,1);
 }
