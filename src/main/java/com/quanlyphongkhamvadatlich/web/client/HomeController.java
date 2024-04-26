@@ -6,28 +6,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    @GetMapping("/login")
+    @GetMapping("/client/login")
     public String login(){
         return "client/pages/login";
     }
-    @GetMapping("/register")
+    @GetMapping("/client/register")
     public String register(){
         return "client/pages/register";
     }
-    @GetMapping("/changepassword")
+    @GetMapping("/client/changepassword")
     public String changepassword(){
         return "client/pages/changepassword";
     }
-    @GetMapping("/forgotpassword")
+    @GetMapping("/client/forgotpassword")
     public String forgotpassword(){
         return "client/pages/forgotpassword";
     }
-    @GetMapping("/personalinfo")
+    @GetMapping("/client/personalinfo")
     public String personalinfo(){
         return "client/pages/personalinfo";
     }
 
-    @GetMapping("/home")
+    @GetMapping("client/home")
     public String index(Model model) {
         model.addAttribute("activePage", "home");
         return "client/pages/index";

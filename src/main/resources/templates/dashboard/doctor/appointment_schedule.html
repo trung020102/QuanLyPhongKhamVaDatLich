@@ -1,0 +1,204 @@
+<html lang="vi"
+
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/dashboard/layout/app">
+>
+<head>
+
+    <link rel="stylesheet" href="/dashboard/css/appointment_schedule.css"/>
+    <title>Calendar_work</title>>
+</head>
+<th:block layout:fragment="content-header">
+    <div class="col-sm-12 centered-heading" >
+        <h2>Danh Sách Lịch Hẹn</h2>
+    </div>
+
+</th:block>
+
+<th:block layout:fragment="content-body" class="appoinment-body">
+    <div class="appoinment-main">
+
+        <div class="col-sm-12 appoinment-heading" >
+            <h4>Danh Sách Lịch Hẹn</h4>
+        </div>
+        <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+            <!--body-->
+            <div class="container">
+                <label class="col-sm-12 appoinment-search-label"> Time :</label>
+                <div class=" row appoinment-search" >
+
+                    <div class="input-appoinment-search">
+                        <input class="form-control" type="date"  placeholder="Nhập dữ liệu">
+
+                    </div>
+
+                    <button type="submit"> Tìm kiếm</button>
+
+                </div>
+
+                <hr class="row">
+
+                <div class="row appoinment-info " >
+                    <div class="table table-bordered table-container">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Time</th>
+                                <th scope="col">No</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">8:00-9:00</th>
+                                <td>001</td>
+                                <td>Otto</td>
+                                <td>Male</td>
+                                <td >
+                                    <button  class="button-detail openModalBtn">Detail</button>
+                                    <button class="button-send openModalSendBtn">Send The Invoice <i class="fa fa-check-circle"></i></button>
+                                    <a (click)="delete(row.userId, row.name)"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">10:00-11:00</th>
+                                <td>002</td>
+                                <td>Thornton</td>
+                                <td>Female</td>
+                                <td>
+                                    <button  class="button-detail openModalBtn">Detail</button>
+                                    <button class="button-send openModalSendBtn">Send The Invoice  <i class="fa fa-check-circle"></i></button>
+                                    <a (click)="delete(row.userId, row.name)"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">13:00-15:00</th>
+                                <td>003</td>
+                                <td>Thornton</td>
+                                <td>Femaile</td>
+                                <td>
+                                    <button class="button-detail openModalBtn">Detail</button>
+                                    <button class="button-send openModalSendBtn">Send The Invoice <i style="color: #F9AA33" class="fa fa-exclamation-circle"></i></button>
+                                    <a  (click)="delete(row.userId, row.name)"><i  class="fa fa-trash delete-holder"></i></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p class="modal-title">Thông tin bệnh nhân</p>
+            <div class="modal-content-body">
+                <hr>
+                <div class="input-row">
+                    <div class="input-container">
+                        <label for="input1">Tên :</label>
+                        <input class="form-control" type="text" id="input1" name="input1" value="otto">
+                    </div>
+                    <div class="input-container">
+                        <label for="input2">Số điện thoại :</label>
+                        <input class="form-control" type="text" id="input2" name="input2" value="098774688">
+                    </div>
+                    <div class="input-container">
+                        <label for="input3">Email :</label>
+                        <input class="form-control" type="email" id="input3" name="input3" value="otto0923@gmai.com">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-container">
+                        <div class="input-list">
+                            <div class="input-item">
+                                <label for="input1">Ngày :</label>
+                                <input class="form-control" style="width: 90%" type="text" value="19/04/2024" readonly>
+                            </div>
+                            <div class="input-item">
+                                <label for="input2">Thời gian :</label>
+                                <input class="form-control"  style="width: 90%" type="text" value="15:00-17:00" readonly>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-container">
+                        <label for="input2">Triệu chứng :</label>
+                        <textarea class="form-control"> Đau đàu, ho , sổ mũi...</textarea>
+                    </div>
+                    <div class="input-container">
+                        <label for="input3">Địa chỉ :</label>
+                        <textarea class="form-control">sakurai,Tokyo</textarea>
+                    </div>
+                </div>
+                <div class="input-row">
+
+                    <div class="input-container">
+                        <label for="input3">Ghi chú (tiểu sự bệnh án) :</label>
+                        <textarea class="form-control" style="height: 100%"></textarea>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button id="okBtn">OK</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--   modal send -->
+    <!-- The Modal -->
+    <div id="sendModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="send-close">&times;</span>
+            <p class="modal-title">Gửi thông tin cho bệnh nhân.</p>
+            <div class="modal-content-body">
+                <hr>
+                <div class="input-row">
+
+                    <div class="input-container">
+                        <label for="input3">Email :</label>
+                        <input class="form-control mail-input" type="email" id="input4" name="input3" value="otto0923@gmai.com">
+                    </div>
+
+                    <div class="input-container">
+                        <label for="input2">Chọn file :</label>
+                        <input type="file">
+                    </div>
+                </div>
+
+                <!-- Button Send và Cancel -->
+                <div class="button-container">
+                    <button id="sendBtn">Send</button>
+                    <button id="cancelBtn">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</th:block>
+
+
+<th:block layout:fragment="document-script">
+    <script src="/dashboard/js/appointment_schedule.js"></script>
+</th:block>
+</html>
