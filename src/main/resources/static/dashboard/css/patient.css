@@ -20,7 +20,7 @@
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 70%; /* Could be more or less, depending on screen size */
 }
 
 .patientClose {
@@ -33,19 +33,6 @@
     cursor: pointer;
 }
 
-#okBtn {
-    background-color: rgba(99,169,255,1);
-    border-radius: 10px;
-    border: none;
-    color:black;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 5px;
-}
-
 #okBtn:hover {
     background-color: rgba(99,169,227,1);
 }
@@ -55,4 +42,23 @@
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+}
+
+.button-container-table {
+    position: absolute;
+}
+
+.input-row {
+    display: flex;
+    margin: 30px 0;
+}
+
+.input-container {
+    flex: 1;
+    margin-left: 40px;
+    margin-right: 80px;
+}
+
+#career {
+    width: 44%;
 }
