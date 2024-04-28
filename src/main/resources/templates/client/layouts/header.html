@@ -1,7 +1,7 @@
 <header id="nav-box-shadow" th:fragment="header" class="header">
     <nav class="navbar navbar-expand-lg navigation" id="navbar nav-box-shadow">
         <div class="container">
-            <a class="navbar-brand" th:href="@{/home}">
+            <a class="navbar-brand" th:href="@{/client/home}">
                 <img th:src="@{/client/images/logo.png}" alt="" class="img-fluid" />
             </a>
 
@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarmain">
                 <ul class="navbar-nav ml-auto">
                     <li th:class="${activePage == 'home'} ? 'active' : '' " class="nav-item">
-                        <a class="nav-link" th:href="@{/home}">Trang chủ</a>
+                        <a class="nav-link" th:href="@{/client/home}">Trang chủ</a>
                     </li>
                     <li th:class="${activePage == 'about'} ? 'active' : '' " class="nav-item">
                         <a class="nav-link" th:href="@{/about}">Giới thiệu</a>
@@ -49,7 +49,7 @@
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item" href="department-single.html"
+                                <a class="dropdown-item" href="/client/record"
                                 >Hồ sơ bệnh án</a
                                 >
                             </li>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/client/layouts/base_layout"
+>
+
+<th:block layout:fragment="additional-link-at-head">
+    <link rel="stylesheet" href="/client/css/record.css">
+</th:block>
+
+<th:block layout:fragment="main-content">
+    <section class="section">
+        <div class="container-fluid">
+            <div id="section-history" class="card">
+                <div class="form_heading">
+                    <p class="form_heading-text">Hồ sơ bệnh án và Lịch sử khám</p>
+
+                    <div class="form_heading-line"></div>
+                    <p class="font-italic mt-5"><sup style="color: red">*</sup> Lưu ý: Vui lòng chọn bệnh nhân để xem hồ sơ bệnh án hoặc lịch khám của bệnh nhân đó</p>
+                </div>
+                <div class="history_wrap mt-3">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="history_item card p-1 mb-4" type="button" data-toggle="modal"
+                               data-target="#exampleModalCenter">
+                                <div class="h-100 p-2 d-flex flex-row justify-content-between history_item-content"
+                                     style="place-items: center">
+                                    <div class="history_item-left">
+                                        <div class="flex-wrap d-flex align-items-center">
+                                            <div style="width: 25px">
+                                                <i class="fa-regular fa-user" style="color: #f2408d"></i>
+                                            </div>
+                                            <span class="ml-2" style="width: 100px">Họ tên: </span>
+                                            <span class="font-weight-bold">Lê Bá Nhật Minh</span>
+                                        </div>
+                                        <div class="flex-wrap d-flex align-items-center">
+                                            <div style="width: 25px">
+                                                <i class="fa-solid fa-cake-candles" style="color: #f2408d"></i>
+                                            </div>
+                                            <span class="ml-2" style="width: 100px">Ngày sinh: </span>
+                                            <span class="font-weight-bold">22-04-2002</span>
+                                        </div>
+                                        <div class="flex-wrap d-flex align-items-center">
+                                            <div style="width: 25px">
+                                                <i class="fa-regular fa-id-card" style="color: #f2408d"></i>
+                                            </div>
+                                            <span class="ml-2" style="width: 100px">Số CCCD: </span>
+                                            <span class="font-weight-bold">023994992992</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="history_item-right text-center">
+                                        <p class="text-primary see_detail m-0">Xem chi tiết</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center">Thông tin chi tiết hồ sơ bệnh án và lịch khám</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="max-height: 500px; overflow-y: auto">
+                        <div class="patient_info">
+                            <span class="badge badge-pill badge-info mb-2"
+                                  style="background-color: #f2408d; color: white">Thông tin bệnh nhân</span>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="flex-wrap d-flex align-items-center">
+                                        <div style="width: 25px">
+                                            <i class="fa-regular fa-user" style="color: #223a66"></i>
+                                        </div>
+                                        <span class="ml-2" style="width: 100px">Họ tên: </span>
+                                        <span>Lê Bá Nhật Minh</span>
+                                    </div>
+
+                                    <div class="flex-wrap d-flex align-items-center">
+                                        <div style="width: 25px">
+                                            <i class="fa-solid fa-cake-candles" style="color: #223a66"></i>
+                                        </div>
+                                        <span class="ml-2" style="width: 100px">Ngày sinh: </span>
+                                        <span>22-04-2002</span>
+                                    </div>
+
+                                    <div class="flex-wrap d-flex align-items-center">
+                                        <div style="width: 25px">
+                                            <i class="fa-regular fa-id-card" style="color: #223a66"></i>
+                                        </div>
+                                        <span class="ml-2" style="width: 100px">Số CCCD: </span>
+                                        <span>023994992992</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="flex-wrap d-flex align-items-center">
+                                        <div style="width: 25px">
+                                            <i class="fa-solid fa-briefcase" style="color: #223a66"></i>
+                                        </div>
+                                        <span class="ml-2" style="width: 100px">Nghề nghiệp: </span>
+                                        <span>Lập trình viên</span>
+                                    </div>
+                                    <div class="flex-wrap d-flex align-items-center">
+                                        <div style="width: 25px">
+                                            <i class="fa-solid fa-house" style="color: #223a66"></i>
+                                        </div>
+                                        <span class="ml-2" style="width: 100px">Địa chỉ: </span>
+                                        <span>Phường Phú Thượng, Phú Vang, Thừa Thiên Huế</span>
+                                    </div>
+                                    <div class="flex-wrap d-flex align-items-center">
+                                        <div style="width: 25px">
+                                            <i class="fa-solid fa-venus-mars" style="color: #223a66"></i>
+                                        </div>
+                                        <span class="ml-2" style="width: 100px">Giới tính: </span>
+                                        <span>Nam</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="patient_appointment">
+                            <span class="badge badge-pill badge-info mt-4 mb-4"
+                                  style="background-color: #f2408d; color: white">Lịch chưa khám</span>
+
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <div class="patient_appointment_item d-flex">
+                                        <div class="appointment_number d-flex flex-column justify-content-center align-items-center">
+                                            <span class="small">Số thứ tự</span>
+                                            <span class="font-weight-bold"
+                                                  style="color: #11d49a; font-size: 3rem">10</span>
+                                        </div>
+
+                                        <div class="appointment_line"></div>
+                                        <div class="appointment_info d-flex justify-content-center flex-column">
+                                            <div>
+                                                <span class="ml-2" style="width: 100px; display: inline-block">Ngày khám: </span>
+                                                <span class="font-weight-bold">23-04-2002</span>
+                                            </div>
+                                            <div>
+                                                <span class="ml-2"
+                                                      style="width: 100px; display: inline-block">Ca khám: </span>
+                                                <span class="font-weight-bold">Chiều</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="patient_appointment_item d-flex">
+                                        <div class="appointment_number d-flex flex-column justify-content-center align-items-center">
+                                            <span class="small">Số thứ tự</span>
+                                            <span class="font-weight-bold"
+                                                  style="color: #11d49a; font-size: 3rem">10</span>
+                                        </div>
+
+                                        <div class="appointment_line"></div>
+                                        <div class="appointment_info d-flex justify-content-center flex-column">
+                                            <div>
+                                                <span class="ml-2" style="width: 100px; display: inline-block">Ngày khám: </span>
+                                                <span class="font-weight-bold">23-04-2002</span>
+                                            </div>
+                                            <div>
+                                                <span class="ml-2"
+                                                      style="width: 100px; display: inline-block">Ca khám: </span>
+                                                <span class="font-weight-bold">Chiều</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="patient_appointment_item d-flex">
+                                        <div class="appointment_number d-flex flex-column justify-content-center align-items-center">
+                                            <span class="small">Số thứ tự</span>
+                                            <span class="font-weight-bold"
+                                                  style="color: #11d49a; font-size: 3rem">10</span>
+                                        </div>
+
+                                        <div class="appointment_line"></div>
+                                        <div class="appointment_info d-flex justify-content-center flex-column">
+                                            <div>
+                                                <span class="ml-2" style="width: 100px; display: inline-block">Ngày khám: </span>
+                                                <span class="font-weight-bold">23-04-2002</span>
+                                            </div>
+                                            <div>
+                                                <span class="ml-2"
+                                                      style="width: 100px; display: inline-block">Ca khám: </span>
+                                                <span class="font-weight-bold">Chiều</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-4">
+                                    <div class="patient_appointment_item d-flex">
+                                        <div class="appointment_number d-flex flex-column justify-content-center align-items-center">
+                                            <span class="small">Số thứ tự</span>
+                                            <span class="font-weight-bold"
+                                                  style="color: #11d49a; font-size: 3rem">10</span>
+                                        </div>
+
+                                        <div class="appointment_line"></div>
+                                        <div class="appointment_info d-flex justify-content-center flex-column">
+                                            <div>
+                                                <span class="ml-2" style="width: 100px; display: inline-block">Ngày khám: </span>
+                                                <span class="font-weight-bold">23-04-2002</span>
+                                            </div>
+                                            <div>
+                                                <span class="ml-2"
+                                                      style="width: 100px; display: inline-block">Ca khám: </span>
+                                                <span class="font-weight-bold">Chiều</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="patient_appointment-record">
+                            <span class="badge badge-pill badge-info mt-4 mb-4"
+                                  style="background-color: #f2408d; color: white">Lịch sử lịch khám</span>
+
+                            <div class="appointment_search">
+                                <label class="d-block">Chọn tháng khám</label>
+
+                                <div style="width: 60%">
+                                    <input type="month" id="monthControl" class="form-control w-50 rounded px-2" placeholder="Chọn tháng"
+                                           autocomplete="off"/>
+                                </div>
+
+                                <div class="appointment_history mt-4">
+                                    <div class="tab_left">
+                                        <button class="record active" onclick="openRecord(event, '1')">
+                                            <div>
+                                                <div>
+                                                    <span class="ml-2" style="width: 100px">Ngày khám: </span>
+                                                    <span class="font-weight-bold">20-02-2002</span>
+                                                </div>
+                                                <div>
+                                                    <span class="ml-2" style="width: 100px">Ca khám: </span>
+                                                    <span class="font-weight-bold">Chiều</span>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <p class="badge badge-pill badge-success w-auto m-1">Hoàn thành</p>
+                                                <!-- <span class="badge badge-pill badge-primary w-50">Chờ khám</span>
+                                              <span class="badge badge-pill badge-warning w-50">Đang khám</span>
+                                              <span class="badge badge-pill badge-danger w-50">Đã hủy</span> -->
+                                            </div>
+                                        </button>
+                                        <button class="record" onclick="openRecord(event, '2')">Paris</button>
+                                        <button class="record" onclick="openRecord(event, '3')">Tokyo</button>
+                                    </div>
+
+                                    <div id="1" class="record_content p-3" style="display: block">
+                                        <div class="doctor">
+                                            <p class="badge badge-pill badge-dark w-auto m-1">1. Thông tin bác sĩ</p>
+
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered mt-3">
+                                                    <tr>
+                                                        <td>Tên bác sĩ</td>
+                                                        <td>Lê Bá Nhật Minh</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Chuyên khoa</td>
+                                                        <td>Thần kinh học</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Số điện thoại</td>
+                                                        <td>0779551049</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <p class="badge badge-pill badge-dark w-auto m-1">2. Chẩn đoán</p>
+                                            <div class="form-group">
+                          <textarea class="form-control mt-3" id="exampleFormControlTextarea1" rows="3" readonly>
+                          Rối loạn tâm trí, suy nghĩ quá nhiều về tương lai
+                        </textarea
+                        >
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="badge badge-pill badge-dark w-auto m-1">2. Dịch vụ khám</p>
+                                            <div class="table-responsive">
+                                                <table class="table mt-3">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th scope="col">STT</th>
+                                                        <th scope="col">Mã dịch vụ</th>
+                                                        <th scope="col">Dịch vụ</th>
+                                                        <th scope="col">Giá</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>SA001</td>
+                                                        <td>Siêu âm</td>
+                                                        <td>100.000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>NS001</td>
+                                                        <td>Nội soi</td>
+                                                        <td>150.000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>KTQ001</td>
+                                                        <td>Khám tổng quát</td>
+                                                        <td>500.000</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="badge badge-pill badge-dark w-auto m-1">3. Toa thuốc</p>
+                                            <div class="table-responsive">
+                                                <table class="table mt-3">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th scope="col">STT</th>
+                                                        <th scope="col">Tên thuốc</th>
+                                                        <th scope="col">Đơn vị tính</th>
+                                                        <th scope="col">Số lượng</th>
+                                                        <th scope="col">Cách dùng</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <th scope="row">1</th>
+                                                        <td>Paracetamol</td>
+                                                        <td>Viên</td>
+                                                        <td>20</td>
+                                                        <td>Sáng 1 viên, tối 1 viên. Uống liền sau ăn</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">2</th>
+                                                        <td>Paracetamol Extra</td>
+                                                        <td>Viên</td>
+                                                        <td>20</td>
+                                                        <td>Sáng 1 viên, tối 1 viên. Uống liền sau ăn</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">3</th>
+                                                        <td>Paracetamol Mini</td>
+                                                        <td>Viên</td>
+                                                        <td>30</td>
+                                                        <td>Sáng 1 viên, tối 1 viên. Uống liền sau ăn</td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="2" class="record_content" style="display: none">
+                                        <h3>Paris</h3>
+                                        <p>Paris is the capital of France.</p>
+                                    </div>
+
+                                    <div id="3" class="record_content" style="display: none">
+                                        <h3>Tokyo</h3>
+                                        <p>Tokyo is the capital of Japan.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
+
+<th:block layout:fragment="additional-link-at-bottom">
+    <script>
+        function openRecord(evt, date) {
+            // Hide all elements with class="tabcontent"
+            $(".record_content").hide();
+
+            // Remove the class "active" from all elements with class="tablinks"
+            $(".record").removeClass("active");
+
+            // Show the current tab, and add an "active" class to the link that opened the tab
+            $("#" + date).show();
+            $(evt.currentTarget).addClass("active");
+        }
+
+        $(document).ready(function(){
+            var currentDate = new Date();
+            var currentMonth = currentDate.toISOString().slice(0, 7);
+            $('#monthControl').val(currentMonth);
+        });
+    </script>
+</th:block>

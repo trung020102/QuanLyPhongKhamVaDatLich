@@ -55,18 +55,21 @@ public class HomeController {
         return "client/pages/faqs";
     }
 
-    @GetMapping("/booking")
+    @GetMapping("client/booking")
     public String booking() {
         return "client/pages/booking";
     }
 
-    @GetMapping("/booking/appointment")
+    @GetMapping("client/booking/appointment")
     public String appointment() {
         return "client/pages/appointment";
     }
 
-    @GetMapping("/booking/appointment/success")
+    @GetMapping("client/booking/appointment/success")
     public String success() {
         return "client/pages/success-booking";
     }
+
+    @GetMapping("/client/record")
+    public String record() {return "client/pages/record";}
 }
