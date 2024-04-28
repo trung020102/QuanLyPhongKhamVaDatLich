@@ -1,5 +1,7 @@
 package com.quanlyphongkhamvadatlich.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,17 +19,24 @@ public class User extends BaseEntity{
     @Column(name = "username")
     private String username;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(name = "password")
     private String password;
 
     @Column(name= "token")
     private String token;
 
+    @Column(name = "token_expiration_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date tokenExpirationTime;
+
     @Column(name="avatar")
     private String avatar;
 
     @Column(name = "status")
-    private Boolean status;
+    private Boolean status = false;
 
     @Column(name = "profile_id")
     private String profile_id;
