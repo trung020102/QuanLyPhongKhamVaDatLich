@@ -185,6 +185,10 @@
     cursor: pointer;
 }
 
+.appointment-shift.active {
+    background-color: var(--sub-color);
+    color: #fff;
+}
 .appointment-shift:hover {
     background-color: var(--sub-color);
     color: white;
