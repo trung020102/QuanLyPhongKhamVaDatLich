@@ -43,7 +43,11 @@ public class ClientSecurityConfig {
                                                         "/client/images/**",
                                                         "/client/js/**",
                                                         "/client/plugins/**",
-                                                        "/client/register")
+                                                        "/client/register",
+                                                        "/client/home",
+                                                        "/client/about",
+                                                        "/client/procedure",
+                                                        "/client/faqs")
                                         .permitAll()
                                         .requestMatchers("/client/**")
                                         .hasAuthority(Role.CLIENT.name()))

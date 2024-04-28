@@ -23,25 +23,25 @@
             th:class="${activePage == 'home'} ? 'active' : '' "
             class="nav-item"
           >
-            <a class="nav-link" th:href="@{/home}">Trang chủ</a>
+            <a class="nav-link" th:href="@{/client/home}">Trang chủ</a>
           </li>
           <li
             th:class="${activePage == 'about'} ? 'active' : '' "
             class="nav-item"
           >
-            <a class="nav-link" th:href="@{/about}">Giới thiệu</a>
+            <a class="nav-link" th:href="@{/client/about}">Giới thiệu</a>
           </li>
           <li
             th:class="${activePage == 'procedure'} ? 'active' : '' "
             class="nav-item"
           >
-            <a class="nav-link" th:href="@{/procedure}">Quy trình đặt khám</a>
+            <a class="nav-link" th:href="@{/client/procedure}">Quy trình đặt khám</a>
           </li>
           <li
             th:class="${activePage == 'faqs'} ? 'active' : '' "
             class="nav-item"
           >
-            <a class="nav-link" th:href="@{/faqs}">Thắc mắc</a>
+            <a class="nav-link" th:href="@{/client/faqs}">Thắc mắc</a>
           </li>
 
           <li class="nav-item dropdown">
@@ -56,13 +56,9 @@
               <th:block sec:authorize="hasAuthority('CLIENT')">
                 <span sec:authentication="principal.email"></span>
               </th:block>
-
-              <th:block
-                th:unless="${#authorization.expression('hasAuthority(''CLIENT'')')}"
-              >
+              <th:block sec:authorize="isAnonymous()">
                 <span>Tài khoản</span>
               </th:block>
-
               <i class="icofont-thin-down"></i
             ></a>
             <ul class="dropdown-menu" aria-labelledby="dropdown02">
@@ -78,9 +74,7 @@
                   >
                 </li>
               </th:block>
-              <th:block
-                th:unless="${#authorization.expression('isAuthenticated()')}"
-              >
+              <th:block sec:authorize="isAnonymous()">
                 <li>
                   <a class="dropdown-item" href="/client/login">Đăng nhập</a>
                 </li>
@@ -88,9 +82,7 @@
                   <a class="dropdown-item" href="/client/register">Đăng ký</a>
                 </li>
               </th:block>
-              <th:block
-                th:if="${#authorization.expression('isAuthenticated()')}"
-              >
+              <th:block sec:authorize="isAuthenticated()">
                 <li>
                   <a class="dropdown-item" href="/client/logout">Đăng xuất</a>
                 </li>
