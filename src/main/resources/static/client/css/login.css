@@ -2,13 +2,14 @@
     background-color: #fff;
     margin-top: 28px;
 }
-.form-group{
+/* .form-group{
     border-bottom: 1px solid #fff;
     margin-top: 4px;
     margin-bottom: 20px;
     display: flex;
-}
-#eye {
+} */
+
+ #eye {
     display: flex;
     align-items: center;
     position: absolute;
@@ -24,4 +25,11 @@
 .btn-submit{
     background-color: #223a66;
     color: #fff;
+}
+.error {
+    color: red;
+}
+
+.input-error {
+    border: 1px solid red;
 }

@@ -3,57 +3,33 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
+import com.quanlyphongkhamvadatlich.entity.User;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 import java.util.Objects;
 
 public class UserPrincipal implements UserDetails {
 
-    private final Long id;
+    private User user;
+    private Collection<? extends GrantedAuthority> authorities;
 
-    private final String username;
-
-    private final String password;
-
-    private final Collection<? extends GrantedAuthority> authorities;
-
-    public UserPrincipal(Long id,
-                         String username,
-                         String password,
-                         Collection<? extends GrantedAuthority> authorities) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-    }
-
-    public static UserPrincipal build(Long id, String username, String passwordHash, String roleCode) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        if (roleCode != null) {
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(roleCode);
-            authorities.add(authority);
-        }
-        return new UserPrincipal(
-                id,
-                username,
-                passwordHash,
-                authorities
-        );
+    public UserPrincipal(User user) {
+        this.user = user;
+        this.authorities = Collections.singleton(new SimpleGrantedAuthority(user.getRole().getName()));
     }
 
     public Long getId() {
-        return id;
+        return user.getId();
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return user.getUsername();
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     @Override
@@ -89,17 +65,21 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    // @Override
+    // public boolean equals(Object o) {
+    //     if (this == o) return true;
+    //     if (o == null || getClass() != o.getClass()) return false;
 
-        UserPrincipal that = (UserPrincipal) o;
-        return Objects.equals(this.id, that.id);
-    }
+    //     UserPrincipal that = (UserPrincipal) o;
+    //     return Objects.equals(this.id, that.id);
+    // }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(user.getId());
+    }
+
+    public String getEmail() {
+        return this.user.getEmail();
     }
 }
