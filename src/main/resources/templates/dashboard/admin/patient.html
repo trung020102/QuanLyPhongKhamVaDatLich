@@ -1,0 +1,145 @@
+<html lang="vi"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/dashboard/layout/app"
+>
+
+<head>
+    <link rel="stylesheet" href="/dashboard/css/patient.css">
+</head>
+<th:block layout:fragment="content-header">
+    <div class="col-sm-6">
+        <h1>Quản lý bệnh nhân</h1>
+    </div>
+
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Quản lý bệnh nhân</li>
+        </ol>
+    </div>
+</th:block>
+
+<th:block layout:fragment="content-body">
+    <!-- Edit patient modal -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <span class="patientClose">&times;</span>
+            <p class="modal-title">Cập nhật thông tin bệnh nhân</p>
+            <div class="modal-content-body">
+                <hr>
+                <div class="input-row">
+                    <div class="input-container">
+                        <label for="patient_name">Họ và tên</label>
+                        <input class="form-control" type="text" id="patient_name" placeholder="Nhập họ và tên">
+                    </div>
+
+                    <div class="input-container">
+                        <label for="patient_ID">Mã bệnh nhân</label>
+                        <input type="text" class="form-control" disabled value="3434NWNDF23" id="patient_ID">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-container">
+                        <label for="phone_number">Số điện thoại</label>
+                        <input class="form-control" type="text" id="phone_number" placeholder="Nhập sđt">
+                    </div>
+                    <div class="input-container">
+                        <label for="dob">Ngày sinh</label>
+                        <input class="form-control" type="date" id="dob" placeholder="Nhập ngày sinh">
+                    </div>
+                </div>
+
+
+                <div class="input-row">
+                    <div class="input-container">
+                        <label for="gender">Giới tính</label>
+                        <input class="form-control" type="text" id="gender" placeholder="Nhập giới tính">
+                    </div>
+
+                    <div class="input-container">
+                        <label for="address">Địa chỉ</label>
+                        <input class="form-control" type="text" id="address" placeholder="Nhập địa chỉ">
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-container">
+                        <label for="career">Nghề nghiệp</label>
+                        <input class="form-control" type="email" id="career" placeholder="Nhập nghề nghiệp">
+                    </div>
+                </div>
+
+
+                <div class="button-container">
+                    <button type="button" class="btn btn-primary" id="okBtn" style="margin-right: 10px">Xác nhận</button>
+                    <button type="button" class="btn btn-danger" id="cancelBtn">Hủy bỏ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <!--body-->
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="example1"
+                       class="table table-bordered table-hover dataTable dtr-inline"
+                       aria-describedby="example2_info">
+                    <thead>
+                    <tr>
+                        <th class="sorting"
+                            aria-label="Rendering engine: activate to sort column descending">
+                            STT
+                        </th>
+                        <th class="sorting">Mã bệnh nhân</th>
+                        <th class="sorting">Họ và tên</th>
+                        <th class="sorting">Số điện thoại</th>
+                        <th class="sorting">Ngày sinh</th>
+                        <th class="sorting">Giới tính</th>
+                        <th class="sorting">Địa chỉ</th>
+                        <th class="sorting">Nghề nghiệp</th>
+                        <th class="sorting">Mã BHYT</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">1</td>
+                        <td>FEF334</td>
+                        <td>Nguyễn A</td>
+                        <td>0969 699 669</td>
+                        <td>01/01/2002</td>
+                        <td>Nam</td>
+                        <td>123 Đường</td>
+                        <td>Lập trình viên</td>
+                        <td>3434NWNDF23</td>
+                        <td> <button type="button" class="btn btn-success mr-2 openPatientModal">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button> </td>
+                    </tr>
+                    <tr class="odd">
+                        <td class="dtr-control sorting_1" tabindex="0">2</td>
+                        <td>FEF334</td>
+                        <td>Nguyễn A</td>
+                        <td>0969 699 669</td>
+                        <td>01/01/2002</td>
+                        <td>Nam</td>
+                        <td>123 Đường</td>
+                        <td>Lập trình viên</td>
+                        <td>3434NWNDF23</td>
+                        <td class="pr-3">
+                            <button type="button" class="btn btn-success mr-2 openPatientModal">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="document-script">
+    <script src="/dashboard/js/patient_modal.js"></script>
+</th:block>
+</html>

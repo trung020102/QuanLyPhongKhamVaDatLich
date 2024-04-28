@@ -1,0 +1,64 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 2px;
+
+    left: 140px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-title {
+    font-size: 30px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 70%; /* Could be more or less, depending on screen size */
+}
+
+.patientClose {
+    color: #aaa;
+    position: absolute; /* Đặt vị trí tuyệt đối */
+    top: 10px; /* Khoảng cách từ phía trên */
+    right: 10px; /* Khoảng cách từ phía trái */
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#okBtn:hover {
+    background-color: rgba(99,169,227,1);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.button-container-table {
+    position: absolute;
+}
+
+.input-row {
+    display: flex;
+    margin: 30px 0;
+}
+
+.input-container {
+    flex: 1;
+    margin-left: 40px;
+    margin-right: 80px;
+}
+
+#career {
+    width: 44%;
+}

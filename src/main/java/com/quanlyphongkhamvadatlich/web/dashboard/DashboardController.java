@@ -2,11 +2,9 @@ package com.quanlyphongkhamvadatlich.web.dashboard;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-
 public class DashboardController {
     @GetMapping("/")
     public ModelAndView toHomePage() {
@@ -14,11 +12,20 @@ public class DashboardController {
     }
     @GetMapping("/doctor/physical_exam")
     public ModelAndView toPhysicalExam(){
-
         return new ModelAndView("dashboard/doctor/physical_exam");
     }
-
-
+    @GetMapping("/admin/doctor")
+    public ModelAndView toDoctor() {
+        return new ModelAndView("dashboard/admin/doctor");
+    }
+    @GetMapping("/admin/patient")
+    public ModelAndView toPatient() {
+        return new ModelAndView("dashboard/admin/patient");
+    }
+    @GetMapping("/admin/service")
+    public ModelAndView toPatientEdit() {
+        return new ModelAndView("dashboard/admin/service");
+    }
     @GetMapping("/doctor/appointment_schedule")
     public ModelAndView appointmentSchedule() {
         return new ModelAndView("dashboard/doctor/appointment_schedule");
@@ -32,8 +39,6 @@ public class DashboardController {
 
     @GetMapping("/doctor/history_exam")
     public ModelAndView historyExam() {
-        return new ModelAndView("dashboard/doctor/history_exam");
+        return new ModelAndView("dashboard/doctor/physical_exam");
     }
-
-
 }
