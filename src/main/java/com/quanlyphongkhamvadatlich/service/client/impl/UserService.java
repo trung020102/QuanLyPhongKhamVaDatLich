@@ -1,0 +1,98 @@
+package com.quanlyphongkhamvadatlich.service.client.impl;
+
+import java.util.Date;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.quanlyphongkhamvadatlich.dto.client.RegistrationRequest;
+import com.quanlyphongkhamvadatlich.entity.Role;
+import com.quanlyphongkhamvadatlich.entity.User;
+import com.quanlyphongkhamvadatlich.enums.EnumRole;
+import com.quanlyphongkhamvadatlich.enums.TokenValidationResult;
+import com.quanlyphongkhamvadatlich.exception.web.UserAlreadyExistsException;
+import com.quanlyphongkhamvadatlich.repository.RoleRepository;
+import com.quanlyphongkhamvadatlich.repository.UserRepository;
+import com.quanlyphongkhamvadatlich.service.client.IUserService;
+
+@Service
+public class UserService implements IUserService {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder encoder;
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Override
+    public User registerUser(RegistrationRequest request) {
+        Optional<User> user = this.findByEmail(request.getEmail());
+
+        if (user.isPresent()) {
+            throw new UserAlreadyExistsException(
+                    "User with email " + request.getEmail() + " already exists");
+        }
+
+        User newUser = User
+                .builder()
+                .email(request.getEmail())
+                .username(request.getUserName())
+                .password(encoder.encode(request.getPassword()))
+                .status(false)
+                .build();
+
+        Optional<Role> roleForClient = roleRepository.findByName(EnumRole.CLIENT.name());
+
+        if (roleForClient.isPresent()) {
+            newUser.setRole(roleForClient.get());
+        }
+
+        return userRepository.save(newUser);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void saveUserVerificationToken(User user, String verificationToken) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'saveUserVerificationToken'");
+    }
+
+    @Override
+    public Optional<User> findByToken(String token) {
+        return userRepository.findByToken(token);
+    }
+
+    
+    @Override
+    public TokenValidationResult validateToken(String token) {
+        Optional<User> userOptional = userRepository.findByToken(token);
+
+        if (userOptional.isEmpty()) {
+            return TokenValidationResult.TOKEN_NOT_FOUND;
+        }
+    
+        User user = userOptional.get();
+        
+        if (user.getStatus()) {
+            return TokenValidationResult.USER_ALREADY_ACTIVATED;
+        }
+    
+        Date currentTime = new Date();
+        Date expirationTime = user.getTokenExpirationTime();
+    
+        if (currentTime.after(expirationTime)) {
+            return TokenValidationResult.TOKEN_EXPIRED;
+        }
+    
+        user.setStatus(true);
+        userRepository.save(user);
+    
+        return TokenValidationResult.USER_ACTIVATED_SUCCESSFULLY;
+    }
+}
