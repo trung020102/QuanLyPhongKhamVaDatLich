@@ -22,4 +22,7 @@ public class BookingController {
     public String success() {
         return "client/pages/success-booking";
     }
+
+    @GetMapping("/record")
+    public String record() {return "client/pages/record";}
 }
