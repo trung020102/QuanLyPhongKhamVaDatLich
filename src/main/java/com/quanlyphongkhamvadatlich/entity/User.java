@@ -3,12 +3,18 @@ package com.quanlyphongkhamvadatlich.entity;
 import java.util.Date;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Entity
+@Builder
 @Table(name = "user")
 public class User extends BaseEntity{
     @Id

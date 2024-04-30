@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.quanlyphongkhamvadatlich.enums.Role;
+import com.quanlyphongkhamvadatlich.enums.EnumRole;
 
 // @Configuration
 // @EnableWebSecurity
@@ -39,7 +39,7 @@ public class AdminSecurityConfig {
         http
                 .authorizeHttpRequests(
                         (authorize) -> authorize
-                                .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
+                                .requestMatchers("/admin/**").hasAuthority(EnumRole.ADMIN.name())
                 )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));;
                
