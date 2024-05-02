@@ -2,6 +2,7 @@ package com.quanlyphongkhamvadatlich.service.client.impl;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -94,5 +95,26 @@ public class UserService implements IUserService {
         userRepository.save(user);
     
         return TokenValidationResult.USER_ACTIVATED_SUCCESSFULLY;
+    }
+
+    @Override
+    public Optional<User> updateToken(String oldToken) {
+        Optional<User> user = userRepository.findByToken(oldToken);
+
+        if (user.isPresent()) {
+            var userUpdate = user.get();
+            userUpdate.setToken(UUID.randomUUID().toString());
+            userUpdate.setTokenExpirationTime(getTokenExpirationTime());
+            userRepository.save(userUpdate);
+        }
+
+        return user;
+    }
+
+    private Date getTokenExpirationTime() {
+        Date currentTime = new Date();
+        long timeToAdd = 15 * 60 * 1000; // milliseconds
+
+        return new Date(currentTime.getTime() + timeToAdd);
     }
 }
