@@ -11,10 +11,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.quanlyphongkhamvadatlich.enums.Role;
+import com.quanlyphongkhamvadatlich.enums.EnumRole;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-// @Configuration
-// @EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class AdminSecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -34,15 +35,30 @@ public class AdminSecurityConfig {
     @Bean
     @Order(3)
     public SecurityFilterChain securityFilterChainForAdmin(HttpSecurity http) throws Exception {
-        http.securityMatcher("/admin/**");
-        http.authenticationProvider(authenticationProviderForAdmin());
         http
+//                .securityMatcher("/admin/**")
+                .csrf(configurer -> configurer.ignoringRequestMatchers("/com/quanlyphongkhamvadatlich/api/**", "/admin/**"))
+                .authenticationProvider(authenticationProviderForAdmin())
                 .authorizeHttpRequests(
-                        (authorize) -> authorize
-                                .requestMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
+                        authorize -> authorize
+                                .requestMatchers("/dashboard/login")
+                                .permitAll()
+                                .requestMatchers("/admin/**", "/dashboard/**", "/api/medical-service/**")
+                                .hasAuthority(EnumRole.ADMIN.name())
                 )
-                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));;
-               
+                .formLogin(form -> form.loginPage("/dashboard/login").permitAll()
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/dashboard/home", true)
+                        .loginProcessingUrl("/admin/login")
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(
+                                new AntPathRequestMatcher("/dashboard/logout", "GET"))
+                        .logoutSuccessUrl("/dashboard/login")
+                        .deleteCookies("JSESSIONID")
+                )
+                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));
         return http.build();
     }
 }

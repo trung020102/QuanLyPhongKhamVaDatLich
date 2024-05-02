@@ -1,6 +1,6 @@
 package com.quanlyphongkhamvadatlich.enums;
 
-public enum Role {
+public enum EnumRole {
     ADMIN,
     CLIENT,
     DOCTOR
