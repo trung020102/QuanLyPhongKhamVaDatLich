@@ -71,7 +71,7 @@
         <div class="alert alert-danger shadow-lg" role="alert">
           <h4 class="alert-heading">Token đã hết hạn!</h4>
           <p>Xin lỗi, token đã hết hạn. Vui lòng thử lại với một token mới.</p>
-          <a href="/client/home" class="btn btn-primary">Trở về trang chủ</a>
+          <a th:href="@{/client/resend-verification-token(token=${token})}" class="btn btn-primary">Yêu cầu mã xác nhận mới</a>
         </div>
       </th:block>
     </div>
