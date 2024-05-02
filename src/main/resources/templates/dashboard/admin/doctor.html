@@ -37,9 +37,9 @@
 
                 <div class="input-row">
                     <div class="input-container">
-                        <img src="/dashboard/img/user-icon.jpg" alt="user icon">
-                        <label for="uplaod_image">Upload your image</label>
-                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="uplaod_image">
+                        <img src="/dashboard/img/user-icon.jpg" alt="user icon" id="avatar">
+                        <label for="upload_image" id="upload_label">Cập nhật avatar</label>
+                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="upload_image">
                     </div>
                 </div>
 
@@ -72,8 +72,8 @@
                 </div>
 
                 <div class="button-container">
-                    <button id="okBtn" type="button" class="btn btn-primary" style="margin-right: 10px">Xác nhận</button>
-                    <button id="cancelBtn" type="button" class="btn btn-danger">Hủy bỏ</button>
+                    <button id="okBtn" type="button" class="btn btn-primary" style="margin-left: 40%; margin-top: 20px;">Xác nhận</button>
+                    <button id="cancelBtn" type="button" class="btn btn-danger" style="margin-left: 20px; margin-top: 20px">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -144,6 +144,15 @@
             <p class="modal-title">Cập nhật thông tin bác sĩ</p>
             <div class="modal-content-body">
                 <hr>
+
+                <div class="input-row">
+                    <div class="input-container">
+                        <img src="/dashboard/img/user-icon.jpg" alt="user icon" id="changeAvatar">
+                        <label for="change_upload_image" id="change_upload_label">Cập nhật avatar</label>
+                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="change_upload_image">
+                    </div>
+                </div>
+
                 <div class="input-row">
                     <div class="input-container">
                         <label for="doctor_name_edit">Họ và tên</label>
@@ -179,13 +188,12 @@
                     </div>
                 </div>
                 <div class="button-container">
-                    <button id="okEditBtn" type="button" class="btn btn-primary" style="margin-right: 10px;">Xác nhận</button>
-                    <button id="cancelEditBtn" type="button" class="btn btn-danger">Hủy bỏ</button>
+                    <button id="okEditBtn" type="button" class="btn btn-primary" style="margin-left: 40%; margin-top: 20px;">Xác nhận</button>
+                    <button id="cancelEditBtn" type="button" class="btn btn-danger" style="margin-left: 20px; margin-top: 20px">Hủy bỏ</button>
                 </div>
             </div>
         </div>
     </div>
-
 </th:block>
 
 <th:block layout:fragment="document-script">
