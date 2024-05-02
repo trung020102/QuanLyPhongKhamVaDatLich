@@ -13,8 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import com.quanlyphongkhamvadatlich.enums.EnumRole;
 
-// @Configuration
-// @EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class DoctorSecurity {
     @Autowired
     private UserDetailsService userDetailsService;

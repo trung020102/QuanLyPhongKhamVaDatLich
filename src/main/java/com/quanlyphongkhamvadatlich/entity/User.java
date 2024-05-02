@@ -22,13 +22,13 @@ public class User extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name= "token")
@@ -42,7 +42,7 @@ public class User extends BaseEntity{
     private String avatar;
 
     @Column(name = "status")
-    private Boolean status = false;
+    private Boolean status;
 
     @Column(name = "profile_id")
     private String profile_id;

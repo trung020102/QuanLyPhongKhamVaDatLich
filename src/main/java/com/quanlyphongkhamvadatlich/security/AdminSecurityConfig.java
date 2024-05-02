@@ -7,14 +7,20 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.quanlyphongkhamvadatlich.enums.EnumRole;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestHandler;
+import org.springframework.security.web.csrf.XorCsrfTokenRequestAttributeHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-// @Configuration
-// @EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class AdminSecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -34,15 +40,30 @@ public class AdminSecurityConfig {
     @Bean
     @Order(3)
     public SecurityFilterChain securityFilterChainForAdmin(HttpSecurity http) throws Exception {
-        http.securityMatcher("/admin/**");
-        http.authenticationProvider(authenticationProviderForAdmin());
         http
+//                .securityMatcher("/admin/**")
+                .csrf(configurer -> configurer.ignoringRequestMatchers("/api/**", "/admin/**"))
+                .authenticationProvider(authenticationProviderForAdmin())
                 .authorizeHttpRequests(
-                        (authorize) -> authorize
-                                .requestMatchers("/admin/**").hasAuthority(EnumRole.ADMIN.name())
+                        authorize -> authorize
+                                .requestMatchers("/dashboard/login")
+                                .permitAll()
+                                .requestMatchers("/admin/**", "/dashboard/**", "/api/medical-service/**")
+                                .hasAuthority(EnumRole.ADMIN.name())
                 )
-                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));;
-               
+                .formLogin(form -> form.loginPage("/dashboard/login").permitAll()
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .defaultSuccessUrl("/dashboard/home", true)
+                        .loginProcessingUrl("/admin/login")
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(
+                                new AntPathRequestMatcher("/dashboard/logout", "GET"))
+                        .logoutSuccessUrl("/dashboard/login")
+                        .deleteCookies("JSESSIONID")
+                )
+                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));
         return http.build();
     }
 }
