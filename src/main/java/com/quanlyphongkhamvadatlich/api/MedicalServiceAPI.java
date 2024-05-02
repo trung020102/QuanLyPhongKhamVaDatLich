@@ -1,6 +1,8 @@
-package com.quanlyphongkhamvadatlich.medical_service;
+package com.quanlyphongkhamvadatlich.api;
 
-import com.quanlyphongkhamvadatlich.medical_service.dto.CreateMedicalService;
+import com.quanlyphongkhamvadatlich.dto.dashboard.MedicalService;
+import com.quanlyphongkhamvadatlich.service.dashboard.MedicalServiceBusiness;
+import com.quanlyphongkhamvadatlich.repository.MedicalServiceRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +15,7 @@ public class MedicalServiceAPI {
     private final MedicalServiceBusiness medicalServiceBusiness;
     private final MedicalServiceRepository medicalServiceRepository;
     @PostMapping
-    public ResponseEntity<?> createService(@Valid @RequestBody CreateMedicalService serviceParam){
+    public ResponseEntity<?> createService(@Valid @RequestBody MedicalService serviceParam){
         medicalServiceBusiness.createMedicalService(serviceParam);
         return ResponseEntity.ok().build();
     }
