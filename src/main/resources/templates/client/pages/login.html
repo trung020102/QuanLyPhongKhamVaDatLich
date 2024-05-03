@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="/client/layouts/base_layout"
 >
 
 <th:block layout:fragment="additional-link-at-head">
+    <link rel="stylesheet" href="/client/css/style.css">
+    <link rel="stylesheet" href="/client/css/about.css">
     <link rel="stylesheet" href="/client/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </th:block>
@@ -37,7 +38,7 @@
                                                 <p>Tài khoản hoặc mật khẩu không chính xác.</p>
                                             </div>
                                         </div>
-                                        
+
                                         <div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <label class="form-label text-dark" for="form2Example17">Email</label>
