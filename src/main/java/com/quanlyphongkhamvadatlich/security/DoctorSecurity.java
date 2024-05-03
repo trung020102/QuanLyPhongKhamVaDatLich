@@ -7,6 +7,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,14 +35,16 @@ public class DoctorSecurity {
     @Bean
     @Order(2)
     public SecurityFilterChain securityFilterChainForDoctor(HttpSecurity http) throws Exception {
-        http.securityMatcher("/doctor/**");
-        http.authenticationProvider(authenticationProviderForDoctor());
         http
+                .csrf(AbstractHttpConfigurer::disable)
+                .securityMatcher("/doctor/**")
+                .authenticationProvider(authenticationProviderForDoctor())
                 .authorizeHttpRequests(
                         (authorize) -> authorize
                                 .requestMatchers("/doctor/**").hasAuthority(EnumRole.DOCTOR.name())
                 )
-                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));;
+                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));
+        ;
 
         return http.build();
     }

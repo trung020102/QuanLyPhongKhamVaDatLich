@@ -82,7 +82,7 @@ $("#okServiceBtn").on('click', function () {
     $.ajax({
         contentType: 'application/json',
         type: 'POST',
-        url: '/api/medical-service',
+        url: '/api/medical-service/create',
         data: JSON.stringify(serviceParam),
     })
         .done(() => {
