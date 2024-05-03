@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.quanlyphongkhamvadatlich.enums.EnumRole;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -39,10 +40,22 @@ public class DoctorSecurity {
         http
                 .authorizeHttpRequests(
                         (authorize) -> authorize
-                                .requestMatchers("/doctor/**").hasAuthority(EnumRole.DOCTOR.name())
+                               // .requestMatchers("/doctor/**") //.permitAll()
+                               .requestMatchers("/doctor/**").hasAuthority(EnumRole.DOCTOR.name())
                 )
-                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));;
-
+                .formLogin(form -> form.loginPage("/dashboard/login").permitAll()
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        //  .defaultSuccessUrl("/dashboard/home", true)
+                        .loginProcessingUrl("/admin/login")
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(
+                                new AntPathRequestMatcher("/dashboard/logout", "GET"))
+                        .logoutSuccessUrl("/dashboard/login")
+                        .deleteCookies("JSESSIONID")
+                )
+                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));
         return http.build();
     }
 }

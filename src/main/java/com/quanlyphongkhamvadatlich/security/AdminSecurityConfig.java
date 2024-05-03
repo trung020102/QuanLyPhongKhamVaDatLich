@@ -36,7 +36,7 @@ public class AdminSecurityConfig {
     @Order(3)
     public SecurityFilterChain securityFilterChainForAdmin(HttpSecurity http) throws Exception {
         http
-//                .securityMatcher("/admin/**")
+                .securityMatcher("/admin/**")
                 .csrf(configurer -> configurer.ignoringRequestMatchers("/com/quanlyphongkhamvadatlich/api/**", "/admin/**"))
                 .authenticationProvider(authenticationProviderForAdmin())
                 .authorizeHttpRequests(
@@ -49,7 +49,7 @@ public class AdminSecurityConfig {
                 .formLogin(form -> form.loginPage("/dashboard/login").permitAll()
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/dashboard/home", true)
+                      //  .defaultSuccessUrl("/dashboard/home", true)
                         .loginProcessingUrl("/admin/login")
                 )
                 .logout(logout -> logout
