@@ -49,11 +49,22 @@
     background-color: rgba(60,149,113,1);
 }
 
-.button-container {
+.table-button-container {
+    display: absolute;
+    top: 50%;
+    transform: translateY(-10%);
+    right: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
-    margin-top: 20px;
+}
+
+.table-button-container button {
+    margin-right: 5px;
+}
+
+.button-cell {
+    position: relative;
 }
 
 .serviceEditClose {
