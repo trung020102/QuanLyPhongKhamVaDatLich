@@ -41,7 +41,7 @@ public class AdminSecurityConfig {
     @Order(3)
     public SecurityFilterChain securityFilterChainForAdmin(HttpSecurity http) throws Exception {
         http
-//                .securityMatcher("/admin/**")
+               .securityMatcher("/admin/**")
                 .csrf(configurer -> configurer.ignoringRequestMatchers("/api/**", "/admin/**"))
                 .authenticationProvider(authenticationProviderForAdmin())
                 .authorizeHttpRequests(

@@ -7,7 +7,6 @@
 
 <th:block layout:fragment="additional-link-at-head">
     <link rel="stylesheet" href="/client/css/login.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </th:block>
 <th:block layout:fragment="main-content">
     <section class="h-auto form-login">
@@ -38,7 +37,6 @@
                                             </div>
                                         </div>
                                         
-                                        <div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <label class="form-label text-dark" for="form2Example17">Email</label>
                                             <input name="email" type="text" id="form2Example17" class="form-control form-control-lg" />
@@ -48,9 +46,6 @@
                                             <div class="form-group">
                                                 <label class="form-label text-dark" for="form2Example27">Mật khẩu</label>
                                                 <input name="password" type="password" id="form2Example27" class="form-control form-control-lg"/>
-                                                <div id="eye">
-                                                    <i class="fa fa-eye text-dark"></i>
-                                                </div>
                                             </div>
                                         </div>
 
@@ -58,8 +53,8 @@
                                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-lg btn-block btn-submit" type="submit">Đăng Nhập</button>
                                         </div>
 
-                                        <a class="small text-muted" href="forgotpassword.html">Quên mật khẩu?</a>
-                                        <p class="mb-n5 pb-lg-0" style="color: #393f81;">Bạn không có tài khoản? <u><a href="register.html" style="color: #393f81;">Đăng ký ngay</a></u></p>
+                                        <a class="small text-muted" href="/client/forgotpassword">Quên mật khẩu?</a>
+                                        <p class="mb-n5 pb-lg-0" style="color: #393f81;">Bạn không có tài khoản? <u><a href="/client/register" style="color: #393f81;">Đăng ký ngay</a></u></p>
                                     </form>
 
                                 </div>
@@ -72,19 +67,6 @@
     </section>
 </th:block>
 <th:block layout:fragment="additional-link-at-bottom">
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+    <script type="text/javascript" src="/client/plugins/validation/validate.min.js"></script>
     <script src="/client/js/login.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('#eye').click(function(){
-                $(this).toggleClass('open');
-                $(this).children('i').toggleClass('fa-eye-slash fa-eye');
-                if($(this).hasClass('open')){
-                    $(this).prev().attr('type', 'text');
-                }else{
-                    $(this).prev().attr('type', 'password');
-                }
-            });
-        });
-    </script>
 </th:block>
