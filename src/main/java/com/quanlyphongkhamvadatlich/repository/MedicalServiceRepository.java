@@ -1,4 +1,4 @@
-package com.quanlyphongkhamvadatlich.medical_service;
+package com.quanlyphongkhamvadatlich.repository;
 
 import com.quanlyphongkhamvadatlich.entity.MedicalService;
 import org.springframework.data.jpa.repository.JpaRepository;

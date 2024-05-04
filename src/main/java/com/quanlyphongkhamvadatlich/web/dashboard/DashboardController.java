@@ -17,9 +17,6 @@ public class DashboardController {
 
     @GetMapping("/login")
     public String toLoginDashboard(@AuthenticationPrincipal UserPrincipal principal) {
-        if (principal != null)
-            return "redirect:/dashboard/home";
-
-        return "dashboard/login";
+        return principal != null ? "redirect:/dashboard/home" : "dashboard/login";
     }
 }

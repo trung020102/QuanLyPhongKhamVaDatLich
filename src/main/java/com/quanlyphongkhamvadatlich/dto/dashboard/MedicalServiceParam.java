@@ -1,4 +1,4 @@
-package com.quanlyphongkhamvadatlich.medical_service.dto;
+package com.quanlyphongkhamvadatlich.dto.dashboard;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 @Setter
 @Getter
-public class CreateMedicalService {
+public class MedicalServiceParam {
     @NotBlank
     @Size(max = 255)
     private String serviceName;
