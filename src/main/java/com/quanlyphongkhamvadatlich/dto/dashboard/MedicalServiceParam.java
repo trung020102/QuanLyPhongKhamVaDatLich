@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 
 @Setter
 @Getter
-public class MedicalService {
+public class MedicalServiceParam {
     @NotBlank
     @Size(max = 255)
     private String serviceName;

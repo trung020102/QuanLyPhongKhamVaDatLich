@@ -13,4 +13,5 @@ public interface IUserService {
     Optional<User> findByToken(String token);
     TokenValidationResult validateToken(String token);
     Optional<User> updateToken(String oldToken);
+    User saveUser(User user);
 }

@@ -71,3 +71,19 @@ function closeEditDoctorModal() {
     // Ẩn modal bằng cách đặt thuộc tính display thành "none"
     doctorEditModal.style.display = "none";
 }
+
+//Upload avatar
+var profilePic = document.getElementById("avatar");
+var avatarBtn = document.getElementById("upload_image");
+
+avatarBtn.onchange = function() {
+    profilePic.src = URL.createObjectURL(avatarBtn.files[0]);
+}
+
+//Change avatar
+var changeProfilePic = document.getElementById("changeAvatar");
+var changeAvatarBtn = document.getElementById("change_upload_image");
+
+changeAvatarBtn.onchange = function() {
+    changeProfilePic.src = URL.createObjectURL(changeAvatarBtn.files[0]);
+}

@@ -20,7 +20,7 @@
                                 <div class="card-body p-4 p-lg-5 text-black">
 
                                     <form th:object="${user}" method="post" th:action="@{/client/register}">
-                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
                                         <div class="d-flex align-items-center justify-content-center mb-3 pb-1">
                                             <span class="h1 fw-bold mb-0">ĐĂNG KÝ</span>
                                         </div>
@@ -40,7 +40,7 @@
                                             <input type="text" th:errorClass="is-invalid" th:field="*{email}" class="form-control form-control-lg"
                                                    />
                                             <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                                                   
+
                                         </div>
 
                                         <div data-mdb-input-init class="form-outline mb-4">

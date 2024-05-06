@@ -16,7 +16,7 @@ import com.quanlyphongkhamvadatlich.enums.EnumRole;
 
 @Configuration
 @EnableWebSecurity
-public class    ClientSecurityConfig {
+public class ClientSecurityConfig {
         @Autowired
         private UserDetailsService userDetailsService;
 
@@ -58,7 +58,7 @@ public class    ClientSecurityConfig {
                                 .formLogin(form -> form.loginPage("/client/login").permitAll()
                                                 .usernameParameter("email")
                                                 .passwordParameter("password")
-                                                .defaultSuccessUrl("/client/personalinfo",true)
+                                                .defaultSuccessUrl("/client/personalinfo")
                                                 .loginProcessingUrl("/client/authenticate"))
 
                                 .logout(logout -> logout

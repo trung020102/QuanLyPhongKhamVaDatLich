@@ -77,11 +77,6 @@ public class AuthenticationController {
         return "client/pages/changepassword";
     }
 
-    @GetMapping("/forgotpassword")
-    public String forgotpassword() {
-        return "client/pages/forgotpassword";
-    }
-
     private String getWebHostPath(HttpServletRequest request) {
         return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
