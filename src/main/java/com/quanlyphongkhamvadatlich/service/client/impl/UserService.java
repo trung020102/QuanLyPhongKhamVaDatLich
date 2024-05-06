@@ -117,4 +117,9 @@ public class UserService implements IUserService {
 
         return new Date(currentTime.getTime() + timeToAdd);
     }
+
+    @Override
+    public User saveUser(User user) {
+       return userRepository.save(user);
+    }
 }
