@@ -43,16 +43,16 @@ public class DoctorSecurity {
                                // .requestMatchers("/doctor/**") //.permitAll()
                                .requestMatchers("/doctor/**").hasAuthority(EnumRole.DOCTOR.name())
                 )
-                .formLogin(form -> form.loginPage("/dashboard/login").permitAll()
+                .formLogin(form -> form.loginPage("/doctor/login").permitAll()
                         .usernameParameter("username")
                         .passwordParameter("password")
                         //  .defaultSuccessUrl("/dashboard/home", true)
-                        .loginProcessingUrl("/admin/login")
+                        .loginProcessingUrl("/doctor/login")
                 )
                 .logout(logout -> logout
                         .logoutRequestMatcher(
-                                new AntPathRequestMatcher("/dashboard/logout", "GET"))
-                        .logoutSuccessUrl("/dashboard/login")
+                                new AntPathRequestMatcher("/doctor/logout", "GET"))
+                        .logoutSuccessUrl("/doctor/login")
                         .deleteCookies("JSESSIONID")
                 )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));

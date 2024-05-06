@@ -40,13 +40,13 @@ public class AdminSecurityConfig {
                 .csrf(configurer -> configurer.ignoringRequestMatchers("/com/quanlyphongkhamvadatlich/api/**", "/admin/**"))
                 .authenticationProvider(authenticationProviderForAdmin())
                 .authorizeHttpRequests(
-                        authorize -> authorize
-                                .requestMatchers("/dashboard/login")
+                          authorize -> authorize
+                                .requestMatchers("/admin/login")
                                 .permitAll()
                                 .requestMatchers("/admin/**", "/dashboard/**", "/api/medical-service/**")
                                 .hasAuthority(EnumRole.ADMIN.name())
                 )
-                .formLogin(form -> form.loginPage("/dashboard/login").permitAll()
+                .formLogin(form -> form.loginPage("/admin/login").permitAll()
                         .usernameParameter("username")
                         .passwordParameter("password")
                       //  .defaultSuccessUrl("/dashboard/home", true)
@@ -54,8 +54,8 @@ public class AdminSecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutRequestMatcher(
-                                new AntPathRequestMatcher("/dashboard/logout", "GET"))
-                        .logoutSuccessUrl("/dashboard/login")
+                                new AntPathRequestMatcher("/admin/logout", "GET"))
+                        .logoutSuccessUrl("/admin/login")
                         .deleteCookies("JSESSIONID")
                 )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));

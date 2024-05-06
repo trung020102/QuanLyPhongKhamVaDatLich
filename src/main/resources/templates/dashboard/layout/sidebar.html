@@ -20,9 +20,18 @@
                     <img src="/dashboard/img/avt_admin.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Trần Văn Hiếu </a>
-                    <p style="color: #31bd26">Bác sĩ</p>
 
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
+                        <span th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" class="blue-text" style="color: #FFFFFF;" th:text="${#authentication.principal.username}"></span>
+                        <p th:unless="${#authorization.expression('hasAuthority(''ADMIN'')')}" style="color: #BD2626FF">Không</p>
+                        <p th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}" style="color: #31bd26">Admin</p>
+                    </th:block>
+
+                    <th:block sec:authorize="hasAuthority('DOCTOR')">
+                        <span th:if="${#authorization.expression('hasAuthority(''DOCTOR'')')}" class="blue-text" style="color: #FFFFFF;" th:text="${#authentication.principal.username}"></span>
+                        <p th:unless="${#authorization.expression('hasAuthority(''DOCTOR'')')}" style="color: #BD2626FF">Không</p>
+                        <p th:if="${#authorization.expression('hasAuthority(''DOCTOR'')')}" style="color: #31bd26">Doctor</p>
+                    </th:block>
                 </div>
             </div>
 
@@ -41,11 +50,8 @@
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item" th:if="${#authorization.expression('hasAuthority(''DOCTOR'')')}">
+                        <a href="#" class="nav-link" >
                             <i class="nav-icon fa fa-user-md"></i>
                             <p>
                                 Bác sĩ
@@ -78,7 +84,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-chart-pie"></i>
                             <p>
