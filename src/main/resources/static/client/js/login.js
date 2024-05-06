@@ -1,6 +1,4 @@
-$(document).ready(function(){
-    $("#login-error").slideUp(7000);
-    
+$(function() {
     $('#loginForm').validate({
         rules: {
             email: {
@@ -27,9 +25,8 @@ $(document).ready(function(){
         },
         unhighlight: function(element) {
             $(element).removeClass('input-error');
-        },
-        submitHandler: function(form) {
-            $(form).submit();
         }
     });
-});
+})
+
+  

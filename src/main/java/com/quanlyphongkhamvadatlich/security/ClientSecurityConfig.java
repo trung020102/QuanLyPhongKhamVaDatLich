@@ -52,7 +52,8 @@ public class ClientSecurityConfig {
                                 "/client/faqs",
                                 "/client/save",
                                 "/client/verifyEmail",
-                                "/client/resend-verification-token")
+                                "/client/resend-verification-token",
+                                "/client/forgotpassword")
                         .permitAll()
                         .requestMatchers("/client/**")
                         .hasAuthority(EnumRole.CLIENT.name())
@@ -63,7 +64,7 @@ public class ClientSecurityConfig {
                 .formLogin(form -> form.loginPage("/client/login").permitAll()
                         .usernameParameter("email")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/client/personalinfo")
+                        .defaultSuccessUrl("/client/booking", true)
                         .loginProcessingUrl("/client/authenticate"))
 
                 .logout(logout -> logout
