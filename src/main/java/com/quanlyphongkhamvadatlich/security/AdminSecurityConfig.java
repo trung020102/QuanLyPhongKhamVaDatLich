@@ -7,7 +7,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -38,25 +37,25 @@ public class AdminSecurityConfig {
     public SecurityFilterChain securityFilterChainForAdmin(HttpSecurity http) throws Exception {
         http
                 .securityMatcher("/admin/**")
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(configurer -> configurer.ignoringRequestMatchers("/com/quanlyphongkhamvadatlich/api/**", "/admin/**"))
                 .authenticationProvider(authenticationProviderForAdmin())
                 .authorizeHttpRequests(
-                        authorize -> authorize
-                                .requestMatchers("/dashboard/login")
+                          authorize -> authorize
+                                .requestMatchers("/admin/login")
                                 .permitAll()
                                 .requestMatchers("/admin/**", "/dashboard/**", "/api/medical-service/**")
                                 .hasAuthority(EnumRole.ADMIN.name())
                 )
-                .formLogin(form -> form.loginPage("/dashboard/login").permitAll()
+                .formLogin(form -> form.loginPage("/admin/login").permitAll()
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/dashboard/home", true)
+                      //  .defaultSuccessUrl("/dashboard/home", true)
                         .loginProcessingUrl("/admin/login")
                 )
                 .logout(logout -> logout
                         .logoutRequestMatcher(
-                                new AntPathRequestMatcher("/dashboard/logout", "GET"))
-                        .logoutSuccessUrl("/dashboard/login")
+                                new AntPathRequestMatcher("/admin/logout", "GET"))
+                        .logoutSuccessUrl("/admin/login")
                         .deleteCookies("JSESSIONID")
                 )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));
