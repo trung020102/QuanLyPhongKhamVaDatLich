@@ -18,6 +18,7 @@ public class UserPrincipal implements UserDetails {
         this.authorities = Collections.singleton(new SimpleGrantedAuthority(user.getRole().getName()));
     }
 
+
     public Long getId() {
         return user.getId();
     }
@@ -40,6 +41,14 @@ public class UserPrincipal implements UserDetails {
     public boolean isAdmin() {
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("ADMIN"))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isDoctor() {
+        for (GrantedAuthority grantedAuthority : authorities) {
+            if (grantedAuthority.getAuthority().equals("DOCTOR"))
                 return true;
         }
         return false;

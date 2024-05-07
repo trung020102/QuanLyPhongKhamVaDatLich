@@ -7,12 +7,12 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.quanlyphongkhamvadatlich.enums.EnumRole;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -35,17 +35,27 @@ public class DoctorSecurity {
     @Bean
     @Order(2)
     public SecurityFilterChain securityFilterChainForDoctor(HttpSecurity http) throws Exception {
+        http.securityMatcher("/doctor/**");
+        http.authenticationProvider(authenticationProviderForDoctor());
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .securityMatcher("/doctor/**")
-                .authenticationProvider(authenticationProviderForDoctor())
                 .authorizeHttpRequests(
                         (authorize) -> authorize
-                                .requestMatchers("/doctor/**").hasAuthority(EnumRole.DOCTOR.name())
+                               // .requestMatchers("/doctor/**") //.permitAll()
+                               .requestMatchers("/doctor/**").hasAuthority(EnumRole.DOCTOR.name())
+                )
+                .formLogin(form -> form.loginPage("/doctor/login").permitAll()
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        //  .defaultSuccessUrl("/dashboard/home", true)
+                        .loginProcessingUrl("/doctor/login")
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(
+                                new AntPathRequestMatcher("/doctor/logout", "GET"))
+                        .logoutSuccessUrl("/doctor/login")
+                        .deleteCookies("JSESSIONID")
                 )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));
-        ;
-
         return http.build();
     }
 }
