@@ -22,9 +22,6 @@ public class User extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false)
-    private String username;
-
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -44,10 +41,11 @@ public class User extends BaseEntity{
     @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "profile_id")
-    private String profile_id;
-
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }

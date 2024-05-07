@@ -9,11 +9,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.quanlyphongkhamvadatlich.dto.client.RegistrationRequest;
+import com.quanlyphongkhamvadatlich.dto.client.UpdatePersonalInforRequest;
+import com.quanlyphongkhamvadatlich.entity.Customer;
 import com.quanlyphongkhamvadatlich.entity.Role;
 import com.quanlyphongkhamvadatlich.entity.User;
 import com.quanlyphongkhamvadatlich.enums.EnumRole;
 import com.quanlyphongkhamvadatlich.enums.TokenValidationResult;
 import com.quanlyphongkhamvadatlich.exception.web.UserAlreadyExistsException;
+import com.quanlyphongkhamvadatlich.repository.CustomerRepository;
 import com.quanlyphongkhamvadatlich.repository.RoleRepository;
 import com.quanlyphongkhamvadatlich.repository.UserRepository;
 import com.quanlyphongkhamvadatlich.service.client.IUserService;
@@ -26,6 +29,8 @@ public class UserService implements IUserService {
     private PasswordEncoder encoder;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public User registerUser(RegistrationRequest request) {
@@ -39,7 +44,6 @@ public class UserService implements IUserService {
         User newUser = User
                 .builder()
                 .email(request.getEmail())
-                .username(request.getUserName())
                 .password(encoder.encode(request.getPassword()))
                 .status(false)
                 .build();
@@ -49,6 +53,12 @@ public class UserService implements IUserService {
         if (roleForClient.isPresent()) {
             newUser.setRole(roleForClient.get());
         }
+
+        // set customer infor
+        Customer customer = new Customer();
+        customer.setName(request.getFullName());
+        customerRepository.save(customer);
+        newUser.setCustomer(customer);
 
         return userRepository.save(newUser);
     }
@@ -69,7 +79,6 @@ public class UserService implements IUserService {
         return userRepository.findByToken(token);
     }
 
-    
     @Override
     public TokenValidationResult validateToken(String token) {
         Optional<User> userOptional = userRepository.findByToken(token);
@@ -77,23 +86,23 @@ public class UserService implements IUserService {
         if (userOptional.isEmpty()) {
             return TokenValidationResult.TOKEN_NOT_FOUND;
         }
-    
+
         User user = userOptional.get();
-        
+
         if (user.getStatus()) {
             return TokenValidationResult.USER_ALREADY_ACTIVATED;
         }
-    
+
         Date currentTime = new Date();
         Date expirationTime = user.getTokenExpirationTime();
-    
+
         if (currentTime.after(expirationTime)) {
             return TokenValidationResult.TOKEN_EXPIRED;
         }
-    
+
         user.setStatus(true);
         userRepository.save(user);
-    
+
         return TokenValidationResult.USER_ACTIVATED_SUCCESSFULLY;
     }
 
@@ -120,6 +129,22 @@ public class UserService implements IUserService {
 
     @Override
     public User saveUser(User user) {
-       return userRepository.save(user);
+        return userRepository.save(user);
     }
+
+    @Override
+    public User updatePersonalInfor(User user, UpdatePersonalInforRequest request) {
+        Customer userInfor = user.getCustomer();
+        // update common user info
+        user.setEmail(request.getEmail());
+        // update the profile infor
+        userInfor.setAddress(request.getAddress());
+        userInfor.setGender(request.getGender());
+        userInfor.setName(request.getFullName());
+        userInfor.setPhone(request.getPhone());
+        user.setCustomer(userInfor);
+        customerRepository.save(userInfor);
+        return userRepository.save(user);
+    }
+
 }

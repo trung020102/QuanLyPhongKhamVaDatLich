@@ -24,7 +24,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getCustomer().getName();
     }
 
     @Override
@@ -72,5 +72,9 @@ public class UserPrincipal implements UserDetails {
 
     public String getEmail() {
         return this.user.getEmail();
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }

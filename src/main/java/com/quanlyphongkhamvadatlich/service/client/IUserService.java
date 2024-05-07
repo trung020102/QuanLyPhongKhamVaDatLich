@@ -3,6 +3,7 @@ package com.quanlyphongkhamvadatlich.service.client;
 import java.util.Optional;
 
 import com.quanlyphongkhamvadatlich.dto.client.RegistrationRequest;
+import com.quanlyphongkhamvadatlich.dto.client.UpdatePersonalInforRequest;
 import com.quanlyphongkhamvadatlich.entity.User;
 import com.quanlyphongkhamvadatlich.enums.TokenValidationResult;
 
@@ -14,4 +15,5 @@ public interface IUserService {
     TokenValidationResult validateToken(String token);
     Optional<User> updateToken(String oldToken);
     User saveUser(User user);
+    User updatePersonalInfor(User user, UpdatePersonalInforRequest request);
 }

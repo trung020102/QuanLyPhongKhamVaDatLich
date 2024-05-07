@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -9,103 +10,78 @@
     <link rel="stylesheet" href="/client/css/personalinfo.css">
 </th:block>
 <th:block layout:fragment="main-content">
-    <div class="container my-5 shadow-lg p-3 mb-5 bg-white rounded">
-        <form>
-            <div class="row gutters">
-                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                    <div class="card h-100 mb-7">
-                        <div class="card-body">
-                            <div class="account-settings">
-                                <div class="user-profile">
-                                    <div class="user-avatar">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
-                                    </div>
-                                    <h5 class="user-name">Nguyễn Văn Anh</h5>
-                                    <h6 class="user-email">anhnguyen@gmail.com</h6>
+    <section style="margin-top: 150px">
+        <div class="container-sm my-5 shadow-lg p-3 mb-5 bg-white rounded" style="width: 50rem;">
+            <form>
+                <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="card h-100" >
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-center mb-3 pb-1">
+                                    <span class="h1 fw-bold mb-0">THÔNG TIN CÁ NHÂN</span>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center justify-content-center mb-3 pb-1">
-                                <span class="h1 fw-bold mb-0">THÔNG TIN CÁ NHÂN</span>
-                            </div>
-                            <div class="row gutters">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="fullName" class="text-dark">Họ và tên<span class="require"> *</span></label>
-                                        <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên" required="required" autofocus>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="eMail" class="text-dark">Email<span class="require"> *</span></label>
-                                        <input type="email" class="form-control" id="eMail" placeholder="Nhập Email" required>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="phone" class="text-dark">Số điện thoại<span class="require"> *</span></label>
-                                        <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại" required>
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label  class="text-dark">Giới tính<span class="require"> *</span></label>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-check mt-2">
-                                                    <input type="radio" class="form-check-input" name="gender" id="Male" value="Male" required>
-                                                    <label for="Male" class="form-check-label text-dark">Nam</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 mt-2">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" name="gender" id="Female" value="Female">
-                                                    <label for="Female" class="form-check-label text-dark">Nữ</label>
+                                <div class="row gutters">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="card h-100 mb-7">
+                                            <div class="card-body">
+                                                <div class="account-settings">
+                                                    <div class="user-profile">
+                                                        <div class="user-avatar">
+                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+                                                        </div>
+                                                        <h5 class="user-name">Nguyễn Văn Anh</h5>
+                                                        <h6 class="user-email">anhnguyen@gmail.com</h6>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label for="address" class="text-dark">Địa chỉ</label>
-                                        <input type="text" class="form-control" id="address" placeholder="Nhập địa chỉ">
+                                <div class="content">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Họ và tên:</label>
+                                        <div class="col-sm-4">
+                                            <p class="form-control-static">Nguyễn Văn Anh</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label  class="text-dark">Ảnh</label>
-                                        <input type="file" class="form-control" style="height: 44px;" id="images"
-                                               accept="images/users/*" onchange="document.getElementById('images').src = window.URL.createObjectURL(this.files[0])">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Email:</label>
+                                        <div class="col-sm-4">
+                                            <p class="form-control-static">anhnguyen@gmail.com</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xl-12 col-lg-6 col-md-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                            <img  src="https://bootdey.com/img/Content/avatar/avatar7.png" class="img img-bordered" style="width:200px" />
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Số điện thoại:</label>
+                                        <div class="col-sm-4">
+                                            <p class="form-control-static">0905343221</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Giới tính:</label>
+                                        <div class="col-sm-4">
+                                            <p class="form-control-static">Nam</p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center mb-3 pb-1">
+                                        <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Địa chỉ:</label>
+                                        <div class="col-sm-4">
+                                            <p class="form-control-static">77 Nguyễn Huệ, TP Huế</p>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-                            <div class="row gutters">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="text-right">
-                                        <button type="button"  name="submit" class="btn btn-dark">Hủy</button>
-                                        <button type="button" name="submit" class="btn btn-submit">Cập nhật thông tin</button>
+                                <div class="row gutters">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="text-right">
+                                            <a href="/client/personalinfo/edit"><button type="button" id="submit" name="submit"
+                                                                                        class="btn btn-submit">Cập nhật thông tin</button></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+    </section>
 </th:block>
