@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/medical-service")
 @RequiredArgsConstructor
 public class MedicalServiceAPI {
-    private final MedicalServiceBusiness medicalServiceBusiness;
+    private MedicalServiceBusiness medicalServiceBusiness;
 
     @PostMapping()
     public ResponseEntity<?> createService(@Valid @RequestBody MedicalServiceParam serviceParam) {
