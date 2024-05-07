@@ -3,25 +3,27 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="/dashboard/layout/app">
->
+
 <head>
 
     <link rel="stylesheet" href="/dashboard/css/appointment_schedule.css"/>
-    <title>Calendar_work</title>>
+    <title>Calendar_work</title>
 </head>
 <th:block layout:fragment="content-header">
-    <div class="col-sm-12 centered-heading" >
-        <h2>Danh Sách Lịch Hẹn</h2>
+    <div class="col-sm-6">
+        <h1>Danh sách lịch khám</h1>
     </div>
-
+    <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Quản lí ca khám</li>
+        </ol>
+    </div>
 </th:block>
 
 <th:block layout:fragment="content-body" class="appoinment-body">
     <div class="appoinment-main">
 
-        <div class="col-sm-12 appoinment-heading" >
-            <h4>Danh Sách Lịch Hẹn</h4>
-        </div>
         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
             <!--body-->
             <div class="container">
@@ -39,7 +41,7 @@
 
                 <hr class="row">
 
-                <div class="row appoinment-info " >
+                <div class="row appoinment-info" >
                     <div class="table table-bordered table-container">
                         <table class="table table-bordered">
                             <thead>
@@ -60,7 +62,7 @@
                                 <td >
                                     <button  class="button-detail openModalBtn">Detail</button>
                                     <button class="button-send openModalSendBtn">Send The Invoice <i class="fa fa-check-circle"></i></button>
-                                    <a (click)="delete(row.userId, row.name)"><i class="fa fa-trash"></i></a>
+                                    <a href="#" onclick="confirmDelete('001', 'Otto')"><i class="fa fa-trash delete-holder"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -71,7 +73,7 @@
                                 <td>
                                     <button  class="button-detail openModalBtn">Detail</button>
                                     <button class="button-send openModalSendBtn">Send The Invoice  <i class="fa fa-check-circle"></i></button>
-                                    <a (click)="delete(row.userId, row.name)"><i class="fa fa-trash"></i></a>
+                                    <a href="#" onclick="confirmDelete('001', 'Otto')"><i class="fa fa-trash delete-holder"></i></a>
                                 </td>
                             </tr>
                             <tr>
@@ -82,7 +84,8 @@
                                 <td>
                                     <button class="button-detail openModalBtn">Detail</button>
                                     <button class="button-send openModalSendBtn">Send The Invoice <i style="color: #F9AA33" class="fa fa-exclamation-circle"></i></button>
-                                    <a  (click)="delete(row.userId, row.name)"><i  class="fa fa-trash delete-holder"></i></a>
+                                    <a href="#" onclick="confirmDelete('001', 'Otto')"><i class="fa fa-trash delete-holder"></i></a>
+<!--                                    <a  (click)="delete(row.userId, row.name)"><i  class="fa fa-trash delete-holder"></i></a>-->
                                 </td>
                             </tr>
                             </tbody>
@@ -195,11 +198,16 @@
     </div>
 
 
+    <!--modal conrm-->
+
 </th:block>
 
 
-<th:block layout:fragment="document-script">
-    <script src="/js/document.js"></script>
+<th:block layout:fragment="service-script">
+<!--    <script src="/js/document.js"></script>-->
     <script src="/dashboard/js/appointment_schedule.js"></script>
+
 </th:block>
+
+
 </html>

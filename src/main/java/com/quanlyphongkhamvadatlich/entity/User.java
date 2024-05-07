@@ -1,6 +1,7 @@
 package com.quanlyphongkhamvadatlich.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -50,4 +51,10 @@ public class User extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private List<Patient> patients;
+
+    @OneToMany(mappedBy = "user")
+    private List<Appointment> appointments;
 }
