@@ -32,7 +32,7 @@
                                             <label class="form-label text-dark" >Họ và tên</label>
                                             <input type="text" th:errorClass="is-invalid" th:field="*{fullName}" class="form-control form-control-lg"
                                                     autofocus/>
-                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('fullName')}" th:errors="*{userName}"></div>
+                                            <div class="invalid-feedback" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
                                         </div>
 
                                         <div data-mdb-input-init class="form-outline mb-4">
