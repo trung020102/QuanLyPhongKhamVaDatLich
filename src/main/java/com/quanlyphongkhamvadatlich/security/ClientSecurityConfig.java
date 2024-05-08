@@ -38,49 +38,37 @@ public class ClientSecurityConfig {
                 http.securityMatcher("/client/**");
                 http.authenticationProvider(authenticationProviderForClient());
                 http
-                                .authorizeHttpRequests((authorize) -> authorize
-                                                .requestMatchers("/client/css/**",
-                                                                "/client/images/**",
-                                                                "/client/js/**",
-                                                                "/client/plugins/**",
-                                                                "/client/register",
-                                                                "/client/home",
-                                                                "/client/about",
-                                                                "/client/procedure",
-                                                                "/client/faqs",
-                                                                "/client/save",
-                                                                "/client/verifyEmail",
-                                                                "/client/resend-verification-token")
-                                                .permitAll()
-                                                .requestMatchers("/client/**")
-                                                .hasAuthority(EnumRole.CLIENT.name()))
+                        .authorizeHttpRequests((authorize) -> authorize
+                                .requestMatchers("/client/css/**",
+                                        "/client/images/**",
+                                        "/client/js/**",
+                                        "/client/plugins/**",
+                                        "/client/register",
+                                        "/client/home",
+                                        "/client/about",
+                                        "/client/procedure",
+                                        "/client/faqs",
+                                        "/client/save",
+                                        "/client/verifyEmail",
+                                        "/client/resend-verification-token")
+                                .permitAll()
+                                .requestMatchers("/client/**")
+                                .hasAuthority(EnumRole.CLIENT.name()))
 
-                                .formLogin(form -> form.loginPage("/client/login").permitAll()
-<<<<<<< HEAD
-                                        .usernameParameter("email")
-                                        .passwordParameter("password")
-                                        .defaultSuccessUrl("/client/home", true)
-                                        .loginProcessingUrl("/client/authenticate"))
-                                
-                                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/client/logout", "GET"))
-                                        .logoutSuccessUrl("/client/login")
-                                        .deleteCookies("JSESSIONID"))
-                                
-=======
-                                                .usernameParameter("email")
-                                                .passwordParameter("password")
-                                                .defaultSuccessUrl("/client/home", true)
-                                                .loginProcessingUrl("/client/authenticate")
-                                                .failureUrl("/client/login?error=true"))
+                        .formLogin(form -> form.loginPage("/client/login").permitAll()
+                                .usernameParameter("email")
+                                .passwordParameter("password")
+                                .defaultSuccessUrl("/client/home", true)
+                                .loginProcessingUrl("/client/authenticate")
+                                .failureUrl("/client/login?error=true"))
 
-                                .logout(logout -> logout
-                                                .logoutRequestMatcher(
-                                                                new AntPathRequestMatcher("/client/logout", "GET"))
-                                                .logoutSuccessUrl("/client/login")
-                                                .deleteCookies("JSESSIONID"))
+                        .logout(logout -> logout
+                                .logoutRequestMatcher(
+                                        new AntPathRequestMatcher("/client/logout", "GET"))
+                                .logoutSuccessUrl("/client/login")
+                                .deleteCookies("JSESSIONID"))
 
->>>>>>> e3173ed8064b7ffec5b20d2e2899e2ec10caf25a
-                                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));
+                        .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));
 
                 return http.build();
         }

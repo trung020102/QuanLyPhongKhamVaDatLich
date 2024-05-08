@@ -26,7 +26,4 @@ public class Customer {
     @Column(name = "name")
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "id")
-    private User user;
 }

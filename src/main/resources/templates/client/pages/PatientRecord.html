@@ -111,7 +111,7 @@
                                   style="background-color: #f2408d; color: white">Lịch sử lịch khám</span>
 
         <div class="appointment_search">
-            <label class="d-block">Chọn khoảng thời gian khám</label>
+            <label class="d-block">Chọn khoảng thời gian khám để xem hồ sơ bệnh án</label>
 
             <div style="width: 80%">
                 <form id="formSearch" th:action="@{'/client/record/PatientRecord/' + ${patient.getId()}}" method="get" style="display: flex">
@@ -121,8 +121,12 @@
                     </button>
                 </form>
             </div>
-
-            <div class="appointment_history mt-4" >
+            <div th:if="${#lists.isEmpty(patientRecords)}">
+                <div class="alert alert-danger" role="alert" style="text-align: center; margin-top: 10px;">
+                    Bạn chưa có lịch sử bệnh án trong khoảng thời gian trên.
+                </div>
+            </div>
+            <div class="appointment_history mt-4" th:unless="${#lists.isEmpty(patientRecords)}">
                 <div class="tab_left" >
                     <div th:each="patientRecord, iterStat : ${patientRecords}">
                         <button class="record" th:classappend="${iterStat.index == 0} ? 'active' : ''"
@@ -186,9 +190,9 @@
                                     <tbody >
                                     <tr th:each="serviceDetail, iterStat : ${patientRecord.getServiceDetails()}">
                                         <th scope="row" th:text="${iterStat.count}"></th>
-                                        <td th:text="${serviceDetail.getService().getId()}"></td>
-                                        <td th:text="${serviceDetail.getService().getService_name()}"></td>
-                                        <td th:text="${serviceDetail.getService().getPrice()}"></td>
+                                        <td th:text="${serviceDetail.medicalService.getId()}"></td>
+                                        <td th:text="${serviceDetail.medicalService.serviceName}"></td>
+                                        <td th:text="${serviceDetail.medicalService.price}"></td>
                                     </tr>
 
                                     </tbody>
@@ -222,7 +226,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

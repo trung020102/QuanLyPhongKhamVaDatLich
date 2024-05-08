@@ -22,6 +22,6 @@ public class ServiceDetail {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "service_id", nullable = false)
-    private Service service;
+    @JoinColumn(name = "medical_service_id", nullable = false)
+    private MedicalService medicalService;
 }

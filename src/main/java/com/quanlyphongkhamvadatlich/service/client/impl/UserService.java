@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.quanlyphongkhamvadatlich.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,6 @@ import com.quanlyphongkhamvadatlich.entity.User;
 import com.quanlyphongkhamvadatlich.enums.EnumRole;
 import com.quanlyphongkhamvadatlich.enums.TokenValidationResult;
 import com.quanlyphongkhamvadatlich.exception.web.UserAlreadyExistsException;
-import com.quanlyphongkhamvadatlich.repository.CustomerRepository;
 import com.quanlyphongkhamvadatlich.repository.RoleRepository;
 import com.quanlyphongkhamvadatlich.repository.UserRepository;
 import com.quanlyphongkhamvadatlich.service.client.IUserService;
@@ -145,6 +145,9 @@ public class UserService implements IUserService {
         user.setCustomer(userInfor);
         customerRepository.save(userInfor);
         return userRepository.save(user);
+    }
+    public User getCustomerByCustomerId(Long customerId){
+        return userRepository.getInformationByCustomerId(customerId);
     }
 
 }
