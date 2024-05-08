@@ -50,7 +50,9 @@ public class ClientSecurityConfig {
                                         "/client/faqs",
                                         "/client/save",
                                         "/client/verifyEmail",
-                                        "/client/resend-verification-token")
+                                        "/client/resend-verification-token",
+                                        "/client/forgotpassword",
+                                        "/client/password/reset")
                                 .permitAll()
                                 .requestMatchers("/client/**")
                                 .hasAuthority(EnumRole.CLIENT.name()))
