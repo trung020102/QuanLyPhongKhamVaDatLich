@@ -46,7 +46,7 @@ public class DoctorSecurity {
                 .formLogin(form -> form.loginPage("/doctor/login").permitAll()
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        //  .defaultSuccessUrl("/dashboard/home", true)
+                        .defaultSuccessUrl("/doctor/physical_exam", true)
                         .loginProcessingUrl("/doctor/login")
                 )
                 .logout(logout -> logout

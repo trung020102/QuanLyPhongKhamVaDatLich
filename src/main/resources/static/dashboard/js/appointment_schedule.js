@@ -79,4 +79,20 @@ function closeSendModal() {
 
     // Ẩn modal bằng cách đặt thuộc tính display thành "none"
     modal.style.display = "none";
+
+}
+
+
+// hàm xóa
+function confirmDelete(userId, name) {
+    // Hiển thị hộp thoại xác nhận
+    var result = confirm("Bạn có chắc chắn muốn xoá lịch của " + name + " không?");
+
+    // Nếu người dùng chọn "OK", thực hiện xoá
+    if (result) {
+        deleteUser(userId, name); // Gọi hàm xoá
+    } else {
+        // Nếu người dùng chọn "Cancel", không làm gì
+        // Có thể thêm xử lý nếu cần
+    }
 }
