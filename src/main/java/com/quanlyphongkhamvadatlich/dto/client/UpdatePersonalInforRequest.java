@@ -2,8 +2,10 @@ package com.quanlyphongkhamvadatlich.dto.client;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class RegistrationRequest{
+@Builder
+public class UpdatePersonalInforRequest {
     @NotBlank(message = "Email không được để trống")
     @Email(message = "Định dạng email không hợp lệ")
     private String email;
@@ -20,11 +23,12 @@ public class RegistrationRequest{
     @NotBlank(message = "Họ và tên không được để trống")
     private String fullName;
 
-    @NotBlank(message = "Mật khẩu không được để trống")
-    @Size(min = 6, max = 20, message = "Mật khẩu phải có độ dài từ 6 đến 20 ký tự")
-    private String password;
-    
-    @NotBlank(message = "Mật khẩu không được để trống")
-    @Size(min = 6, max = 20, message = "Mật khẩu phải có độ dài từ 6 đến 20 ký tự")
-    private String rePassword;
+    @NotBlank(message = "Số điện thoại không được để trống")
+    @Pattern(regexp = "\\d{10}", message = "Số điện thoại phải có đúng 10 chữ số")
+    private String phone;
+
+    @NotNull(message = "Vui lòng chọn giới tính")
+    private Boolean gender;
+
+    private String address;
 }
