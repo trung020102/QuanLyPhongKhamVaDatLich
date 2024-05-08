@@ -58,8 +58,9 @@ public class ClientSecurityConfig {
                                 .formLogin(form -> form.loginPage("/client/login").permitAll()
                                                 .usernameParameter("email")
                                                 .passwordParameter("password")
-                                                .defaultSuccessUrl("/client/personalinfo")
-                                                .loginProcessingUrl("/client/authenticate"))
+                                                .defaultSuccessUrl("/client/home", true)
+                                                .loginProcessingUrl("/client/authenticate")
+                                                .failureUrl("/client/login?error=true"))
 
                                 .logout(logout -> logout
                                                 .logoutRequestMatcher(
