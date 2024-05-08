@@ -18,13 +18,14 @@ public class UserPrincipal implements UserDetails {
         this.authorities = Collections.singleton(new SimpleGrantedAuthority(user.getRole().getName()));
     }
 
+
     public Long getId() {
         return user.getId();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getCustomer().getName();
     }
 
     @Override
@@ -40,6 +41,14 @@ public class UserPrincipal implements UserDetails {
     public boolean isAdmin() {
         for (GrantedAuthority grantedAuthority : authorities) {
             if (grantedAuthority.getAuthority().equals("ADMIN"))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean isDoctor() {
+        for (GrantedAuthority grantedAuthority : authorities) {
+            if (grantedAuthority.getAuthority().equals("DOCTOR"))
                 return true;
         }
         return false;
@@ -62,17 +71,8 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.getStatus();
     }
-
-    // @Override
-    // public boolean equals(Object o) {
-    //     if (this == o) return true;
-    //     if (o == null || getClass() != o.getClass()) return false;
-
-    //     UserPrincipal that = (UserPrincipal) o;
-    //     return Objects.equals(this.id, that.id);
-    // }
 
     @Override
     public int hashCode() {
@@ -81,5 +81,9 @@ public class UserPrincipal implements UserDetails {
 
     public String getEmail() {
         return this.user.getEmail();
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }

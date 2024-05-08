@@ -34,6 +34,15 @@
             <p class="modal-title">Thông tin bác sĩ</p>
             <div class="modal-content-body">
                 <hr>
+
+                <div class="input-row">
+                    <div class="input-container">
+                        <img src="/dashboard/img/user-icon.jpg" alt="user icon" id="avatar">
+                        <label for="upload_image" id="upload_label">Cập nhật avatar</label>
+                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="upload_image">
+                    </div>
+                </div>
+
                 <div class="input-row">
                     <div class="input-container">
                         <label for="doctor_name">Họ và tên</label>
@@ -63,8 +72,8 @@
                 </div>
 
                 <div class="button-container">
-                    <button id="okBtn" type="button" class="btn btn-primary" style="margin-right: 10px">Xác nhận</button>
-                    <button id="cancelBtn" type="button" class="btn btn-danger">Hủy bỏ</button>
+                    <button id="okBtn" type="button" class="btn btn-primary" style="margin-left: 40%; margin-top: 20px;">Xác nhận</button>
+                    <button id="cancelBtn" type="button" class="btn btn-danger" style="margin-left: 20px; margin-top: 20px">Hủy bỏ</button>
                 </div>
             </div>
         </div>
@@ -100,8 +109,12 @@
                         <td>Đại học Âm nhạc</td>
                         <td>Bệnh viện Lang Băm</td>
                         <td>Bác sĩ giỏi nhất thế giới...</td>
-                        <td class="pr-3"> <button type="button" class="btn btn-success mr-2 openDoctorEditModal">Edit</button>
-                            <button type="button" class="btn btn-danger">Delete</button> </td>
+                        <td class="button-cell">
+                            <div class="table-button-container">
+                                <button type="button" class="btn btn-success mr-2 openDoctorEditModal">Edit</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </div>
+                        </td>
                     </tr>
                     <tr class="odd">
                         <td class="dtr-control sorting_1" tabindex="0">2</td>
@@ -111,8 +124,12 @@
                         <td>Đại học Âm nhạc</td>
                         <td>Bệnh viện Lang Băm</td>
                         <td>Bác sĩ giỏi nhất thế giới...</td>
-                        <td class="pr-3"> <button type="button" class="btn btn-success mr-2 openDoctorEditModal">Edit</button>
-                            <button type="button" class="btn btn-danger">Delete</button> </td>
+                        <td class="button-cell">
+                            <div class="table-button-container">
+                                <button type="button" class="btn btn-success mr-2 openDoctorEditModal">Edit</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -127,6 +144,15 @@
             <p class="modal-title">Cập nhật thông tin bác sĩ</p>
             <div class="modal-content-body">
                 <hr>
+
+                <div class="input-row">
+                    <div class="input-container">
+                        <img src="/dashboard/img/user-icon.jpg" alt="user icon" id="changeAvatar">
+                        <label for="change_upload_image" id="change_upload_label">Cập nhật avatar</label>
+                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="change_upload_image">
+                    </div>
+                </div>
+
                 <div class="input-row">
                     <div class="input-container">
                         <label for="doctor_name_edit">Họ và tên</label>
@@ -162,13 +188,12 @@
                     </div>
                 </div>
                 <div class="button-container">
-                    <button id="okEditBtn" type="button" class="btn btn-primary" style="margin-right: 10px;">Xác nhận</button>
-                    <button id="cancelEditBtn" type="button" class="btn btn-danger">Hủy bỏ</button>
+                    <button id="okEditBtn" type="button" class="btn btn-primary" style="margin-left: 40%; margin-top: 20px;">Xác nhận</button>
+                    <button id="cancelEditBtn" type="button" class="btn btn-danger" style="margin-left: 20px; margin-top: 20px">Hủy bỏ</button>
                 </div>
             </div>
         </div>
     </div>
-
 </th:block>
 
 <th:block layout:fragment="document-script">

@@ -11,10 +11,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.quanlyphongkhamvadatlich.enums.Role;
+import com.quanlyphongkhamvadatlich.enums.EnumRole;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-// @Configuration
-// @EnableWebSecurity
+@Configuration
+@EnableWebSecurity
 public class DoctorSecurity {
     @Autowired
     private UserDetailsService userDetailsService;
@@ -39,10 +40,22 @@ public class DoctorSecurity {
         http
                 .authorizeHttpRequests(
                         (authorize) -> authorize
-                                .requestMatchers("/doctor/**").hasAuthority(Role.DOCTOR.name())
+                               // .requestMatchers("/doctor/**") //.permitAll()
+                               .requestMatchers("/doctor/**").hasAuthority(EnumRole.DOCTOR.name())
                 )
-                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));;
-
+                .formLogin(form -> form.loginPage("/doctor/login").permitAll()
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        //  .defaultSuccessUrl("/dashboard/home", true)
+                        .loginProcessingUrl("/doctor/login")
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(
+                                new AntPathRequestMatcher("/doctor/logout", "GET"))
+                        .logoutSuccessUrl("/doctor/login")
+                        .deleteCookies("JSESSIONID")
+                )
+                .exceptionHandling(ex -> ex.accessDeniedPage("/errors/403"));
         return http.build();
     }
 }

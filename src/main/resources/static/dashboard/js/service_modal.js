@@ -71,3 +71,23 @@ function closeEditServiceModal() {
     // Ẩn modal bằng cách đặt thuộc tính display thành "none"
     serviceEditModal.style.display = "none";
 }
+
+$("#okServiceBtn").on('click', function () {
+    const serviceParam = {
+        serviceName: $('#service_name').val().trim(),
+        price: $('#service_price').val().trim(),
+        description: $('#service_desciption').val().trim(),
+    }
+
+    $.ajax({
+        contentType: 'application/json',
+        type: 'POST',
+        url: '/api/medical-service/create',
+        data: JSON.stringify(serviceParam),
+    })
+        .done(() => {
+            alert('OK');
+        })
+});
+
+

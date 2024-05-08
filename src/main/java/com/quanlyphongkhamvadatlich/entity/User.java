@@ -3,26 +3,29 @@ package com.quanlyphongkhamvadatlich.entity;
 import java.util.Date;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "user")
+@Builder
+@Table(name = "users")
 public class User extends BaseEntity{
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
-    private String username;
-
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name= "token")
@@ -36,12 +39,13 @@ public class User extends BaseEntity{
     private String avatar;
 
     @Column(name = "status")
-    private Boolean status = false;
-
-    @OneToOne(mappedBy = "user")
-    private Customer customer;
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 }
