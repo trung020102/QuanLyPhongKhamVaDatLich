@@ -1,9 +1,7 @@
 package com.quanlyphongkhamvadatlich.repository;
 
+import com.quanlyphongkhamvadatlich.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.quanlyphongkhamvadatlich.entity.Customer;
-
-public interface CustomerRepository extends JpaRepository<Customer, Long>{
-    
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
 }

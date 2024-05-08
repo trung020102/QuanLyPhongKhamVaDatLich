@@ -1,10 +1,12 @@
 package com.quanlyphongkhamvadatlich.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,5 +25,9 @@ public class MedicalService {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "medicalService", fetch = FetchType.EAGER)
+    private List<ServiceDetail> serviceDetails;
 
 }

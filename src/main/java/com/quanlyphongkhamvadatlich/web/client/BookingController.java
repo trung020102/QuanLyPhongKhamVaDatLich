@@ -1,13 +1,13 @@
 package com.quanlyphongkhamvadatlich.web.client;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/client")
 public class BookingController {
-    
+
+
+
     @GetMapping("/booking")
     public String booking() {
         return "client/pages/booking";
@@ -23,6 +23,8 @@ public class BookingController {
         return "client/pages/success-booking";
     }
 
-    @GetMapping("/record")
-    public String record() {return "client/pages/record";}
+
+
+
+
 }

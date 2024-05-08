@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -27,10 +28,10 @@
                                                 <div class="account-settings">
                                                     <div class="user-profile">
                                                         <div class="user-avatar">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+                                                            <img th:src="${user.getAvatar() != null ? user.getAvatar() : '/client/images/photo.png'}" alt="Avatar">
                                                         </div>
-                                                        <h5 class="user-name">Nguyễn Văn Anh</h5>
-                                                        <h6 class="user-email">anhnguyen@gmail.com</h6>
+                                                        <h5 class="user-name" th:text="${user.getCustomer().name}"></h5>
+                                                        <h6 class="user-email" th:text="${user.getEmail()}"></h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -41,31 +42,31 @@
                                     <div class="d-flex align-items-center justify-content-center">
                                         <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Họ và tên:</label>
                                         <div class="col-sm-4">
-                                            <p class="form-control-static">Nguyễn Văn Anh</p>
+                                            <p class="form-control-static" th:text="${user.getCustomer().name}"></p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Email:</label>
                                         <div class="col-sm-4">
-                                            <p class="form-control-static">anhnguyen@gmail.com</p>
+                                            <p class="form-control-static" th:text="${user.getEmail()}"></p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Số điện thoại:</label>
                                         <div class="col-sm-4">
-                                            <p class="form-control-static">0905343221</p>
+                                            <p class="form-control-static" th:text="${user.getCustomer().getPhone()}"></p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Giới tính:</label>
                                         <div class="col-sm-4">
-                                            <p class="form-control-static">Nam</p>
+                                            <p class="form-control-static" th:text="${user.getCustomer().getGender()== true ? 'Nữ' : 'Nam'}"></p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center mb-3 pb-1">
                                         <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Địa chỉ:</label>
                                         <div class="col-sm-4">
-                                            <p class="form-control-static">77 Nguyễn Huệ, TP Huế</p>
+                                            <p class="form-control-static" th:text="${user.getCustomer().getAddress()}"></p>
                                         </div>
                                     </div>
                                 </div>
