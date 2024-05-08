@@ -109,6 +109,6 @@ public class PersonalInformationController {
 
         // update infor
         userService.updatePersonalInfor(userUpdate, request);
-        return "redirect:/client/personalinfo";
+        return "redirect:/client/personalinfo/" + userUpdate.getId();
     }
 }
