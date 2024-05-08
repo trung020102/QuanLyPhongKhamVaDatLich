@@ -38,8 +38,8 @@ public class User extends BaseEntity{
     @Column(name = "status")
     private Boolean status = false;
 
-    @Column(name = "profile_id")
-    private String profile_id;
+    @OneToOne(mappedBy = "user")
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

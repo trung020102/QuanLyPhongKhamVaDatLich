@@ -17,9 +17,6 @@ public class Customer {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name= "gender")
     private Boolean gender;
 
@@ -28,4 +25,8 @@ public class Customer {
 
     @Column(name = "name")
     private String name;
+
+    @OneToOne
+    @JoinColumn(name = "id")
+    private User user;
 }

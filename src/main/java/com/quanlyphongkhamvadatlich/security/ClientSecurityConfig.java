@@ -55,7 +55,7 @@ public class ClientSecurityConfig {
                                 .formLogin(form -> form.loginPage("/client/login").permitAll()
                                         .usernameParameter("email")
                                         .passwordParameter("password")
-                                        .defaultSuccessUrl("/client/personalinfo", true)
+                                        .defaultSuccessUrl("/client/home", true)
                                         .loginProcessingUrl("/client/authenticate"))
                                 
                                 .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/client/logout", "GET"))

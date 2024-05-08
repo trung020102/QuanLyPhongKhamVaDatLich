@@ -34,9 +34,10 @@
                     <!-- Tab content -->
                     <div id="hasRecord" class="tabcontent">
                         <p class="text-uppercase heading">Vui lòng nhập mã số bệnh nhân</p>
-                        <form action="/booking/appointment" method="get">
+                        <form action="/booking/appointment" method="post">
                             <input class="form_input form-control"type="text" name="patient_ID" value="" placeholder="Nhập mã số bệnh nhân" autofocus>
                             <button class="form-btn text-uppercase" type="submit">Xác nhận</button>
+                            <div id="error-message" style="display: none; color: red;">Không tìm thấy thông tin bệnh nhân. Vui lòng thử lại hoặc đăng ký thông tin mới.</div>
                         </form>
 
                     </div>
@@ -126,5 +127,8 @@
                 $(".tab_form-line").show();
             });
         });
+        function showErrorMessage() {
+            document.getElementById("error-message").style.display = "block";
+        }
     </script>
 </th:block>

@@ -64,12 +64,12 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdown02">
                             <th:block sec:authorize="hasAuthority('CLIENT')">
                                 <li>
-                                    <a class="dropdown-item" href="/client/personalinfo"
+                                    <a class="dropdown-item" th:href="@{'/client/personalinfo/' + ${#authentication.principal.id}}"
                                     >Thông tin cá nhân</a
                                     >
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/client/record"
+                                    <a class="dropdown-item" th:href="@{'/client/record/' + ${#authentication.principal.id}}"
                                     >Hồ sơ bệnh án</a
                                     >
                                 </li>
