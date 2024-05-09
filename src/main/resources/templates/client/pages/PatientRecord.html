@@ -10,7 +10,7 @@
 </th:block>
 <th:block layout:fragment="main-content">
 <section class="section">
-    <div class="container-fluid">
+    <div class="container-fluid" th:if="${patient!= null}">
         <div id="section-history" class="card">
             <div class="form_heading">
                 <p class="form_heading-text">Hồ sơ bệnh án và Lịch sử khám</p>
@@ -230,6 +230,11 @@
         </div>
     </div>
 </div>
+        </div>
+    </div>
+    <div th:unless="${patient == null}">
+        <div class="alert alert-danger" role="alert" style="text-align: center">
+            <span th:text="${errorMessage}"></span>
         </div>
     </div>
 </section>

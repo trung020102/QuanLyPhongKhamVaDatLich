@@ -38,39 +38,45 @@ public class PatientRecordController {
     @GetMapping("/record/PatientRecord/{id}")
     public String PatientRecord(@PathVariable Long id, Model model, @RequestParam(name = "dateranges", required = false) String dateRange) {
         Patient patient = patientService.getPatientById(id);
+        if(patient != null){
+            List<Appointment> appointments = patient.getAppointments().stream()
+                    .filter(appointment -> appointment.getStatus().getId() == 1)
+                    .collect(Collectors.toList());
+            LocalDate startDate;
+            LocalDate endDate;
 
-        List<Appointment> appointments = patient.getAppointments().stream()
-                .filter(appointment -> appointment.getStatus().getId() == 1)
-                .collect(Collectors.toList());
-        LocalDate startDate;
-        LocalDate endDate;
+            if (dateRange == null || dateRange.isEmpty()) {
+                endDate = LocalDate.now();
+                startDate = LocalDate.now().minusMonths(1);
+            } else {
+                String decodedDateRange = null;
+                try {
+                    decodedDateRange = URLDecoder.decode(dateRange, "UTF-8");
 
-        if (dateRange == null || dateRange.isEmpty()) {
-            endDate = LocalDate.now();
-            startDate = LocalDate.now().minusMonths(1);
-        } else {
-            String decodedDateRange = null;
-            try {
-                decodedDateRange = URLDecoder.decode(dateRange, "UTF-8");
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                String[] dates = decodedDateRange.split(" - ");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                startDate = LocalDate.parse(dates[0], formatter);
+                endDate = LocalDate.parse(dates[1], formatter);
             }
-            String[] dates = decodedDateRange.split(" - ");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            startDate = LocalDate.parse(dates[0], formatter);
-            endDate = LocalDate.parse(dates[1], formatter);
+            String values = startDate.format(formatter) + " - " + endDate.format(formatter);
+            List<PatientRecord> patientRecords = patientRecordRepository.getAllBetweenDatesAndPatientId(startDate, endDate, id);
+            model.addAttribute("patientRecords", patientRecords);
+            model.addAttribute("patient", patient);
+            model.addAttribute("appointments", appointments);
+            model.addAttribute("value", values);
+
+
+
+            return "client/pages/PatientRecord";
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String values = startDate.format(formatter) + " - " + endDate.format(formatter);
-        List<PatientRecord> patientRecords = patientRecordRepository.getAllBetweenDatesAndPatientId(startDate, endDate, id);
-        model.addAttribute("patientRecords", patientRecords);
-        model.addAttribute("patient", patient);
-        model.addAttribute("appointments", appointments);
-        model.addAttribute("value", values);
+        else {
+            model.addAttribute("errorMessage", "Patient not found");
+            return "client/pages/PatientRecord";
+        }
 
-
-
-        return "client/pages/PatientRecord";
     }
 }

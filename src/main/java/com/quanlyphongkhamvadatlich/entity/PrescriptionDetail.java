@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "PrescriptionDetail")
+@Table(name = "prescription_details")
 @Getter
 @Setter
 public class PrescriptionDetail {

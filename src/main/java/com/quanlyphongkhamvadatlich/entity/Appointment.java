@@ -10,7 +10,7 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@Table(name = "Appointments")
+@Table(name = "appointments")
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,9 @@ public class Appointment {
 
     @Column(name = "appointment_shift")
     private String appointmentShift;
+
+    @Column(name = "symptom")
+    private String symptom;
 
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = false)

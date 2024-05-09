@@ -54,7 +54,8 @@
                                     <div class="d-flex align-items-center justify-content-center">
                                         <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Số điện thoại:</label>
                                         <div class="col-sm-4">
-                                            <p class="form-control-static" th:text="${user.getCustomer().getPhone()}"></p>
+                                            <p class="form-control-static" th:if="${user.getCustomer().getPhone() != null}" th:text="${user.getCustomer().getPhone()}"></p>
+                                            <p class="form-control-static" th:if="${user.getCustomer().getPhone() == null}" style="color: red;">Chưa có thông tin</p>
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center">
@@ -66,7 +67,8 @@
                                     <div class="d-flex align-items-center justify-content-center mb-3 pb-1">
                                         <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Địa chỉ:</label>
                                         <div class="col-sm-4">
-                                            <p class="form-control-static" th:text="${user.getCustomer().getAddress()}"></p>
+                                            <p class="form-control-static" th:if="${user.getCustomer().getAddress() != null}" th:text="${user.getCustomer().getAddress()}"></p>
+                                            <p class="form-control-static" th:if="${user.getCustomer().getAddress() == null}" style="color: red;">Chưa có thông tin</p>
                                         </div>
                                     </div>
                                 </div>
