@@ -31,6 +31,8 @@ public class UserService implements IUserService {
     private RoleRepository roleRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User registerUser(RegistrationRequest request) {
@@ -148,6 +150,16 @@ public class UserService implements IUserService {
     }
     public User getCustomerByCustomerId(Long customerId){
         return userRepository.getInformationByCustomerId(customerId);
+    }
+
+    public void changePassword(User user, String newPassword){
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+    }
+    @Override
+    public boolean oldPasswordIsValid(User user, String oldPassword){
+        return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 
 }

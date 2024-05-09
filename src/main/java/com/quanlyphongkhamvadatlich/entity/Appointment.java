@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "appointments")
-public class Appointment {
+public class Appointment extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "appointment_id")

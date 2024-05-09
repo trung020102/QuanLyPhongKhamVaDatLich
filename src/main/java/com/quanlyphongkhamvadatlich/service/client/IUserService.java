@@ -16,4 +16,5 @@ public interface IUserService {
     Optional<User> updateToken(String oldToken);
     User saveUser(User user);
     User updatePersonalInfor(User user, UpdatePersonalInforRequest request);
+    boolean oldPasswordIsValid(User user, String oldPassword);
 }
