@@ -29,15 +29,18 @@
                                         </div>
 
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Đăng nhập vào tài khoản của bạn</h5>
-                                        <div th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null}">
-                                            <div id="login-error" class="alert alert-danger mb-4 text-center" role="alert" th:if="${session.SPRING_SECURITY_LAST_EXCEPTION.getClass().getName() eq 'org.springframework.security.authentication.DisabledException'}">
-                                                <p>Tài khoản của bạn chưa được kích hoạt. Vui lòng kiểm tra hộp thư để tiến hành kích hoạt tài khoản!</p>
+                                        <th:block th:if="${param.error != null}">
+                                            <div th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null}">
+                                                <div id="login-error" class="alert alert-danger mb-4 text-center" role="alert" th:if="${session.SPRING_SECURITY_LAST_EXCEPTION.getClass().getName() eq 'org.springframework.security.authentication.DisabledException'}">
+                                                    <p>Tài khoản của bạn chưa được kích hoạt. Vui lòng kiểm tra hộp thư để tiến hành kích hoạt tài khoản!</p>
+                                                </div>
+                                                <div id="login-error" class="alert alert-danger mb-4 text-center" role="alert" th:if="${session.SPRING_SECURITY_LAST_EXCEPTION.getClass().getName() ne 'org.springframework.security.authentication.DisabledException'}">
+                                                    <p>Tài khoản hoặc mật khẩu không chính xác.</p>
+                                                </div>
                                             </div>
-                                            <div id="login-error" class="alert alert-danger mb-4 text-center" role="alert" th:if="${session.SPRING_SECURITY_LAST_EXCEPTION.getClass().getName() ne 'org.springframework.security.authentication.DisabledException'}">
-                                                <p>Tài khoản hoặc mật khẩu không chính xác.</p>
-                                            </div>
-                                        </div>
-                                        
+                                        </th:block>
+
+
                                         <div data-mdb-input-init class="form-outline mb-4">
                                             <label class="form-label text-dark" for="form2Example17">Email</label>
                                             <input name="email" type="text" id="form2Example17" class="form-control form-control-lg" />
