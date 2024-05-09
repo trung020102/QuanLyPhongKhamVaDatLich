@@ -17,6 +17,9 @@ public class Doctor {
     @Column(name = "doctor_name")
     private String username;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @Column(name = "specialty")
     private String specialty;
 

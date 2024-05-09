@@ -3,6 +3,9 @@ var openDoctorModalBtn = document.querySelectorAll('.openDoctorModalBtn');
 // Lặp qua từng button và thêm sự kiện click
 openDoctorModalBtn.forEach(function(btn) {
     btn.addEventListener('click', function() {
+        //Lấy doctor.id từ data attribute
+        var doctorId = btn.getAttribute('data-doctor-id');
+
         // Mở modal tương ứng
         openModalDoctor();
     });
@@ -16,6 +19,10 @@ function openModalDoctor() {
     // Hiển thị modal bằng cách đặt thuộc tính display thành "block"
     doctorModal.style.display = "block";
 
+    var doctorIdElement = document.getElementById("doctor_id");
+    doctorIdElement.innerText = doctorId;
+
+    // Lấy nút đóng modal
     var closeDoctorBtn = document.querySelector('.doctorClose');
 
     // Gán sự kiện click cho nút đóng modal
