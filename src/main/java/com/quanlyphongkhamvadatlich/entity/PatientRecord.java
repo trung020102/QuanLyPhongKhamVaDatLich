@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "PatientRecord")
+@Table(name = "patient_records")
 public class PatientRecord extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
