@@ -94,3 +94,23 @@ var changeAvatarBtn = document.getElementById("change_upload_image");
 changeAvatarBtn.onchange = function() {
     changeProfilePic.src = URL.createObjectURL(changeAvatarBtn.files[0]);
 }
+
+$("okBtn").on('click', function() {
+    const doctorParam = {
+        doctorName: $("#doctor_name").val(),
+        doctorSpecialty: $("#doctor_specialty").val(),
+        doctorWorkplace: $("#doctor_workplace").val(),
+        doctorDiploma: $("#doctor_diploma").val(),
+        doctorIntroduction: $("#doctor_introduction").val(),
+    }
+
+    $.ajax({
+        contentType: 'application/json',
+        type: 'POST',
+        url: '/api/doctor/create',
+        data: JSON.stringify(doctorParam),
+    })
+        .done(() => {
+            alert('OK');
+        })
+})
