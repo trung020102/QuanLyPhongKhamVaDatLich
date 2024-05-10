@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.quanlyphongkhamvadatlich.repository.UserRepository;
+import com.quanlyphongkhamvadatlich.service.UserDetailService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +31,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonalInformationController {
     private final UserService userService;
+
     private final UploadFileService fileService;
+
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
@@ -39,7 +43,7 @@ public class PersonalInformationController {
 
     @GetMapping("/personalinfo/{id}")
     public String personalinfo(Model model,  @PathVariable Long id) {
-        User user = userService.getCustomerByCustomerId(id);
+        User user = userService.getCustomerById(id);
         model.addAttribute("user", user);
         return "client/pages/personalinfo";
     }

@@ -48,4 +48,8 @@ public class User extends BaseEntity{
     @OneToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @OneToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 }
