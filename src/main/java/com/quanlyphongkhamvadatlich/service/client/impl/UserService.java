@@ -45,6 +45,7 @@ public class UserService implements IUserService {
 
         User newUser = User
                 .builder()
+                .username(request.getFullName())
                 .email(request.getEmail())
                 .password(encoder.encode(request.getPassword()))
                 .status(false)
@@ -55,12 +56,6 @@ public class UserService implements IUserService {
         if (roleForClient.isPresent()) {
             newUser.setRole(roleForClient.get());
         }
-
-        // set customer infor
-        Customer customer = new Customer();
-        customer.setName(request.getFullName());
-        customerRepository.save(customer);
-        newUser.setCustomer(customer);
 
         return userRepository.save(newUser);
     }
@@ -136,18 +131,29 @@ public class UserService implements IUserService {
 
     @Override
     public User updatePersonalInfor(User user, UpdatePersonalInforRequest request) {
-        Customer userInfor = user.getCustomer();
+        Optional<Customer> customer = Optional.ofNullable(user.getCustomer());
+        Customer userInfor = null;
+
+        if(customer.isEmpty()) {
+            userInfor = new Customer();
+        } else {
+            userInfor = customer.get();
+        }
+        
         // update common user info
         user.setEmail(request.getEmail());
+        user.setUsername(request.getFullName());
         // update the profile infor
         userInfor.setAddress(request.getAddress());
         userInfor.setGender(request.getGender());
-        userInfor.setName(request.getFullName());
         userInfor.setPhone(request.getPhone());
         user.setCustomer(userInfor);
+        //save infor
         customerRepository.save(userInfor);
+
         return userRepository.save(user);
     }
+
     public User getCustomerByCustomerId(Long customerId){
         return userRepository.getInformationByCustomerId(customerId);
     }
@@ -161,5 +167,4 @@ public class UserService implements IUserService {
     public boolean oldPasswordIsValid(User user, String oldPassword){
         return passwordEncoder.matches(oldPassword, user.getPassword());
     }
-
 }

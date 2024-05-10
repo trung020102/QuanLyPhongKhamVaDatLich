@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.quanlyphongkhamvadatlich.dto.client.UpdatePersonalInforRequest;
+import com.quanlyphongkhamvadatlich.entity.Customer;
 import com.quanlyphongkhamvadatlich.entity.User;
 import com.quanlyphongkhamvadatlich.security.UserPrincipal;
 import com.quanlyphongkhamvadatlich.service.client.impl.UploadFileService;
@@ -38,7 +38,7 @@ public class PersonalInformationController {
     }
 
     @GetMapping("/personalinfo/{id}")
-    public String personalinfo(Model model,  @PathVariable Long id) {
+    public String personalinfo(Model model, @PathVariable Long id) {
         User user = userService.getCustomerByCustomerId(id);
         model.addAttribute("user", user);
         return "client/pages/personalinfo";
@@ -46,18 +46,23 @@ public class PersonalInformationController {
 
     @GetMapping("/personalinfo/edit")
     public String editpersonalinfo(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
+        UserPrincipal userDetails = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+        Optional<Customer> userDetailInfor = Optional.ofNullable(user.getCustomer());
 
-        UpdatePersonalInforRequest userInfor = UpdatePersonalInforRequest
+        UpdatePersonalInforRequest.UpdatePersonalInforRequestBuilder builder = UpdatePersonalInforRequest
                 .builder()
-                .fullName(userDetails.getUser().getCustomer().getName())
-                .email(userDetails.getEmail())
-                .phone(userDetails.getUser().getCustomer().getPhone())
-                .gender(userDetails.getUser().getCustomer().getGender())
-                .address(userDetails.getUser().getCustomer().getAddress())
-                .build();
+                .fullName(user.getUsername())
+                .email(user.getEmail());
 
+        if (userDetailInfor.isPresent()) {
+                    builder
+                    .address(userDetailInfor.get().getAddress())
+                    .gender(userDetailInfor.get().getGender())
+                    .phone(userDetailInfor.get().getPhone());
+        }
+
+        UpdatePersonalInforRequest userInfor = builder.build();
         model.addAttribute("user", userInfor);
         model.addAttribute("avatarSrc", userDetails.getUser().getAvatar());
         return "client/pages/editpersonalinfo";
@@ -72,8 +77,8 @@ public class PersonalInformationController {
             return "client/pages/editpersonalinfo";
         }
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
+        UserPrincipal userDetails = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
         User userUpdate = userDetails.getUser();
 
         // check if user update is exists
