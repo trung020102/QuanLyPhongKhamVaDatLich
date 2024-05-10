@@ -36,7 +36,5 @@ public class Appointment extends BaseEntity{
     private Status status;
 
     @Column(name = "order_number")
-    private Integer order_number;
-    
-
+    private Integer orderNumber;
 }
