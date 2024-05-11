@@ -148,8 +148,8 @@ public class UserService implements IUserService {
         customerRepository.save(userInfor);
         return userRepository.save(user);
     }
-    public User getCustomerByCustomerId(Long customerId){
-        return userRepository.getInformationByCustomerId(customerId);
+    public User getCustomerById(Long id){
+        return userRepository.getCustomerById(id);
     }
 
     public void changePassword(User user, String newPassword){
