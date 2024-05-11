@@ -38,8 +38,8 @@ public class PersonalInformationController {
     }
 
     @GetMapping("/personalinfo/{id}")
-    public String personalinfo(Model model, @PathVariable Long id) {
-        User user = userService.getCustomerByCustomerId(id);
+    public String personalinfo(Model model,  @PathVariable Long id) {
+        User user = userService.getCustomerById(id);
         model.addAttribute("user", user);
         return "client/pages/personalinfo";
     }
