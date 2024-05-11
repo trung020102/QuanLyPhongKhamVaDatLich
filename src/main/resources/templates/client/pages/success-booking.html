@@ -28,13 +28,18 @@
                             <a href="/client/record" class="btn_main">Xem lịch sử đặt lịch</a>
                             <a href="/client/home" class="btn_sub">Về trang chủ</a>
                         </div>
+
+                        <div class="mt-5">
+                            <img style="width: 30px; height: 30px" th:src="@{/client/images/icons8-gmail-logo.gif}" alt="Animated Icon">
+                            <span class="badge badge-pill" style="background-color: #e12454;color: white">Kiểm tra mail để nhận lịch khám</span>
+                        </div>
                     </div>
 
                     <div class="col-md-6">
 
                         <div class="success_number_tag text-center d-flex flex-column">
                             <span class="success_number-heading">Số thứ tự của bạn là</span>
-                            <div class="success_number">10</div>
+                            <div class="success_number" th:text="${orderNumber}"></div>
                         </div>
 
                         <div class="success_info_tag d-flex flex-column">
@@ -52,11 +57,11 @@
                                     </div>
                                     <div class="col-md-6">
                                         <ul class="info_detail list-unstyled text-right">
-                                            <li>Lê Bá Nhật Minh</li>
-                                            <li>0942482492</li>
-                                            <li>22-05-2024</li>
-                                            <li>Chiều</li>
-                                            <li>Ho, hắt xì, sổ mũi, khó chịu trong người</li>
+                                            <li th:text="${name}"></li>
+                                            <li th:text="${phone.substring(0, 3) + '.' + phone.substring(3, 6) + '.' + phone.substring(6)}"></li>
+                                            <li th:text="${#dates.format(appointmentDate, 'dd-MM-yyyy')}"></li>
+                                            <li th:text="${appointmentShift == 'sang' ? 'Sáng' : (appointmentShift == 'chieu' ? 'Chiều' : (appointmentShift == 'toi' ? 'Tối' : appointmentShift))}"></li>
+                                            <li th:text="${symptom}"></li>
                                         </ul>
                                     </div>
                                 </div>

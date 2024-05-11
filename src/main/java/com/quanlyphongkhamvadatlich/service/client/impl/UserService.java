@@ -18,7 +18,8 @@ import com.quanlyphongkhamvadatlich.repository.UserRepository;
 import com.quanlyphongkhamvadatlich.service.client.IUserService;
 
 @Service
-public class UserService implements IUserService {
+public class
+UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
