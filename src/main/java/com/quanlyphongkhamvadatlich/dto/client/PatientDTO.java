@@ -31,8 +31,9 @@ public class PatientDTO {
     @NotBlank(message = "Số điện thoại không được để trống")
 //    @Size(min = 10, max = 10, message = "Số điện thoại phải có 10 chữ số")
     private String phone;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date_of_birth;
+    private Date birthday;
 
     private Boolean gender;
 

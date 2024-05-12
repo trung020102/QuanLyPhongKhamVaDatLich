@@ -18,6 +18,7 @@ public class UserPrincipal implements UserDetails {
         this.authorities = Collections.singleton(new SimpleGrantedAuthority(user.getRole().getName()));
     }
 
+
     public Long getId() {
         return user.getId();
     }
@@ -45,6 +46,14 @@ public class UserPrincipal implements UserDetails {
         return false;
     }
 
+    public boolean isDoctor() {
+        for (GrantedAuthority grantedAuthority : authorities) {
+            if (grantedAuthority.getAuthority().equals("DOCTOR"))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -64,15 +73,6 @@ public class UserPrincipal implements UserDetails {
     public boolean isEnabled() {
         return user.getStatus();
     }
-
-    // @Override
-    // public boolean equals(Object o) {
-    //     if (this == o) return true;
-    //     if (o == null || getClass() != o.getClass()) return false;
-
-    //     UserPrincipal that = (UserPrincipal) o;
-    //     return Objects.equals(this.id, that.id);
-    // }
 
     @Override
     public int hashCode() {

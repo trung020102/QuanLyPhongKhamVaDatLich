@@ -61,7 +61,7 @@ public class AppointmentService {
     public List<DisableAppointmentDTO> getAllDisableAppointments(){
         return appointmentRepository.getAllDisableAppointment();
     }
-    public Appointment bookAppointment(AppointmentDTO booking, Optional<Patient> patientOptional, Integer statusId) throws Exception {
+    public Appointment bookAppointment(AppointmentDTO booking, Optional<Patient> patientOptional, int statusId) throws Exception {
 
         List<Appointment> appointments = getAppointmentByDateAndShift(booking.getAppointmentDate(),booking.getAppointmentShift());
         int countAppointment = appointments.size();

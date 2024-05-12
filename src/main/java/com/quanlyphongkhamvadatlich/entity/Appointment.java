@@ -1,5 +1,5 @@
 package com.quanlyphongkhamvadatlich.entity;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,8 +18,9 @@ public class Appointment extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn (name = "patient_id")
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 
     @Column(name = "appointment_date")
@@ -32,7 +33,7 @@ public class Appointment extends BaseEntity{
     private String symptom;
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "status_id", nullable = false)
     private Status status;
 
     @Column(name = "order_number")

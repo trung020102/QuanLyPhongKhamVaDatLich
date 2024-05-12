@@ -3,18 +3,10 @@ package com.quanlyphongkhamvadatlich.service;
 import com.quanlyphongkhamvadatlich.dto.client.PatientDTO;
 import com.quanlyphongkhamvadatlich.entity.Patient;
 import com.quanlyphongkhamvadatlich.entity.User;
-import com.quanlyphongkhamvadatlich.exception.web.PatientAlreadyExistsException;
 import com.quanlyphongkhamvadatlich.repository.PatientRepository;
-import com.quanlyphongkhamvadatlich.repository.UserRepository;
-import com.quanlyphongkhamvadatlich.security.UserPrincipal;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
-import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,7 +16,7 @@ public class PatientService {
     private PatientRepository patientRepository;
 
     public Optional<Patient> findByIdAndUser(Long id, User user){return patientRepository.findByIdAndUser(id, user);}
-    public Optional<Patient> getPatientById(Long id) {
+    public Optional<Patient> findById(Long id) {
         return patientRepository.findById(id);
     }
     public Patient addNewPatient(PatientDTO model, User user) {
@@ -32,7 +24,7 @@ public class PatientService {
                 .builder()
                 .name(model.getName())
                 .phone(model.getPhone())
-                .date_of_birth(model.getDate_of_birth())
+                .birthday(model.getBirthday())
                 .gender(model.getGender())
                 .address(model.getAddress())
                 .citizen_number(model.getCitizen_number())
@@ -44,4 +36,12 @@ public class PatientService {
         return patientRepository.save(newPatient);
 
     }
+    public Patient getPatientById(Long idPatient) {
+        Patient patient = patientRepository.getPatientById(idPatient);
+        return patient;
+    }
+    public List<Patient> getPatientByUserId(Long id){
+        return patientRepository.getPatientByUserId(id);
+    }
+
 }

@@ -113,8 +113,8 @@ public class BookingController {
         }
         System.out.println("list này là: " + list.size());
 
-        Integer statusId = statusService.findById(1).get().getId();
-        Optional<Patient> patient = patientService.getPatientById(request.getPatientId());
+        int statusId = statusService.findById(1).get().getId();
+        Optional<Patient> patient = patientService.findById(request.getPatientId());
 
 
         Appointment appointment = appointmentService.bookAppointment(request, patient, statusId);
@@ -133,6 +133,8 @@ public class BookingController {
             Appointment appointment = appointmentOptional.get();
             Patient patient = appointment.getPatient();
 
+            model.addAttribute("IdOfPatient",patientId);
+            System.out.println("giá trị id này: " + patientId);
             model.addAttribute("orderNumber", appointment.getOrderNumber());
             model.addAttribute("name", patient.getName());
             model.addAttribute("phone", patient.getPhone());
@@ -148,12 +150,6 @@ public class BookingController {
         }
         return "redirect:/client/booking";
     }
-
-    @GetMapping("/record")
-    public String record() {
-        return "client/pages/record";
-    }
-
 
 
 }

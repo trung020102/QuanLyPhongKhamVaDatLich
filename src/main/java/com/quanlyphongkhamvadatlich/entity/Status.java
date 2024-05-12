@@ -13,12 +13,10 @@ import lombok.Setter;
 @Entity
 public class Status {
     @Id
-    @Column(name = "status_id", columnDefinition = "INTEGER")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "status_id")
+    private int id;
 
     @Column(name = "name")
     private String name;
-
 
 }

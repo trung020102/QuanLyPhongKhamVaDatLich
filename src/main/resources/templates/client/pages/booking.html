@@ -35,15 +35,14 @@
                     <!-- Tab content -->
                     <div id="hasRecord" class="tabcontent" th:classappend="${error} ? 'show' : ''">
                         <p class="text-uppercase heading">Vui lòng nhập mã số bệnh nhân</p>
+
                         <form  th:object="${patient}" th:action="@{/client/booking/oldpatient}" method="post">
                             <input th:classappend="${error} ? 'is-invalid' : ''" class="form_input form-control" type="text" name="patient_id" value="" placeholder="Nhập mã số bệnh nhân">
                             <div th:if="${error}">
                                 <p th:text="${error}" style="color:red"></p>
                             </div>
                             <button class="form-btn text-uppercase" type="submit">Xác nhận</button>
-
                         </form>
-
                     </div>
 
                     <div id="notHasRecord" class="tabcontent" th:classappend="${newPatientTab} ? 'show' : ''">
@@ -84,7 +83,7 @@
                                     </div>
                                     <div class="form-group text-left">
                                         <label>Ngày sinh</label>
-                                        <input type="date" id="dateControl" name="date_of_birth" th:field="*{date_of_birth}" value="" class="form-control rounded">
+                                        <input type="date" id="dateControl" name="date_of_birth" th:field="*{birthday}" value="" class="form-control rounded">
                                     </div>
 
                                 </div>
@@ -165,11 +164,9 @@
 
         $(document).ready(function() {
             $(".showLine").click(function() {
-
                 $(".tab_form-line").show();
             });
         });
-
         $(document).ready(function () {
             var currentDate = new Date();
             var currentYear = currentDate.getFullYear() - 16; // Trừ 16 năm
@@ -179,8 +176,9 @@
 
             $("#dateControl").val(maxDate);
         });
-
-
+        function showErrorMessage() {
+            document.getElementById("error-message").style.display = "block";
+        }
     </script>
 
     <script th:inline="javascript">

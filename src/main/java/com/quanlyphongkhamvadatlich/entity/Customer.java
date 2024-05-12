@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer {
     @Id
     @Column(name="customer_id")
@@ -17,15 +17,9 @@ public class Customer {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name= "gender")
     private Boolean gender;
 
     @Column(name = "phone")
     private String phone;
-
-    @Column(name = "name")
-    private String name;
 }

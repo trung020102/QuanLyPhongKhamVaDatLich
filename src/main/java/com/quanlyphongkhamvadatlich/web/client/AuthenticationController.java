@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.quanlyphongkhamvadatlich.dto.client.RegistrationRequest;
 import com.quanlyphongkhamvadatlich.entity.User;
-import com.quanlyphongkhamvadatlich.enums.TokenValidationResult;
 import com.quanlyphongkhamvadatlich.event.ClientRegistrationEvent;
 import com.quanlyphongkhamvadatlich.service.client.impl.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/client")
@@ -72,39 +70,6 @@ public class AuthenticationController {
         eventPublisher.publishEvent(new ClientRegistrationEvent(user, this.getWebHostPath(servletRequest)));
 
         return "client/pages/verify-sucess";
-    }
-
-    @GetMapping("/changepassword")
-    public String changepassword() {
-        return "client/pages/changepassword";
-    }
-
-    @GetMapping("/forgotpassword")
-    public String forgotpassword() {
-        return "client/pages/forgotpassword";
-    }
-
-    @GetMapping("/verifyEmail")
-    public String verifyEmail(@RequestParam(name = "token") String token, Model model) {
-        TokenValidationResult result = userService.validateToken(token);
-
-        switch (result) {
-            case TOKEN_EXPIRED:
-                model.addAttribute("result", "TOKEN_EXPIRED");
-                return "client/pages/token-validation";
-            case TOKEN_NOT_FOUND:
-                model.addAttribute("result", "TOKEN_NOT_FOUND");
-                return "client/pages/token-validation";
-            case USER_ALREADY_ACTIVATED:
-                model.addAttribute("result", "USER_ALREADY_ACTIVATED");
-                return "client/pages/token-validation";
-            case USER_ACTIVATED_SUCCESSFULLY:
-                model.addAttribute("result", "SUCCESS");
-                return "client/pages/token-validation";
-            default:
-                model.addAttribute("result", "TOKEN_NOT_FOUND");
-                return "client/pages/token-validation";
-        }
     }
 
     private String getWebHostPath(HttpServletRequest request) {
