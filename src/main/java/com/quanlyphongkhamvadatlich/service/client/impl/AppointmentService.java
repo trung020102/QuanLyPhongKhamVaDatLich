@@ -44,7 +44,7 @@ public class AppointmentService implements IAppointmentService {
 
         helper.setTo(notifierDTO.getEmail());
         helper.setFrom(new InternetAddress("nhatminhle1402@gmail.com"));
-        helper.setSubject("Nhắc nhở: Lịch hẹn đặt khám của bạn đang đến gần");
+        helper.setSubject("ĐỪNG QUÊN BẠN CÓ LỊCH KHÁM VÀO NGÀY MAI!");
         helper.setText(process, true);
 
         javaMailSender.send(message);
