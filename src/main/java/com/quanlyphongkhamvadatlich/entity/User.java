@@ -16,11 +16,14 @@ import lombok.Setter;
 @Setter
 @Builder
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "username", nullable = false)
+    private String username;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -28,14 +31,14 @@ public class User extends BaseEntity{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name= "token")
+    @Column(name = "token")
     private String token;
 
     @Column(name = "token_expiration_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tokenExpirationTime;
 
-    @Column(name="avatar")
+    @Column(name = "avatar")
     private String avatar;
 
     @Column(name = "status")
@@ -46,6 +49,6 @@ public class User extends BaseEntity{
     private Role role;
 
     @OneToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", nullable = true)
     private Customer customer;
 }
