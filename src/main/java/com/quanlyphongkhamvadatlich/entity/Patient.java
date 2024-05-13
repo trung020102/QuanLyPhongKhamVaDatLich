@@ -43,7 +43,7 @@ public class Patient {
     private String insurance_number;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id" ,nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
     @JsonManagedReference
