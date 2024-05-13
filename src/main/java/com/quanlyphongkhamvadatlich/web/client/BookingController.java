@@ -86,7 +86,7 @@ public class BookingController {
     }
 
     @PostMapping("/booking/appointment")
-    public String makeAppointment(@ModelAttribute("appointment") @Valid AppointmentDTO request,Model model, BindingResult bindingResult) throws Exception {
+    public String makeAppointment(@ModelAttribute("appointment") @Valid AppointmentDTO request, BindingResult bindingResult, Model model) throws Exception {
 
         if (bindingResult.hasErrors()) {
             return "client/pages/appointment";

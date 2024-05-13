@@ -1,6 +1,7 @@
 package com.quanlyphongkhamvadatlich.dto.client;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class AppointmentDTO {
     @NotNull(message = "Vui lòng chọn ca khám")
     private String appointmentShift;
 
-    @NotBlank(message = "Vui lòng mô tả triệu chứng bạn gặp phải")
+    @NotEmpty(message = "Vui lòng mô tả triệu chứng bạn gặp phải")
     private String symptom;
 
     private Long patientId;
