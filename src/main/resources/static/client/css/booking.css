@@ -6,8 +6,54 @@
     padding: 45px 90px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
+.date-picker td,th{
+    text-align: center;
+    padding: 10px 12px;
+    font-size: 14px;
+}
+.disabled.disabled-date.day {
+    background-color: red;
+    color: white;
+}
+ #full_booking {
+     width: 25px;
+     height: 22px;
+     background-color: red;
+     border-radius: 4px;
+     margin-right: 12px;
+ }
 
+ #day_choosing {
+     width: 25px;
+     height: 22px;
+     background-color: #04c;
+     color: white;
+     border-radius: 4px;
+     margin-right: 12px;
+     background-image: linear-gradient(to bottom, #08c, #04c);
+     background-repeat: repeat-x;
+ }
 
+ .color_booking {
+     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+ }
+.disabled.disabled-date.day:hover {
+    background-color: red;
+    color: white;
+
+}
+.input-error {
+    border: 1px solid red;
+}
+
+.tab_form > a:first-child.show {
+    background-color: var(--sub-color);
+    color: #fff;
+}
+.tab_form > a:nth-child(2).show {
+    background-color: var(--sub-color);
+    color: #fff;
+}
 .form_heading-text {
     font-size: 2rem;
     text-align: center;
@@ -78,6 +124,10 @@
     text-decoration: none;
 }
 
+.tab_form > a:first-child.show {
+    background-color: var(--sub-color);
+    color: #fff;
+}
 .tab_form a.active {
     background-color: var(--sub-color);
     color: #fff;
@@ -184,7 +234,13 @@
     transition: all 0.2s ease-out;
     cursor: pointer;
 }
+.tabcontent.show {
+    display: block;
+}
 
+.tab_form-line.show {
+    display:block;
+}
 .appointment-shift.active {
     background-color: var(--sub-color);
     color: #fff;
