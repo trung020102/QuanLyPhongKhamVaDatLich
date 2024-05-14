@@ -39,4 +39,7 @@ public class MedicalServiceBusiness {
         MedicalService medicalService = medicalServiceRepository.findById(id).orElseThrow();
         medicalServiceRepository.delete(medicalService);
     }
+    public List<MedicalService> getMedicalService(){
+        return medicalServiceRepository.findAll();
+    }
 }

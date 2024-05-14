@@ -28,9 +28,9 @@
             </div>
         </div>
     </form>
-    <form>
+    <form method="post" th:action="@{'/doctor/physical_exam'}">
         <div class="row" th:if="${patient != null}">
-            <input type="hidden" th:value="${patient.getId()}">
+            <input type="hidden" th:value="${patient.getId()}" name="patientId">
             <div class="col-sm-6" >
                 <!-- text input -->
                 <div class="form-group" style="width: 75%">
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="form-group">
+                <div class="form-group" style="width: 75%">
                     <label>Mã CCCD:</label>
                     <input type="text" class="form-control" th:value="${patient.getCitizen_number()}" placeholder="Enter ...">
                 </div>
@@ -77,21 +77,22 @@
             </div>
         </div>
 
-
+        <div class="form-group" >
+            <label>Nhập chuẩn đoán:</label>
+            <textarea class="form-control" name="diagnosis" rows="3" placeholder="Enter ..."></textarea>
+        </div>
 
     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
         <!--body-->
         <div class="row">
             <div class="col-sm-12">
                 <label>Dịch vụ khám</label>
-                <div class="d-flex p-0 mb-3">
+                <div class="d-flex p-0 mb-3" >
                     <select class="selectpicker" multiple data-live-search="true"
                             data-style="btn-outline-secondary" data-width="50%">
-                        <option>Khám đa khoa</option>
-                        <option>Siêu âm</option>
-                        <option>Nội soi</option>
-                        <option>Xét nghiệm máu</option>
-                        <option>Chụp phim</option>
+                        <option th:each="medical_service : ${medical_services}"
+                                th:text="${medical_service.getServiceName()}"
+                                th:value="${medical_service.getId()}"></option>
                     </select>
                     <button id="btnDone_dichvu" class="btn btn-sm btn-primary ml-3" type="button">Done</button>
                     <button type="button" class="btn btn-sm btn-secondary ml-3" id="btnResetFilter_dichvu">Reset
@@ -146,9 +147,9 @@
                 <div class="d-flex p-0 mb-3">
                     <select class="selectpicker" multiple data-live-search="true"
                             data-style="btn-outline-secondary" data-width="50%">
-                        <option>Phan Đức Trung</option>
-                        <option>Trung 2</option>
-                        <option>Trung 3</option>
+                        <option th:each="medicine : ${medicines}"
+                                th:text="${medicine.getMedicine_name()}"
+                                th:value="${medicine.getId()}"></option>
                     </select>
                     <button id="btnDone" class="btn btn-sm btn-primary ml-3" type="button">Done</button>
                     <button type="button" class="btn btn-sm btn-secondary ml-3" id="btnResetFilter">Reset</button>
@@ -164,7 +165,7 @@
                             aria-label="Rendering engine: activate to sort column descending">
                             STT
                         </th>
-                        <th class="sorting">Tên thuộc</th>
+                        <th class="sorting">Tên thuốc</th>
                         <th class="sorting">Số lượng</th>
                         <th>Sử dụng</th>
                         <th>Chú thích</th>
@@ -224,7 +225,9 @@
 </th:block>
 
 <th:block layout:fragment="document-script">
+    
     <script src="/dashboard/js/doctor.js"></script>
+
 </th:block>
 
 </html>

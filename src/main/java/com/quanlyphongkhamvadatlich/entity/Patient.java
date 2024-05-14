@@ -53,4 +53,5 @@ public class Patient {
     @JsonManagedReference
     @OneToMany(mappedBy = "patient", fetch = FetchType.EAGER)
     private List<PatientRecord> patientRecords;
+
 }

@@ -177,7 +177,12 @@
                         </div>
                         <div>
                             <p class="badge badge-pill badge-dark w-auto m-1">2. Dịch vụ khám</p>
-                            <div class="table-responsive">
+                            <div th:if="${#lists.isEmpty(patientRecord.getServiceDetails())}">
+                                <div class="alert alert-danger" role="alert" style="text-align: center; margin-top: 10px;">
+                                    Đang cập nhật.
+                                </div>
+                            </div>
+                            <div class="table-responsive" th:unless="${#lists.isEmpty(patientRecord.getServiceDetails())}">
                                 <table class="table mt-3">
                                     <thead class="thead-light">
                                     <tr>
@@ -201,7 +206,12 @@
                         </div>
                         <div>
                             <p class="badge badge-pill badge-dark w-auto m-1">3. Toa thuốc</p>
-                            <div class="table-responsive">
+                            <div th:if="${#lists.isEmpty(patientRecord.getPrescription())}">
+                                <div class="alert alert-danger" role="alert" style="text-align: center; margin-top: 10px;">
+                                    Đang cập nhật.
+                                </div>
+                            </div>
+                            <div class="table-responsive" th:unless="${#lists.isEmpty(patientRecord.getPrescription())}">
                                 <table class="table mt-3">
                                     <thead class="thead-light">
                                     <tr>

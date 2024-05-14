@@ -1,6 +1,7 @@
 package com.quanlyphongkhamvadatlich.repository;
 
 import com.quanlyphongkhamvadatlich.entity.PatientRecord;
+import com.quanlyphongkhamvadatlich.service.PatientRecordService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
