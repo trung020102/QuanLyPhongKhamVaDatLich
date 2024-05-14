@@ -86,7 +86,7 @@
                     <div class="appointment_number d-flex flex-column justify-content-center align-items-center">
                         <span class="small">Số thứ tự</span>
                         <span class="font-weight-bold"
-                              style="color: #11d49a; font-size: 3rem" th:text="${appointment.getOrder_number()}"></span>
+                              style="color: #11d49a; font-size: 3rem" th:text="${appointment.getOrderNumber()}"></span>
                     </div>
 
                     <div class="appointment_line"></div>
@@ -246,8 +246,8 @@
 </th:block>
 <th:block layout:fragment="additional-link-at-bottom">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-
-    <script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script>
         function openRecord(evt, date) {
             $(".record_content").hide();
 
