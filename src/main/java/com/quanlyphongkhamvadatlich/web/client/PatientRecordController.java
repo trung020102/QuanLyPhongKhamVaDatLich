@@ -29,15 +29,15 @@ public class PatientRecordController {
     @Autowired
     private PatientRecordRepository patientRecordRepository;
     @GetMapping("/record/{id}")
-    public String record(Model model, @PathVariable Long id){
-        List<Patient> patient= patientService.getPatientByUserId(id);
+    public String record(Model model, @PathVariable String id){
+        List<Patient> patient= patientService.getPatientByUserId(Long.parseLong(id));
         model.addAttribute("patient", patient);
         return "client/pages/record";
     }
 
     @GetMapping("/record/PatientRecord/{id}")
-    public String PatientRecord(@PathVariable Long id, Model model, @RequestParam(name = "dateranges", required = false) String dateRange) {
-        Patient patient = patientService.getPatientById(id);
+    public String PatientRecord(@PathVariable String id, Model model, @RequestParam(name = "dateranges", required = false) String dateRange) {
+        Patient patient = patientService.getPatientById(Long.parseLong(id));
         if(patient != null){
             List<Appointment> appointments = patient.getAppointments().stream()
                     .filter(appointment -> appointment.getStatus().getId() == 1)
@@ -63,7 +63,7 @@ public class PatientRecordController {
             }
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String values = startDate.format(formatter) + " - " + endDate.format(formatter);
-            List<PatientRecord> patientRecords = patientRecordRepository.getAllBetweenDatesAndPatientId(startDate, endDate, id);
+            List<PatientRecord> patientRecords = patientRecordRepository.getAllBetweenDatesAndPatientId(startDate, endDate, Long.parseLong(id));
             model.addAttribute("patientRecords", patientRecords);
             model.addAttribute("patient", patient);
             model.addAttribute("appointments", appointments);
