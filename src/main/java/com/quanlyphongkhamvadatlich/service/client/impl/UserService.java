@@ -31,6 +31,8 @@ public class UserService implements IUserService {
     private RoleRepository roleRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User registerUser(RegistrationRequest request) {
@@ -44,6 +46,7 @@ public class UserService implements IUserService {
         User newUser = User
                 .builder()
                 .email(request.getEmail())
+                .username(request.getUserName())
                 .password(encoder.encode(request.getPassword()))
                 .status(false)
                 .build();
@@ -86,23 +89,23 @@ public class UserService implements IUserService {
         if (userOptional.isEmpty()) {
             return TokenValidationResult.TOKEN_NOT_FOUND;
         }
-
+    
         User user = userOptional.get();
-
+        
         if (user.getStatus()) {
             return TokenValidationResult.USER_ALREADY_ACTIVATED;
         }
-
+    
         Date currentTime = new Date();
         Date expirationTime = user.getTokenExpirationTime();
-
+    
         if (currentTime.after(expirationTime)) {
             return TokenValidationResult.TOKEN_EXPIRED;
         }
-
+    
         user.setStatus(true);
         userRepository.save(user);
-
+    
         return TokenValidationResult.USER_ACTIVATED_SUCCESSFULLY;
     }
 
@@ -148,6 +151,16 @@ public class UserService implements IUserService {
     }
     public User getCustomerByCustomerId(Long customerId){
         return userRepository.getInformationByCustomerId(customerId);
+    }
+
+    public void changePassword(User user, String newPassword){
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+    }
+    @Override
+    public boolean oldPasswordIsValid(User user, String oldPassword){
+        return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 
 }
