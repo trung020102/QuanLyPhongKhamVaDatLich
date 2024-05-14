@@ -18,7 +18,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     public List<Appointment> findByAppointmentDateAndAppointmentShift(Date appointmentDate, String appointmentShift);
 
-    @Query(value = "SELECT new com.quanlyphongkhamvadatlich.dto.client.DisableAppointmentDTO(a.appointmentDate) FROM Appointment a GROUP BY a.appointmentDate HAVING COUNT(a.id) >= 6")
+    @Query(value = "SELECT new com.quanlyphongkhamvadatlich.dto.client.DisableAppointmentDTO(a.appointmentDate) FROM Appointment a GROUP BY a.appointmentDate HAVING COUNT(a.id) >= 60")
     public List<DisableAppointmentDTO> getAllDisableAppointment();
 
     @Query("SELECT new com.quanlyphongkhamvadatlich.dto.client.AutoSchedulerEmailNotifierDTO(u.email, a.orderNumber, p.id, p.name, p.phone, a.appointmentDate, a.appointmentShift) FROM Appointment a JOIN a.patient p JOIN p.user u where a.appointmentDate = :appointmentDate AND a.status.id = :statusId")
