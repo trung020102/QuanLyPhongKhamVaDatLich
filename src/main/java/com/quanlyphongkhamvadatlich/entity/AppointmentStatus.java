@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -21,8 +23,11 @@ public class AppointmentStatus {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "status_name")
+    private String statusName;
+
+//    @OneToMany(mappedBy = "appointmentStatus", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Appointment> appointmentStatus;
 
     // Constructors, Getters, and Setters
 }

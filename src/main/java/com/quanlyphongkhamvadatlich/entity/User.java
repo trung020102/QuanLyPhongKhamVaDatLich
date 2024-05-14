@@ -44,9 +44,6 @@ public class User extends BaseEntity{
     @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "profile_id")
-    private String profile_id;
-
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

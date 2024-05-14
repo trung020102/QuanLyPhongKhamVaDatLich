@@ -25,9 +25,9 @@ public class PatientRecord {
     private Patient patient;
 
     // Foreign Key
-//    @ManyToOne
-//    @JoinColumn(name = "doctor_id")
-//    private Doctor doctor;
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
 
     private String symptoms;
     private String diagnosis;

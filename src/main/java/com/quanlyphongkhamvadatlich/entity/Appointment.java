@@ -43,7 +43,7 @@ public class Appointment extends BaseEntity{
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmailAttachment> emailAttachments;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "appointment_status_id")
     private AppointmentStatus appointmentStatus;
 }
