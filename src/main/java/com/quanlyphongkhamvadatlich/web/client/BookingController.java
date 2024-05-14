@@ -1,14 +1,13 @@
 package com.quanlyphongkhamvadatlich.web.client;
 
 import com.quanlyphongkhamvadatlich.dto.client.AppointmentDTO;
-import com.quanlyphongkhamvadatlich.dto.client.DisableAppointmentDTO;
 import com.quanlyphongkhamvadatlich.dto.client.PatientDTO;
 import com.quanlyphongkhamvadatlich.entity.Appointment;
 import com.quanlyphongkhamvadatlich.entity.Patient;
 import com.quanlyphongkhamvadatlich.security.UserPrincipal;
-import com.quanlyphongkhamvadatlich.service.AppointmentService;
 import com.quanlyphongkhamvadatlich.service.PatientService;
 import com.quanlyphongkhamvadatlich.service.StatusService;
+import com.quanlyphongkhamvadatlich.service.client.impl.BookingService;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ import java.util.Optional;
 public class BookingController {
 
     private final PatientService patientService;
-    private final AppointmentService appointmentService;
+    private final BookingService bookingService;
     private final StatusService statusService;
 
 
@@ -81,7 +80,7 @@ public class BookingController {
     @GetMapping("/booking/appointment")
     public String appointment(@RequestParam(name = "patientID") Long patientID, Model model) {
         model.addAttribute("appointment", new AppointmentDTO(patientID));
-        System.out.println("Giá trị ID ở đây là: " + patientID);
+
         return "client/pages/appointment";
     }
 
@@ -92,8 +91,8 @@ public class BookingController {
             return "client/pages/appointment";
         }
 
-        List<Appointment> list = appointmentService.getAppointmentByDateAndShift(request.getAppointmentDate(),request.getAppointmentShift());
-        if(list.size() >= 5){
+        List<Appointment> list = bookingService.getAppointmentByDateAndShift(request.getAppointmentDate(),request.getAppointmentShift());
+        if(list.size() >= 20){
             String shiftText = "";
             switch(request.getAppointmentShift()) {
                 case "sang":
@@ -111,13 +110,13 @@ public class BookingController {
             model.addAttribute("fullBooking", "Ca " + shiftText + " của ngày hôm nay đã hết lượt đặt. Vui lòng chọn ca khám khác hoặc ngày khám khác");
             return "client/pages/appointment";
         }
-        System.out.println("list này là: " + list.size());
+
 
         int statusId = statusService.findById(1).get().getId();
         Optional<Patient> patient = patientService.findById(request.getPatientId());
 
 
-        Appointment appointment = appointmentService.bookAppointment(request, patient, statusId);
+        Appointment appointment = bookingService.bookAppointment(request, patient, statusId);
         return "redirect:/client/booking/appointment/success?patientId=" + request.getPatientId() + "&appointmentId=" + appointment.getId();
 
     }
@@ -126,7 +125,7 @@ public class BookingController {
     public String success(Model model, @RequestParam(name = "appointmentId") Long appointmentId,
                           @RequestParam(name = "patientId") Long patientId, Authentication authentication) throws MessagingException {
 
-        Optional<Appointment> appointmentOptional = appointmentService.getAppointmentById(appointmentId);
+        Optional<Appointment> appointmentOptional = bookingService.getAppointmentById(appointmentId);
 
         if (appointmentOptional.isPresent()) {
             model.addAttribute("modelView", new AppointmentDTO(appointmentId, patientId));
@@ -134,7 +133,6 @@ public class BookingController {
             Patient patient = appointment.getPatient();
 
             model.addAttribute("IdOfPatient",patientId);
-            System.out.println("giá trị id này: " + patientId);
             model.addAttribute("orderNumber", appointment.getOrderNumber());
             model.addAttribute("name", patient.getName());
             model.addAttribute("phone", patient.getPhone());
@@ -143,13 +141,11 @@ public class BookingController {
             model.addAttribute("symptom", appointment.getSymptom());
 
             UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-            appointmentService.sendAppointmentInfo(userPrincipal.getEmail(),
+            bookingService.sendAppointmentInfo(userPrincipal.getEmail(),
                     appointment.getOrderNumber(),patientId,patient.getName(),patient.getPhone(),
                     appointment.getAppointmentDate(),appointment.getAppointmentShift());
             return "client/pages/success-booking";
         }
         return "redirect:/client/booking";
     }
-
-
 }
