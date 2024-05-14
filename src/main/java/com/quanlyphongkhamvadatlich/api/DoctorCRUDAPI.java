@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/doctors")
+@RequestMapping("/api/doctors")
 @RequiredArgsConstructor
 public class DoctorCRUDAPI {
     private DoctorCRUDService doctorCRUDService;
 
     //Save Operation
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity<?> createDoctor(
             @Valid @RequestBody DoctorServiceParam doctorServiceParam){
         doctorCRUDService.createDoctor(doctorServiceParam);
@@ -22,7 +22,7 @@ public class DoctorCRUDAPI {
     }
 
     //Read operation
-    @GetMapping()
+    @GetMapping("")
     public ResponseEntity<?> getAllDoctors(){
         return ResponseEntity.ok(doctorCRUDService.fetchDoctorList());
     }
