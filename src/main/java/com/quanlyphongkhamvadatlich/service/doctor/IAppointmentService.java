@@ -15,13 +15,15 @@ public interface IAppointmentService {
 
     Optional<Appointment> findById(Long id);
 
-    Page<Appointment> findPageWithKeyword(int pageNumber, Date date);
+    Page<List<Appointment>> findPageWithKeyword(int pageNumber, Date date);
 
     List<Appointment> findByAppointmentDate(Date date);
 
     Appointment createAppointment(Appointment appointment);
 
     Appointment updateAppointment(Long id, Appointment appointment);
+
+    void updateAppointmentStatus(Long appointmentId, Long appointmentStatusId);
 
     void deleteAppointment(Long id);
 }

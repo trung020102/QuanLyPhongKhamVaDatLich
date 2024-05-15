@@ -2,7 +2,9 @@ package com.quanlyphongkhamvadatlich.api;
 
 
 import com.quanlyphongkhamvadatlich.entity.Appointment;
+import com.quanlyphongkhamvadatlich.entity.AppointmentStatus;
 import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentService;
+import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +23,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequestMapping("/doctor/appointments")
 public class AppointmentAPI {
 
+
     @Autowired
     private IAppointmentService appointmentService;
 
+    @Autowired
+    private IAppointmentStatusService appointmentStatusService;
 //    @GetMapping("")
 //    public String getAppointments(Model model) {
 //        model.addAttribute("appointments", appointmentService.fillAll());
@@ -36,15 +41,18 @@ public String getAllPages(Model model, @RequestParam(name = "keyword", required 
         return getOnePage(model, 1);
     } else {
         try {
-            Page<Appointment> page = appointmentService.findPage(5);
+            List<AppointmentStatus> statusList = appointmentStatusService.findAll();
+            Page<Appointment> page = appointmentService.findPage(1);
             int totalPages = page.getTotalPages();
             long totalItems = page.getTotalElements();
             List<Appointment> appointments = page.getContent();
 
-            model.addAttribute("currentPage", 5);
+            model.addAttribute("currentPage", 1);
             model.addAttribute("totalPages", totalPages);
             model.addAttribute("totalItems", totalItems);
             model.addAttribute("appointments", appointments);
+            model.addAttribute("keyword", keyword);
+            model.addAttribute("statusList", statusList);
 
 
             // Chuyển đổi chuỗi thành đối tượng Date với định dạng "yyyy-MM-dd"
@@ -67,6 +75,8 @@ public String getAllPages(Model model, @RequestParam(name = "keyword", required 
 
     @GetMapping("/page/{pageNumber}")
     public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage){
+
+        List<AppointmentStatus> statusList = appointmentStatusService.findAll();
         Page<Appointment> page = appointmentService.findPage(currentPage);
         int totalPages = page.getTotalPages();
         long totalItems = page.getTotalElements();
@@ -76,6 +86,7 @@ public String getAllPages(Model model, @RequestParam(name = "keyword", required 
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("appointments", appointments);
+        model.addAttribute("statusList", statusList);
 
         return "dashboard/doctor/appointment_schedule";
     }
@@ -97,6 +108,12 @@ public String getAllPages(Model model, @RequestParam(name = "keyword", required 
     @PutMapping("/{id}")
     public String updateAppointment(@PathVariable Long id, @ModelAttribute Appointment appointment) {
         appointmentService.updateAppointment(id, appointment);
+        return "redirect:/doctor/appointments"; // Redirect to appointment list page
+    }
+
+    @GetMapping("/{id}/status")
+    public String updateAppointmentStatus(@PathVariable Long id, @RequestParam Long statusId) {
+        appointmentService.updateAppointmentStatus(id, statusId);
         return "redirect:/doctor/appointments"; // Redirect to appointment list page
     }
 

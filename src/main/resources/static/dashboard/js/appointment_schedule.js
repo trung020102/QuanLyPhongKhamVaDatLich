@@ -231,3 +231,123 @@ function deleteAppointment(appId) {
     }
 }
 
+$(function() {
+    // hiển thị nay hiện tại
+    document.addEventListener('DOMContentLoaded', function() {
+        var txtSearch = document.getElementById('txtSearch');
+        var savedDate = localStorage.getItem('savedDate');
+        var savedResults = JSON.parse(localStorage.getItem('savedResults'));
+
+        if (savedDate) {
+            txtSearch.value = savedDate;
+        } else {
+            var today = new Date();
+            var day = String(today.getDate()).padStart(2, '0');
+            var month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var year = today.getFullYear();
+
+            var todayDate = year + '-' + month + '-' + day;
+            txtSearch.value = todayDate;
+        }
+
+        if (savedResults) {
+            displayResults(savedResults);
+        }
+
+        txtSearch.addEventListener('change', function() {
+            localStorage.setItem('savedDate', txtSearch.value);
+        });
+
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var keyword = txtSearch.value;
+            localStorage.setItem('savedDate', keyword);
+
+            fetch(`/doctor/appointments?keyword=${keyword}`)
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('savedResults', JSON.stringify(data));
+                    displayResults(data);
+                });
+        });
+    });
+
+    function displayResults(results) {
+        var resultsContainer = document.getElementById('resultsContainer');
+        resultsContainer.innerHTML = '';
+        results.content.forEach(app => {
+            var tr = document.createElement('tr');
+            tr.innerHTML = `
+                    <th scope="row">${app.slotTime}</th>
+                    <td>${app.orderNumber}</td>
+                    <td>${app.patient.name}</td>
+                    <td>${app.patient.gender}</td>
+                    <td style="font-weight: bold; color: ${getStatusColor(app.appointmentStatus.statusName)}">
+                        ${app.appointmentStatus.statusName}
+                    </td>
+                    <td>
+                        <button class="button-detail openModalBtn detailBtn" data-id="${app.id}">Detail</button>
+                        <button class="button-send openModalSendBtn" data-id="${app.id}">Send The Invoice <i class="fa fa-check-circle"></i></button>
+                        <button class="button-create" data-id="${app.id}"><i class="fa fa-plus-circle"></i></button>
+                        <a onclick="return confirm('Are you sure you want to delete this Appointment?')" href="/doctor/appointments/delete/${app.id}">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                `;
+            resultsContainer.appendChild(tr);
+        });
+    }
+
+    function getStatusColor(statusName) {
+        if (statusName === 'Scheduled') return '#F9AA33';
+        if (statusName === 'Completed') return 'green';
+        if (statusName === 'Canceled') return 'red';
+        return 'black';
+    }
+
+})
+
+//status
+$(document).ready(function() {
+    // Make sure modals open when the related element is clicked
+    $('.hover-underline').on('click', function() {
+        $('#appointmentStatusModal').modal('show');
+        let appointmentId = $(this).data("appointment-id")
+         $("#appointmentStatusForm").attr("action", '/doctor/appointments/' + appointmentId + "/status")
+    });
+
+    // Function to handle form submission
+    function submitAppointmentStatusForm() {
+        // Add your form submission logic here
+        $('#appointmentStatusModal').modal('hide');
+    }
+});
+
+
+//update status
+function openModal(appId) {
+    var form = document.getElementById('appointmentStatusForm');
+    form.action = '/doctor/appointments/' + appId + '/status';
+    // Open the modal (you might need to add the logic to actually display the modal)
+}
+
+
+
+
+function submitAppointmentStatusForm() {
+    var form = document.getElementById('appointmentStatusForm');
+
+    form.submit();
+}
+
+// Event listener to update form action with appointmentId
+// $('#statusModal').on('show.bs.modal', function (event) {
+//     var button = $(event.relatedTarget); // Button that triggered the modal
+//     var appointmentId = button.data('appointment-id'); // Extract info from data-* attributes
+//
+//     var form = $('#appointmentStatusForm');
+//     var action = '/doctor/appointments/' + appointmentId + '/status';
+//     form.attr('action', action);
+// });
+
+$()

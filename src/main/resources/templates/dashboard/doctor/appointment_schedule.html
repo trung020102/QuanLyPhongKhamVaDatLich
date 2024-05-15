@@ -11,7 +11,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!--    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
 <th:block layout:fragment="content-header">
@@ -36,29 +38,16 @@
                 <label class="col-sm-12 appoinment-search-label"> Time :</label>
 
                 <form action="/doctor/appointments" method="GET">
-                    <div class=" row appoinment-search" >
-
+                    <div class="row appoinment-search">
                         <div class="input-appoinment-search">
-                            <input id="txtSearch" name="keyword" class="form-control" type="date"  placeholder="Nhập ngày cần tìm">
-
+                            <input id="txtSearch" name="keyword" class="form-control" type="date"
+                                   placeholder="Nhập ngày cần tìm"
+                                   th:value="${keyword}">
                         </div>
-
-                        <button type="submit"> Tìm kiếm</button>
-
+                        <button type="submit">Tìm kiếm</button>
                     </div>
                 </form>
-<!--                <form th:action="@{/doctor/appointments}">-->
-<!--                    <div class=" row appoinment-search" >-->
 
-<!--                        <div class="input-appoinment-search">-->
-<!--                            <input id="txtSearch" name="keyword" class="form-control" type="date"  placeholder="Nhập ngày cần tìm">-->
-
-<!--                        </div>-->
-
-<!--                        <button type="submit"> Tìm kiếm</button>-->
-
-<!--                    </div>-->
-<!--                </form>-->
 
 
                 <hr class="row">
@@ -80,7 +69,7 @@
                                 <th scope="col">Action</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                             <tr th:each="app:${appointments}">
                                 <th scope="row" th:text="${app.getTimeSlot()}">8:00-9:00</th>
                                 <td th:text="${app.getOrderNumber()}">001</td>
@@ -96,10 +85,44 @@
                                 <td style="display: none;" class="appointment-descriptine" th:text="${app.getPatient()}"></td>
 
                                 <td  style="font-weight: bold;" th:if="${app.appointmentStatus != null}">
-                                    <span class="hover-underline" th:text="${app.appointmentStatus.getStatusName()}"
-                                         th:style="'color:' + (${app.appointmentStatus.getStatusName()} == 'Scheduled' ? '#F9AA33' : (${app.appointmentStatus.getStatusName()} == 'Completed' ? 'green' : (${app.appointmentStatus.getStatusName()} == 'Canceled' ? 'red' : 'black')))">
+                                        <span class="hover-underline" data-toggle="modal" data-target="#appointmentStatusModal" th:data-appointment-id="${app.getId()}"  th:text="${app.appointmentStatus.getStatusName()}"
+                                              th:style="'color:' + (${app.appointmentStatus.getStatusName()} == 'Scheduled' ? '#F9AA33' : (${app.appointmentStatus.getStatusName()} == 'Completed' ? 'green' : (${app.appointmentStatus.getStatusName()} == 'Canceled' ? 'red' : 'black')))">
 
                                      </span>
+
+
+                                        <div class="modal fade" id="appointmentStatusModal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <!-- Modal Body -->
+                                                    <div class="modal-body">
+                                                        <form id="appointmentStatusForm" method="get">
+                                                            <!-- Hidden input to specify the HTTP method as PUT -->
+<!--                                                            <input type="hidden" name="_method" value="put" />-->
+<!--                                                            <input hidden="true" id="test-xxx" name="appointmentId" value="" />-->
+                                                            <label for="appointmentStatusSelect" class="appointment-status-label">Appointment Status:</label>
+                                                            <select class="appointment-status-select" id="appointmentStatusSelect" name="statusId">
+<!--                                                                <option th:selected="${app.getAppointmentStatus().getStatusName()}" value="" disabled selected></option>-->
+                                                                <option th:each="status : ${statusList}"
+                                                                        th:value="${status.getId()}"
+                                                                        th:selected="${status.getId()} == ${app.getAppointmentStatus().getId()}"
+                                                                        th:text="${status.getStatusName()}">
+                                                                </option>
+                                                            </select>
+                                                        </form>
+<!--                                                        <button type="submit" class="btn btn-primary" >Update</button>-->
+                                                    </div>
+
+<!--                                                     Modal Footer -->
+                                                    <div class="modal-footer">
+                                                        <button id="btn-submit" data-id="5" type="button" class="btn btn-primary" onclick="submitAppointmentStatusForm()">Update</button>
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                 </td>
                                 <td>
                                     <!-- Detail button -->
@@ -123,9 +146,9 @@
 <!--                                    <a href="#" onclick="confirmDelete('[[${app.getId()}]]', '[[${app.getPatient().getName()}]]')"><i class="fa fa-trash"></i></a>-->
                                 </td>
                                 <!-- The Modal -->
-                                <div id="myModal" class="modal" >
+                                <div id="myModal" class="modal"  >
                                     <!-- Modal content -->
-                                    <div class="modal-content">
+                                    <div class="modal-content" style="width: 76%;top:-26%;">
                                         <span class="close">&times;</span>
                                         <p class="modal-title">Thông tin bệnh nhân</p>
                                         <div class="modal-content-body" >
@@ -227,7 +250,7 @@
     <!-- The Modal -->
     <div id="sendModal" class="modal">
         <!-- Modal content -->
-        <div class="modal-content">
+        <div class="modal-content" style="width: 76%;top:-26%;">
             <span class="send-close">&times;</span>
             <p class="modal-title">Gửi thông tin cho bệnh nhân.</p>
             <div class="modal-content-body">
@@ -289,7 +312,7 @@
 
 <th:block layout:fragment="document-script">
     <script src="/js/document.js"></script>
-
+    <script src="/dashboard/js/doctor.js"></script>
 </th:block>
 
 

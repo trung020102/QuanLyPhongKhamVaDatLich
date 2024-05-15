@@ -1,12 +1,15 @@
 package com.quanlyphongkhamvadatlich.service.doctor.impl;
 import com.quanlyphongkhamvadatlich.entity.Appointment;
+import com.quanlyphongkhamvadatlich.entity.AppointmentStatus;
 import com.quanlyphongkhamvadatlich.repository.AppointmentRepository;
+import com.quanlyphongkhamvadatlich.repository.AppointmentStatusRepository;
 import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +20,10 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
+
+    @Autowired
+    private AppointmentStatusRepository appointmentStatusRepository;
+
 
     @Override
     public List<Appointment> fillAll() {
@@ -32,7 +39,7 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
 
     @Override
-    public Page<Appointment> findPageWithKeyword(int pageNumber, Date date) {
+    public Page<List<Appointment>> findPageWithKeyword(int pageNumber, Date date) {
         Pageable pageable = PageRequest.of(pageNumber - 1, 5);
         return appointmentRepository.findByAppointmentDate(date, pageable);
     }
@@ -93,5 +100,19 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Override
     public void deleteAppointment(Long id) {
         appointmentRepository.deleteById(id);
+    }
+
+
+    @Transactional
+    @Override
+    public void updateAppointmentStatus(Long appointmentId, Long appointmentStatusId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+        AppointmentStatus status = appointmentStatusRepository.findById(appointmentStatusId)
+                .orElseThrow(() -> new RuntimeException("Appointment status not found"));
+
+        appointment.setAppointmentStatus(status);
+        appointmentRepository.saveAndFlush(appointment);
     }
 }
