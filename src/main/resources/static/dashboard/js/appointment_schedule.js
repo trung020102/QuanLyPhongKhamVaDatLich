@@ -1,9 +1,7 @@
 // Lấy tất cả các button mở modal bằng class
-
 var openModalBtns = document.querySelectorAll('.openModalBtn');
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
-
 
 // Lặp qua từng button và thêm sự kiện click
 openModalBtns.forEach(function(btn) {
@@ -307,47 +305,81 @@ $(function() {
 
 })
 
-//status
 $(document).ready(function() {
-    // Make sure modals open when the related element is clicked
+    // Attach click event listener to elements with class 'hover-underline'
     $('.hover-underline').on('click', function() {
+        // Get the appointment ID from the clicked element
+        const appointmentId = $(this).attr("data-appointment-id");
+        // Set the appointment ID in a data attribute of the submit button
+        document.getElementById('btn-submit').setAttribute('data-id', appointmentId);
+        // Show the modal
         $('#appointmentStatusModal').modal('show');
-        let appointmentId = $(this).data("appointment-id")
-         $("#appointmentStatusForm").attr("action", '/doctor/appointments/' + appointmentId + "/status")
+        //alert('appID: '+ appointmentId)
+       // console.log('Click event fired!');
     });
-
-    // Function to handle form submission
-    function submitAppointmentStatusForm() {
-        // Add your form submission logic here
-        $('#appointmentStatusModal').modal('hide');
-    }
 });
 
-
-//update status
-function openModal(appId) {
-    var form = document.getElementById('appointmentStatusForm');
-    form.action = '/doctor/appointments/' + appId + '/status';
-    // Open the modal (you might need to add the logic to actually display the modal)
-}
-
-
-
-
 function submitAppointmentStatusForm() {
-    var form = document.getElementById('appointmentStatusForm');
+    // Get the appointment ID from the data-id attribute of the submit button
+    const appointmentId = document.getElementById('btn-submit').getAttribute('data-id');
+    // Get the selected status ID from the select element
+    const statusId = document.getElementById('appointmentStatusSelect').value;
 
-    form.submit();
+    // URL for the PUT request
+    const url = "/doctor/appointments/"+appointmentId+"/status1?statusId="+statusId;
+
+    fetch(url, {
+        method: 'GET'
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        })
+        .then(data => {
+            $("#appointmentStatusModal").toggle()
+            $('.modal-backdrop').remove();
+            // update status in table
+
+            //get status text
+            var statusText = $("#appointmentStatusForm option:selected").text();
+
+            // Đặt văn bản vào span
+            var span = $("span[data-appointment-id='" + appointmentId + "']");
+            span.text(statusText);
+
+           updateAppointmentColor(appointmentId, statusId); // Đặt màu chữ
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+
+
 }
 
-// Event listener to update form action with appointmentId
-// $('#statusModal').on('show.bs.modal', function (event) {
-//     var button = $(event.relatedTarget); // Button that triggered the modal
-//     var appointmentId = button.data('appointment-id'); // Extract info from data-* attributes
-//
-//     var form = $('#appointmentStatusForm');
-//     var action = '/doctor/appointments/' + appointmentId + '/status';
-//     form.attr('action', action);
-// });
+function updateAppointmentText(appointmentId, statusId) {
+    // Lấy văn bản từ option có giá trị statusId
+    var statusText = $("#appointmentStatusForm option[value='" + statusId + "']").text();
 
-$()
+    // Đặt văn bản vào span
+    var span = $("span[data-appointment-id='" + appointmentId + "']");
+    span.text(statusText);
+}
+
+function updateAppointmentColor(appointmentId, statusId) {
+    // Chọn span có data-appointment-id tương ứng
+    var span = $("span[data-appointment-id='" + appointmentId + "']");
+
+    // Đặt màu chữ dựa trên statusId
+    if (statusId === "1") { // Giả sử statusId của "Scheduled" là "1"
+        span.css("color", "#F9AA33"); // Màu cam
+    } else if (statusId === "2") { // Giả sử statusId của "Completed" là "2"
+        span.css("color", "green"); // Màu xanh lá cây
+    } else if (statusId === "3") { // Giả sử statusId của "Canceled" là "3"
+        span.css("color", "red"); // Màu đỏ
+    } else {
+        span.css("color", "black"); // Màu mặc định
+    }
+}
