@@ -1,36 +1,41 @@
 package com.quanlyphongkhamvadatlich.entity;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "patient_records")
-public class PatientRecord {
+import java.util.List;
 
+@Entity
+@Getter
+@Setter
+@Table(name = "patient_records")
+public class PatientRecord extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "patient_record_id")
     private Long id;
 
-    // Foreign Key
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    // Foreign Key
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
 
-    private String symptoms;
+    @Column(name = "diagnosis")
     private String diagnosis;
 
-    // Constructors, getters, setters
+    @JsonManagedReference
+    @OneToMany(mappedBy = "patientRecord", fetch = FetchType.EAGER)
+    private List<ServiceDetail> serviceDetails;
+
+    @OneToOne(mappedBy = "patientRecord")
+    private Prescription prescription;
+
+
 }

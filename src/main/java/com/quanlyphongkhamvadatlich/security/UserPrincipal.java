@@ -82,4 +82,8 @@ public class UserPrincipal implements UserDetails {
     public String getEmail() {
         return this.user.getEmail();
     }
+
+    public User getUser() {
+        return this.user;
+    }
 }

@@ -74,12 +74,13 @@ p {
   background: #223a66;
 }
 
-input[type=email], input[type=password], input[type=text], input[type=tel] {
+input[type=email], input[type=password], input[type=text], input[type=tel], input[type=date] {
   box-shadow: none;
   height: 45px;
   outline: none;
   font-size: 14px;
   border-radius: 3px;
+  color: black;
 }
 input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, input[type=tel]:focus {
   box-shadow: none;

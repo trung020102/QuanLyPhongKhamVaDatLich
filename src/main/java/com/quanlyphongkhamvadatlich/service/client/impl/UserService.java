@@ -4,11 +4,14 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.quanlyphongkhamvadatlich.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.quanlyphongkhamvadatlich.dto.client.RegistrationRequest;
+import com.quanlyphongkhamvadatlich.dto.client.UpdatePersonalInforRequest;
+import com.quanlyphongkhamvadatlich.entity.Customer;
 import com.quanlyphongkhamvadatlich.entity.Role;
 import com.quanlyphongkhamvadatlich.entity.User;
 import com.quanlyphongkhamvadatlich.enums.EnumRole;
@@ -19,13 +22,18 @@ import com.quanlyphongkhamvadatlich.repository.UserRepository;
 import com.quanlyphongkhamvadatlich.service.client.IUserService;
 
 @Service
-public class UserService implements IUserService {
+public class
+UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder encoder;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User registerUser(RegistrationRequest request) {
@@ -38,8 +46,8 @@ public class UserService implements IUserService {
 
         User newUser = User
                 .builder()
+                .username(request.getFullName())
                 .email(request.getEmail())
-                .username(request.getUserName())
                 .password(encoder.encode(request.getPassword()))
                 .status(false)
                 .build();
@@ -69,7 +77,6 @@ public class UserService implements IUserService {
         return userRepository.findByToken(token);
     }
 
-    
     @Override
     public TokenValidationResult validateToken(String token) {
         Optional<User> userOptional = userRepository.findByToken(token);
@@ -77,23 +84,23 @@ public class UserService implements IUserService {
         if (userOptional.isEmpty()) {
             return TokenValidationResult.TOKEN_NOT_FOUND;
         }
-    
+
         User user = userOptional.get();
-        
+
         if (user.getStatus()) {
             return TokenValidationResult.USER_ALREADY_ACTIVATED;
         }
-    
+
         Date currentTime = new Date();
         Date expirationTime = user.getTokenExpirationTime();
-    
+
         if (currentTime.after(expirationTime)) {
             return TokenValidationResult.TOKEN_EXPIRED;
         }
-    
+
         user.setStatus(true);
         userRepository.save(user);
-    
+
         return TokenValidationResult.USER_ACTIVATED_SUCCESSFULLY;
     }
 
@@ -120,6 +127,44 @@ public class UserService implements IUserService {
 
     @Override
     public User saveUser(User user) {
-       return userRepository.save(user);
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User updatePersonalInfor(User user, UpdatePersonalInforRequest request) {
+        Optional<Customer> customer = Optional.ofNullable(user.getCustomer());
+        Customer userInfor = null;
+
+        if(customer.isEmpty()) {
+            userInfor = new Customer();
+        } else {
+            userInfor = customer.get();
+        }
+        
+        // update common user info
+        user.setEmail(request.getEmail());
+        user.setUsername(request.getFullName());
+        // update the profile infor
+        userInfor.setAddress(request.getAddress());
+        userInfor.setGender(request.getGender());
+        userInfor.setPhone(request.getPhone());
+        user.setCustomer(userInfor);
+        //save infor
+        customerRepository.save(userInfor);
+
+        return userRepository.save(user);
+    }
+    public User getCustomerById(Long id){
+        return userRepository.getCustomerById(id);
+    }
+
+    public void changePassword(User user, String newPassword){
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+    }
+    @Override
+    public boolean oldPasswordIsValid(User user, String oldPassword){
+        return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 }

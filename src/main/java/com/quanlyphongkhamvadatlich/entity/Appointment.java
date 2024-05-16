@@ -1,4 +1,5 @@
 package com.quanlyphongkhamvadatlich.entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,23 +14,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "appointments")
 public class Appointment extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
 
     @Column(name = "appointment_date")
     private Date appointmentDate;
 
-    @Column(name = "time_slot")
-    private String timeSlot;
 
-    @Column(name = "order_number")
-    private Integer orderNumber;
 
+
+    @Id
+    @Column(name = "appointment_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
@@ -42,8 +43,24 @@ public class Appointment extends BaseEntity{
     // Mối quan hệ một-nhiều với entity EmailAttachment
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmailAttachment> emailAttachments;
+//
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "appointment_status_id")
+//    private AppointmentStatus appointmentStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "appointment_status_id")
-    private AppointmentStatus appointmentStatus;
+    @Column(name = "appointment_date")
+    private Date appointmentDate;
+
+    @Column(name = "appointment_shift")
+    private String appointmentShift;
+
+    @Column(name = "symptom")
+    private String symptom;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id", nullable = false)
+    private Status status;
+
+    @Column(name = "order_number")
+    private Integer orderNumber;
 }

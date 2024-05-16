@@ -72,11 +72,6 @@ public class AuthenticationController {
         return "client/pages/verify-sucess";
     }
 
-    @GetMapping("/changepassword")
-    public String changepassword() {
-        return "client/pages/changepassword";
-    }
-
     private String getWebHostPath(HttpServletRequest request) {
         return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
