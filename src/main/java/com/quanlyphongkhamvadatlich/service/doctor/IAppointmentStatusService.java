@@ -1,9 +1,9 @@
 package com.quanlyphongkhamvadatlich.service.doctor;
 
-import com.quanlyphongkhamvadatlich.entity.AppointmentStatus;
+import com.quanlyphongkhamvadatlich.entity.Status;
 
 import java.util.List;
 
 public interface IAppointmentStatusService {
-    List<AppointmentStatus> findAll();
+    List<Status> findAll();
 }

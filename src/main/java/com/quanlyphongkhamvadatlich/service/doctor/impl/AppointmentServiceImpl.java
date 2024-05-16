@@ -1,6 +1,6 @@
 package com.quanlyphongkhamvadatlich.service.doctor.impl;
 import com.quanlyphongkhamvadatlich.entity.Appointment;
-import com.quanlyphongkhamvadatlich.entity.AppointmentStatus;
+import com.quanlyphongkhamvadatlich.entity.Status;
 import com.quanlyphongkhamvadatlich.repository.AppointmentRepository;
 import com.quanlyphongkhamvadatlich.repository.AppointmentStatusRepository;
 import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentService;
@@ -109,10 +109,10 @@ public class AppointmentServiceImpl implements IAppointmentService {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
-        AppointmentStatus status = appointmentStatusRepository.findById(appointmentStatusId)
+        Status status = appointmentStatusRepository.findById(appointmentStatusId)
                 .orElseThrow(() -> new RuntimeException("Appointment status not found"));
 
-        appointment.setAppointmentStatus(status);
+        appointment.setStatus(status);
         appointmentRepository.saveAndFlush(appointment);
     }
 }

@@ -71,22 +71,22 @@
                             </thead>
                             <tbody >
                             <tr th:each="app:${appointments}">
-                                <th scope="row" th:text="${app.getTimeSlot()}">8:00-9:00</th>
+                                <th scope="row" th:text="${app.getAppointmentShift()}">8:00-9:00</th>
                                 <td th:text="${app.getOrderNumber()}">001</td>
                                 <td th:text="${app.getPatient().getName()}">Otto</td>
-                                <td th:text="${app.getPatient().getGender()}">Male</td>
+                                <td th:text="${app.getPatient().getCareer()}">Male</td>
 
-                                <td style="display: none;" class="appointment-phone" th:text="${app.getPatient().getPhoneNumber()}"></td>
+                                <td style="display: none;" class="appointment-phone" th:text="${app.getPatient().getPhone()}"></td>
                                 <td style="display: none;" class="appointment-email" th:text="${app.getUser().getEmail()}">Otto</td>
                                 <td style="display: none;" class="appointment-date" th:text="${#dates.format(app.getAppointmentDate(), 'dd-MM-yyyy')}"></td>
-                                <td style="display: none;" class="appointment-timeSlot" th:text="${app.getTimeSlot()}"></td>
+                                <td style="display: none;" class="appointment-timeSlot" th:text="${app.getAppointmentShift()}"></td>
                                 <td style="display: none;" class="appointment-address" th:text="${app.getPatient().getAddress()}">Otto</td>
                                 <td style="display: none;" class="appointment-record" th:text="${app.getPatient().getAddress()}"></td>
-                                <td style="display: none;" class="appointment-descriptine" th:text="${app.getPatient()}"></td>
+                                <td style="display: none;" class="appointment-descriptine" th:text="${app.getPatient().getName()}"></td>
 
-                                <td  style="font-weight: bold;" th:if="${app.appointmentStatus != null}">
-                                        <span class="hover-underline" data-toggle="modal" data-target="#appointmentStatusModal" th:data-appointment-id="${app.getId()}"  th:text="${app.appointmentStatus.getStatusName()}"
-                                              th:style="'color:' + (${app.appointmentStatus.getStatusName()} == 'Scheduled' ? '#F9AA33' : (${app.appointmentStatus.getStatusName()} == 'Completed' ? 'green' : (${app.appointmentStatus.getStatusName()} == 'Canceled' ? 'red' : 'black')))">
+                                <td  style="font-weight: bold;" th:if="${app.status != null}">
+                                        <span class="hover-underline" data-toggle="modal" data-target="#appointmentStatusModal" th:data-appointment-id="${app.getId()}"  th:text="${app.getStatus().getName()}"
+                                              th:style="'color:' + (${app.getStatus().getName()} == 'Scheduled' ? '#F9AA33' : (${app.getStatus().getName()} == 'Completed' ? 'green' : (${app.getStatus().getName()} == 'Canceled' ? 'red' : 'black')))">
 
                                        </span>
 
@@ -133,8 +133,8 @@
                                                             <!-- Example options populated by Thymeleaf -->
                                                             <option th:each="status : ${statusList}"
                                                                     th:value="${status.getId()}"
-                                                                    th:selected="${status.getId()} == ${app.getAppointmentStatus().getId()}"
-                                                                    th:text="${status.getStatusName()}">
+                                                                    th:selected="${status.getId()} == ${app.getStatus().getId()}"
+                                                                    th:text="${status.getName()}">
                                                             </option>
                                                         </select>
                                                     </form>
@@ -170,7 +170,7 @@
 <!--                                    <a href="#" onclick="confirmDelete('[[${app.getId()}]]', '[[${app.getPatient().getName()}]]')"><i class="fa fa-trash"></i></a>-->
                                 </td>
                                 <!-- The Modal -->
-                                <div id="myModal" class="modal"  >
+                                <div id="myModal" class="modal">
                                     <!-- Modal content -->
                                     <div class="modal-content" style="width: 76%;top:-26%;">
                                         <span class="close">&times;</span>

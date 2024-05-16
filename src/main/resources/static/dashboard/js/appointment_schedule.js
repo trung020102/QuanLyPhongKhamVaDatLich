@@ -270,31 +270,31 @@ $(function() {
         });
     });
 
-    function displayResults(results) {
-        var resultsContainer = document.getElementById('resultsContainer');
-        resultsContainer.innerHTML = '';
-        results.content.forEach(app => {
-            var tr = document.createElement('tr');
-            tr.innerHTML = `
-                    <th scope="row">${app.slotTime}</th>
-                    <td>${app.orderNumber}</td>
-                    <td>${app.patient.name}</td>
-                    <td>${app.patient.gender}</td>
-                    <td style="font-weight: bold; color: ${getStatusColor(app.appointmentStatus.statusName)}">
-                        ${app.appointmentStatus.statusName}
-                    </td>
-                    <td>
-                        <button class="button-detail openModalBtn detailBtn" data-id="${app.id}">Detail</button>
-                        <button class="button-send openModalSendBtn" data-id="${app.id}">Send The Invoice <i class="fa fa-check-circle"></i></button>
-                        <button class="button-create" data-id="${app.id}"><i class="fa fa-plus-circle"></i></button>
-                        <a onclick="return confirm('Are you sure you want to delete this Appointment?')" href="/doctor/appointments/delete/${app.id}">
-                            <i class="fa fa-trash"></i>
-                        </a>
-                    </td>
-                `;
-            resultsContainer.appendChild(tr);
-        });
-    }
+    // function displayResults(results) {
+    //     var resultsContainer = document.getElementById('resultsContainer');
+    //     resultsContainer.innerHTML = '';
+    //     results.content.forEach(app => {
+    //         var tr = document.createElement('tr');
+    //         tr.innerHTML = `
+    //                 <th scope="row">${app.slotTime}</th>
+    //                 <td>${app.orderNumber}</td>
+    //                 <td>${app.patient.name}</td>
+    //                 <td>${app.patient.gender}</td>
+    //                 <td style="font-weight: bold; color: ${getStatusColor(app.appointmentStatus.statusName)}">
+    //                     ${app.appointmentStatus.statusName}
+    //                 </td>
+    //                 <td>
+    //                     <button class="button-detail openModalBtn detailBtn" data-id="${app.id}">Detail</button>
+    //                     <button class="button-send openModalSendBtn" data-id="${app.id}">Send The Invoice <i class="fa fa-check-circle"></i></button>
+    //                     <button class="button-create" data-id="${app.id}"><i class="fa fa-plus-circle"></i></button>
+    //                     <a onclick="return confirm('Are you sure you want to delete this Appointment?')" href="/doctor/appointments/delete/${app.id}">
+    //                         <i class="fa fa-trash"></i>
+    //                     </a>
+    //                 </td>
+    //             `;
+    //         resultsContainer.appendChild(tr);
+    //     });
+    // }
 
     function getStatusColor(statusName) {
         if (statusName === 'Scheduled') return '#F9AA33';

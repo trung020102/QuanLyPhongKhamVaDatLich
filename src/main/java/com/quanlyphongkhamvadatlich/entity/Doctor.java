@@ -1,14 +1,16 @@
 package com.quanlyphongkhamvadatlich.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "doctors")
-public class Doctor {
+public class Doctor extends BaseEntity {
     @Id
     @Column(name="doctor_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

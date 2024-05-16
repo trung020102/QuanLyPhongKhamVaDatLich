@@ -42,7 +42,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Appointment a SET a.appointmentStatus.id = :appointmentStatusId WHERE a.id = :appointmentId")
+    @Query("UPDATE Appointment a SET a.status.id = :appointmentStatusId WHERE a.id = :appointmentId")
     void updateAppointmentStatus(Long appointmentId, Long appointmentStatusId);
 
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,7 +28,7 @@ public class Patient extends BaseEntity {
 
 
     @Id
-    @Column(name="patient_id")
+    @Column(name = "patient_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
@@ -37,17 +38,14 @@ public class Patient extends BaseEntity {
 
 
     @Column(name = "gender")
-    private String gender;
+    private boolean gender;
 
 
-    @Column(name = "phone")
+    @Column(name = "phone_number")
     private String phone;
 
     @Column(name = "date_of_birth")
     private Date birthday;
-
-    @Column(name = "gender")
-    private Boolean gender;
 
 
     @Column(name = "address")
@@ -61,20 +59,6 @@ public class Patient extends BaseEntity {
     private String career;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-//
-//    @OneToMany(mappedBy = "patient")
-//    private List<Appointment> appointments;
-//
-//    // Mối quan hệ với entity PatientRecord
-//    @OneToMany(mappedBy = "patient")
-//    private List<PatientRecord> patientRecords;
-//
-//    // Constructors, Getters, and Setters
-//}
-//=======
     @Column(name = "insurance_number")
     private String insurance_number;
 

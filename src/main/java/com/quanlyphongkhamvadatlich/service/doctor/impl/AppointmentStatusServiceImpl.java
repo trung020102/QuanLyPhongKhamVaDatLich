@@ -1,7 +1,7 @@
 package com.quanlyphongkhamvadatlich.service.doctor.impl;
 
 
-import com.quanlyphongkhamvadatlich.entity.AppointmentStatus;
+import com.quanlyphongkhamvadatlich.entity.Status;
 import com.quanlyphongkhamvadatlich.repository.AppointmentStatusRepository;
 import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class AppointmentStatusServiceImpl implements IAppointmentStatusService {
     AppointmentStatusRepository appointmentStatusRepository;
 
     @Override
-    public List<AppointmentStatus> findAll() {
+    public List<Status> findAll() {
         return appointmentStatusRepository.findAll();
     }
 }

@@ -2,21 +2,18 @@ package com.quanlyphongkhamvadatlich.api;
 
 
 import com.quanlyphongkhamvadatlich.entity.Appointment;
-import com.quanlyphongkhamvadatlich.entity.AppointmentStatus;
+import com.quanlyphongkhamvadatlich.entity.Status;
 import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentService;
 import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -41,7 +38,7 @@ public String getAllPages(Model model, @RequestParam(name = "keyword", required 
         return getOnePage(model, 1);
     } else {
         try {
-            List<AppointmentStatus> statusList = appointmentStatusService.findAll();
+            List<Status> statusList = appointmentStatusService.findAll();
             Page<Appointment> page = appointmentService.findPage(1);
             int totalPages = page.getTotalPages();
             long totalItems = page.getTotalElements();
@@ -76,7 +73,7 @@ public String getAllPages(Model model, @RequestParam(name = "keyword", required 
     @GetMapping("/page/{pageNumber}")
     public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage){
 
-        List<AppointmentStatus> statusList = appointmentStatusService.findAll();
+        List<Status> statusList = appointmentStatusService.findAll();
         Page<Appointment> page = appointmentService.findPage(currentPage);
         int totalPages = page.getTotalPages();
         long totalItems = page.getTotalElements();

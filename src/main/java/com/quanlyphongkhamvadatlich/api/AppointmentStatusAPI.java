@@ -1,11 +1,6 @@
 package com.quanlyphongkhamvadatlich.api;
 
-import com.quanlyphongkhamvadatlich.dto.dashboard.MedicalServiceParam;
-import com.quanlyphongkhamvadatlich.entity.Appointment;
-import com.quanlyphongkhamvadatlich.entity.AppointmentStatus;
 import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentService;
-import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

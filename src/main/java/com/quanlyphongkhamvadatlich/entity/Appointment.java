@@ -1,10 +1,8 @@
 package com.quanlyphongkhamvadatlich.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -16,13 +14,11 @@ import java.util.List;
 @Entity
 @Builder
 @Table(name = "appointments")
-public class Appointment extends BaseEntity{
+public class Appointment extends BaseEntity {
 
 
     @Column(name = "appointment_date")
     private Date appointmentDate;
-
-
 
 
     @Id
@@ -43,13 +39,7 @@ public class Appointment extends BaseEntity{
     // Mối quan hệ một-nhiều với entity EmailAttachment
     @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EmailAttachment> emailAttachments;
-//
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "appointment_status_id")
-//    private AppointmentStatus appointmentStatus;
 
-    @Column(name = "appointment_date")
-    private Date appointmentDate;
 
     @Column(name = "appointment_shift")
     private String appointmentShift;
@@ -57,7 +47,7 @@ public class Appointment extends BaseEntity{
     @Column(name = "symptom")
     private String symptom;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id", nullable = false)
     private Status status;
 

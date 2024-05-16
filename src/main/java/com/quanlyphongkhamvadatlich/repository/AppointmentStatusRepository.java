@@ -1,8 +1,7 @@
 package com.quanlyphongkhamvadatlich.repository;
 
-import com.quanlyphongkhamvadatlich.entity.AppointmentStatus;
+import com.quanlyphongkhamvadatlich.entity.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-public interface AppointmentStatusRepository extends JpaRepository<AppointmentStatus, Long> {
+public interface AppointmentStatusRepository extends JpaRepository<Status, Long> {
 }
