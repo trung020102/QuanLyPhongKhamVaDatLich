@@ -15,4 +15,8 @@ public class MedicineService {
     public List<Medicine> getMedicine() {
         return medicineRepository.findAll();
     }
+    public Medicine getMedicineById(Long idMedicine) {
+        Medicine medicine = medicineRepository.getMedicineById(idMedicine);
+        return medicine;
+    }
 }

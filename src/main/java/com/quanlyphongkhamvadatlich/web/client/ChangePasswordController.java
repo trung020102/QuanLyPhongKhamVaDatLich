@@ -1,7 +1,6 @@
 package com.quanlyphongkhamvadatlich.web.client;
 
 import com.quanlyphongkhamvadatlich.dto.client.ChangePasswordRequest;
-import com.quanlyphongkhamvadatlich.dto.client.ForgotPasswordRequest;
 import com.quanlyphongkhamvadatlich.entity.User;
 import com.quanlyphongkhamvadatlich.security.UserPrincipal;
 import com.quanlyphongkhamvadatlich.service.client.impl.UserService;

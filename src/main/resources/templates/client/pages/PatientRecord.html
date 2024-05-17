@@ -197,7 +197,7 @@
                                         <th scope="row" th:text="${iterStat.count}"></th>
                                         <td th:text="${serviceDetail.medicalService.getId()}"></td>
                                         <td th:text="${serviceDetail.medicalService.serviceName}"></td>
-                                        <td th:text="${serviceDetail.medicalService.price}"></td>
+                                        <td th:text="${serviceDetail.medicalService.price}" id="format_price"></td>
                                     </tr>
 
                                     </tbody>
@@ -280,6 +280,16 @@
                 }
             }
             );
+        });
+    </script>
+    <script>
+        const priceElements = document.querySelectorAll('#format_price');
+
+        priceElements.forEach(element => {
+            const number = parseInt(element.textContent);
+            const formattedNumber = new Intl.NumberFormat('vi-VN').format(number);
+
+            element.textContent = formattedNumber + " VND";
         });
     </script>
 </th:block>
