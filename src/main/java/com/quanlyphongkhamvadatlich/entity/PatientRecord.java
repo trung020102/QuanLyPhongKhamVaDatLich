@@ -3,14 +3,16 @@ package com.quanlyphongkhamvadatlich.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@Entity
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Builder
 @Table(name = "patient_records")
 public class PatientRecord extends BaseEntity{
     @Id
