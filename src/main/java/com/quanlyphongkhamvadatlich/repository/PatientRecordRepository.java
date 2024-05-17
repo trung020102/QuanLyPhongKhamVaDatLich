@@ -1,5 +1,6 @@
 package com.quanlyphongkhamvadatlich.repository;
 
+import com.quanlyphongkhamvadatlich.dto.Statistical;
 import com.quanlyphongkhamvadatlich.entity.PatientRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,7 @@ public interface PatientRecordRepository extends JpaRepository<PatientRecord, Lo
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate,
             @Param("patientId") Long patientId);
+
+    @Query("SELECT NEW com.quanlyphongkhamvadatlich.dto.Statistical( MONTH(p.createdAt), SUM(p.totalFees)) FROM PatientRecord p WHERE YEAR(p.createdAt) = :year GROUP BY MONTH(p.createdAt) ORDER BY MONTH(p.createdAt) ASC")
+    List<Statistical> getMonthlyRevenueByYear(@Param("year") int year);
 }

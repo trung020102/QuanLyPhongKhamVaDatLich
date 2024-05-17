@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Setter
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @Builder
 @Table(name = "patient_records")
-public class PatientRecord extends BaseEntity{
+public class PatientRecord extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_record_id")
@@ -39,5 +40,6 @@ public class PatientRecord extends BaseEntity{
     @OneToOne(mappedBy = "patientRecord")
     private Prescription prescription;
 
-
+    @Column(name = "total_fees")
+    private BigDecimal totalFees;
 }
