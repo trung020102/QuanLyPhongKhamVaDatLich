@@ -1,25 +1,17 @@
-/*
- * (C) Copyright 2022. All Rights Reserved.
- *
- * @author DongTHD
- * @date Mar 10, 2022
-*/
 package com.quanlyphongkhamvadatlich.dto;
 
-import java.util.Date;
+import java.math.BigDecimal;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Statistical {
-
 	private int month;
-	private Date date;
-	private Double amount;
-	private int count;
-
+	private BigDecimal totalFees;
 }

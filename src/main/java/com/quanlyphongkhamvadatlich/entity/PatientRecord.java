@@ -6,13 +6,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Table(name = "patient_records")
-public class PatientRecord extends BaseEntity{
+public class PatientRecord extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_record_id")
@@ -37,5 +38,6 @@ public class PatientRecord extends BaseEntity{
     @OneToOne(mappedBy = "patientRecord")
     private Prescription prescription;
 
-
+    @Column(name = "total_fees")
+    private BigDecimal totalFees;
 }
