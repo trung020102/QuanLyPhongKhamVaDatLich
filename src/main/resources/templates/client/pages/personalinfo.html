@@ -61,7 +61,7 @@
                                     <div class="d-flex align-items-center justify-content-center">
                                         <label class="control-label col-sm-3 h5 text-right" style="margin-top: -8px;">Giới tính:</label>
                                         <div class="col-sm-4">
-                                            <p class="form-control-static" th:if="${user.getCustomer() != null}" th:text="${user.getCustomer().getGender()== true ? 'Nữ' : 'Nam'}"></p>
+                                            <p class="form-control-static" th:if="${user.getCustomer() != null}" th:text="${user.getCustomer().getGender()== true ? 'Nam' : 'Nữ'}"></p>
                                             <p class="form-control-static" th:if="${user.getCustomer()== null}" style="color: red;">Chưa có thông tin</p>
                                         </div>
                                     </div>

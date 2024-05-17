@@ -27,14 +27,14 @@ public class PatientRecordController {
     @Autowired
     private PatientRecordRepository patientRecordRepository;
     @GetMapping("/record/{id}")
-    public String record(Model model, @PathVariable Long id){
+    public String record(Model model, @PathVariable(value = "id") Long id){
         List<Patient> patient= patientService.getPatientByUserId(id);
         model.addAttribute("patient", patient);
         return "client/pages/record";
     }
 
     @GetMapping("/record/PatientRecord/{id}")
-    public String PatientRecord(@PathVariable Long id, Model model, @RequestParam(name = "dateranges", required = false) String dateRange) {
+    public String PatientRecord(@PathVariable(value = "id") Long id, Model model, @RequestParam(name = "dateranges", required = false) String dateRange) {
         Patient patient = patientService.getPatientById(id);
         if(patient != null){
             List<Appointment> appointments = patient.getAppointments().stream()
