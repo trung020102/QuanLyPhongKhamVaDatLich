@@ -3,20 +3,22 @@ package com.quanlyphongkhamvadatlich.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Entity
+@Builder
 @Table(name = "patients")
 public class Patient {
     @Id
+    @Column(name="patient_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "patient_id")
     private Long id;
 
     @Column(name = "name")
@@ -44,7 +46,7 @@ public class Patient {
     private String insurance_number;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
     @JsonManagedReference

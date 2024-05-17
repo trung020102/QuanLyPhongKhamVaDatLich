@@ -22,7 +22,8 @@ import com.quanlyphongkhamvadatlich.repository.UserRepository;
 import com.quanlyphongkhamvadatlich.service.client.IUserService;
 
 @Service
-public class UserService implements IUserService {
+public class
+UserService implements IUserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -45,8 +46,8 @@ public class UserService implements IUserService {
 
         User newUser = User
                 .builder()
+                .username(request.getFullName())
                 .email(request.getEmail())
-                .username(request.getUserName())
                 .password(encoder.encode(request.getPassword()))
                 .status(false)
                 .build();
@@ -56,12 +57,6 @@ public class UserService implements IUserService {
         if (roleForClient.isPresent()) {
             newUser.setRole(roleForClient.get());
         }
-
-        // set customer infor
-        Customer customer = new Customer();
-        customer.setName(request.getFullName());
-        customerRepository.save(customer);
-        newUser.setCustomer(customer);
 
         return userRepository.save(newUser);
     }
@@ -89,23 +84,23 @@ public class UserService implements IUserService {
         if (userOptional.isEmpty()) {
             return TokenValidationResult.TOKEN_NOT_FOUND;
         }
-    
+
         User user = userOptional.get();
-        
+
         if (user.getStatus()) {
             return TokenValidationResult.USER_ALREADY_ACTIVATED;
         }
-    
+
         Date currentTime = new Date();
         Date expirationTime = user.getTokenExpirationTime();
-    
+
         if (currentTime.after(expirationTime)) {
             return TokenValidationResult.TOKEN_EXPIRED;
         }
-    
+
         user.setStatus(true);
         userRepository.save(user);
-    
+
         return TokenValidationResult.USER_ACTIVATED_SUCCESSFULLY;
     }
 
@@ -137,20 +132,30 @@ public class UserService implements IUserService {
 
     @Override
     public User updatePersonalInfor(User user, UpdatePersonalInforRequest request) {
-        Customer userInfor = user.getCustomer();
+        Optional<Customer> customer = Optional.ofNullable(user.getCustomer());
+        Customer userInfor = null;
+
+        if(customer.isEmpty()) {
+            userInfor = new Customer();
+        } else {
+            userInfor = customer.get();
+        }
+
         // update common user info
         user.setEmail(request.getEmail());
+        user.setUsername(request.getFullName());
         // update the profile infor
         userInfor.setAddress(request.getAddress());
         userInfor.setGender(request.getGender());
-        userInfor.setName(request.getFullName());
         userInfor.setPhone(request.getPhone());
         user.setCustomer(userInfor);
+        //save infor
         customerRepository.save(userInfor);
+
         return userRepository.save(user);
     }
-    public User getCustomerByCustomerId(Long customerId){
-        return userRepository.getInformationByCustomerId(customerId);
+    public User getCustomerById(Long id){
+        return userRepository.getCustomerById(id);
     }
 
     public void changePassword(User user, String newPassword){
@@ -162,5 +167,4 @@ public class UserService implements IUserService {
     public boolean oldPasswordIsValid(User user, String oldPassword){
         return passwordEncoder.matches(oldPassword, user.getPassword());
     }
-
 }
