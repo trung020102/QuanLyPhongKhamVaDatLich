@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DoctorServiceMapper {
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public DoctorServiceMapper() {this.modelMapper = new ModelMapper();}
 

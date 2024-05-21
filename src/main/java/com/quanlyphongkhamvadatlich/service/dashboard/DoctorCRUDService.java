@@ -34,10 +34,11 @@ public class DoctorCRUDService{
     //Update operation
     public void updateDoctor(Long id, DoctorServiceParam doctorServiceParam) {
         Doctor doctor = doctorRepository.findById(id).orElse(null);
-        Doctor newDoctor = doctorServiceMapper.toEntity(doctorServiceParam);
-        newDoctor.setId(doctor.getId());
-
-        doctorRepository.save(newDoctor);
+        if (doctor != null) {
+            Doctor newDoctor = doctorServiceMapper.toEntity(doctorServiceParam);
+            newDoctor.setId(doctor.getId());
+            doctorRepository.save(newDoctor);
+        }
     }
 
     //Delete operation
