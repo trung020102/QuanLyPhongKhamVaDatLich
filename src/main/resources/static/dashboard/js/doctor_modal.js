@@ -22,7 +22,7 @@ $(document).ready(function() {
 
     $('table').on('click', '#openDoctorEditModal', function() {
         var id = $(this).data('id');
-        $('#doctor_id_edit').val(id);  // Set the doctor ID in the hidden field
+        $('#doctor_id_edit').val(id);
         openEditModalDoctor(id);
     });
 
@@ -35,25 +35,23 @@ $(document).ready(function() {
             closeEditDoctorModal();
         });
 
-        console.log("Fetching data for doctor ID:", id);  // Add this log
+        console.log("Fetching data for doctor ID:", id);
 
-        // Fetch and fill the doctor data into the edit form
         $.ajax({
             type: "GET",
             url: "http://localhost:8082/api/doctors/get/" + id,
             success: function(data) {
-                console.log("Data received:", data);  // Add this log
+                console.log("Data received:", data);
 
                 $('#doctor_name_edit').val(data.name);
                 $('#doctor_specialty_edit').val(data.specialty);
                 $('#doctor_workplace_edit').val(data.workplace);
                 $('#doctor_diploma_edit').val(data.diploma);
                 $('#doctor_introduction_edit').val(data.introduction);
-                // Assuming avatar is a URL or data URI
                 $('#changeAvatar').attr('src', data.avatar);
             },
             error: function(err) {
-                console.log("Error fetching doctor data:", err);  // Add this log
+                console.log("Error fetching doctor data:", err);
                 alert("Error fetching doctor data: " + err.responseText);
             }
         });
@@ -132,7 +130,7 @@ $(document).ready(function() {
     });
 
     $('#okEditBtn').on('click', function() {
-        var id = $('#doctor_id_edit').val(); // Get the doctor ID from the hidden field
+        var id = $('#doctor_id_edit').val();
         var avatar = $("#change_upload_image").val();
         var name = $("#doctor_name_edit").val();
         var specialty = $("#doctor_specialty_edit").val();
@@ -186,7 +184,7 @@ $(document).ready(function() {
                     $("tbody").append("<tr>" +
                         "<td>" + doctor[i].id + "</td>" +
                         "<td>" + doctor[i].avatar + "</td>" +
-                        "<td>" + doctor[i].name + "</td>" +
+                        "<td>" + doctor[i].doctor_name + "</td>" +
                         "<td>" + doctor[i].specialty + "</td>" +
                         "<td>" + doctor[i].diploma + "</td>" +
                         "<td>" + doctor[i].workplace + "</td>" +
