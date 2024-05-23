@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("date").value = appointmentRow.querySelectorAll("td")[5].innerText;
                 document.getElementById("slotTime").value = appointmentRow.querySelectorAll("td")[6].innerText;
                 document.getElementById("address").value = appointmentRow.querySelectorAll("td")[7].innerText;
+                document.getElementById("symptoms").value = appointmentRow.querySelectorAll("td")[8].innerText;
                 // You can similarly populate other fields
                 modal.style.display = "block";
             }

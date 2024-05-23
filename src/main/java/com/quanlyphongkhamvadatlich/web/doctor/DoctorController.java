@@ -19,7 +19,7 @@ public class DoctorController {
     @GetMapping("/login")
     public String toLoginDoctor(@AuthenticationPrincipal UserPrincipal principal) {
         if (principal != null)
-            return "redirect:/doctor/physical_exam";
+            return "redirect:/doctor/appointments";
 
         return "dashboard/doctor/login";
     }
