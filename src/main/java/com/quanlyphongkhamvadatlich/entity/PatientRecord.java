@@ -40,4 +40,5 @@ public class PatientRecord extends BaseEntity{
     private Prescription prescription;
 
 
+
 }

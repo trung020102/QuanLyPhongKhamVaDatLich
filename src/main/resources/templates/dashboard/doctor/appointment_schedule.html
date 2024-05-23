@@ -74,13 +74,14 @@
                                 <th scope="row" th:text="${app.getAppointmentShift()}">8:00-9:00</th>
                                 <td th:text="${app.getOrderNumber()}">001</td>
                                 <td th:text="${app.getPatient().getName()}">Otto</td>
-                                <td th:text="${app.getPatient().getCareer()}">Male</td>
+                                <td th:text="${app.patient.gender ? 'Nam' : 'Nữ'}">Male</td>
 
                                 <td style="display: none;" class="appointment-phone" th:text="${app.getPatient().getPhone()}"></td>
                                 <td style="display: none;" class="appointment-email" th:text="${app.getUser().getEmail()}">Otto</td>
                                 <td style="display: none;" class="appointment-date" th:text="${#dates.format(app.getAppointmentDate(), 'dd-MM-yyyy')}"></td>
                                 <td style="display: none;" class="appointment-timeSlot" th:text="${app.getAppointmentShift()}"></td>
                                 <td style="display: none;" class="appointment-address" th:text="${app.getPatient().getAddress()}">Otto</td>
+                                <td style="display: none;" class="appointment-symptoms" th:text="${app.getSymptom()}"></td>
                                 <td style="display: none;" class="appointment-record" th:text="${app.getPatient().getAddress()}"></td>
                                 <td style="display: none;" class="appointment-descriptine" th:text="${app.getPatient().getName()}"></td>
 

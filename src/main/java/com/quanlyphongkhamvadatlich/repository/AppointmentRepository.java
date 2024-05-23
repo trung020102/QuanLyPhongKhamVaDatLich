@@ -27,10 +27,27 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
     // Tìm kiếm cuộc hẹn theo ID
     Optional<Appointment> findById(Long id);
 
-    // Tìm kiếm các cuộc hẹn trong một ngày cụ thể
-    List<Appointment> findByAppointmentDate(Date appointmentDate);
-    Page<List<Appointment>> findByAppointmentDate(Date appointmentDate, Pageable pageable);
 
+
+    @Query("SELECT a FROM Appointment a " +
+            "ORDER BY " +
+            "CASE " +
+            "WHEN a.appointmentShift = 'sáng' THEN 1 " +
+            "WHEN a.appointmentShift = 'chiều' THEN 2 " +
+            "WHEN a.appointmentShift = 'tối' THEN 3 " +
+            "ELSE 4 END, " +
+            "a.orderNumber ASC")
+    List<Appointment> findAllOrderByAppointmentShiftAndOrderNumber();
+
+    @Query("SELECT a FROM Appointment a WHERE a.appointmentDate = :appointmentDate " +
+            "ORDER BY " +
+            "CASE " +
+            "WHEN a.appointmentShift = 'sáng' THEN 1 " +
+            "WHEN a.appointmentShift = 'chiều' THEN 2 " +
+            "WHEN a.appointmentShift = 'tối' THEN 3 " +
+            "ELSE 4 END, " +
+            "a.orderNumber ASC")
+    Page<Appointment> findByAppointmentDate(Date appointmentDate, Pageable pageable);
     // Thêm mới một cuộc hẹn
     Appointment save(Appointment appointment);
 

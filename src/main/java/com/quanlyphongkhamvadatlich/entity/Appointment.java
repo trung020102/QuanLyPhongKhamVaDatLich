@@ -53,4 +53,8 @@ public class Appointment extends BaseEntity {
 
     @Column(name = "order_number")
     private Integer orderNumber;
+
+    public Appointment(Long appointmentId) {
+        super();
+    }
 }

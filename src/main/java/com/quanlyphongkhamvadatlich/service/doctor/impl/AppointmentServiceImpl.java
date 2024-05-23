@@ -31,18 +31,34 @@ public class AppointmentServiceImpl implements IAppointmentService {
     }
 
     @Override
+    public List<Appointment> findAllOrderByAppointmentShiftAndOrderNumber() {
+        return appointmentRepository.findAllOrderByAppointmentShiftAndOrderNumber();
+    }
+
+
+//
+//    public Page<Appointment> findPage(int pageNumber) {
+//        Pageable pageable = PageRequest.of(pageNumber - 1, 10); // 10 là số mục mỗi trang, bạn có thể thay đổi nếu cần
+//        return appointmentRepository.findAll(pageable);
+//    }
+
+    public Page<Appointment> findByAppointmentDate(Date appointmentDate, int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, 10); // 10 là số mục mỗi trang, bạn có thể thay đổi nếu cần
+        return appointmentRepository.findByAppointmentDate(appointmentDate, pageable);
+    }
+    @Override
     public Page<Appointment> findPage(int pageNumber) {
-        Pageable pageable = PageRequest.of(pageNumber - 1,5);
+        Pageable pageable = PageRequest.of(pageNumber - 1,10);
         return appointmentRepository.findAll(pageable);
     }
 
 
 
-    @Override
-    public Page<List<Appointment>> findPageWithKeyword(int pageNumber, Date date) {
-        Pageable pageable = PageRequest.of(pageNumber - 1, 5);
-        return appointmentRepository.findByAppointmentDate(date, pageable);
-    }
+//    @Override
+//    public Page<List<Appointment>> findPageWithKeyword(int pageNumber, Date date) {
+//        Pageable pageable = PageRequest.of(pageNumber - 1, 5);
+//        return appointmentRepository.findByAppointmentDate(date, pageable);
+//    }
 
     @Override
     public Optional<Appointment> findById(Long id) {
@@ -50,10 +66,12 @@ public class AppointmentServiceImpl implements IAppointmentService {
     }
 
 
-    @Override
-    public List<Appointment> findByAppointmentDate(Date date) {
-        return appointmentRepository.findByAppointmentDate(date);
-    }
+//    @Override
+//    public List<Appointment> findByAppointmentDate(Date date) {
+//        return appointmentRepository.findByAppointmentDate(date);
+//    }
+
+
 
     @Override
     public Appointment createAppointment(Appointment appointment) {

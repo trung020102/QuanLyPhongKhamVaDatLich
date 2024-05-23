@@ -26,55 +26,70 @@ public class AppointmentAPI {
 
     @Autowired
     private IAppointmentStatusService appointmentStatusService;
-//    @GetMapping("")
-//    public String getAppointments(Model model) {
-//        model.addAttribute("appointments", appointmentService.fillAll());
-//        return "dashboard/doctor/appointment_schedule";
-//    }
-@GetMapping("")
-public String getAllPages(Model model, @RequestParam(name = "keyword", required = false) String keyword) {
-    if (keyword == null || keyword.isEmpty()) {
-        // Nếu không có ngày được cung cấp, hiển thị trang đầu tiên
-        return getOnePage(model, 1);
-    } else {
-        try {
-            List<Status> statusList = appointmentStatusService.findAll();
-            Page<Appointment> page = appointmentService.findPage(1);
-            int totalPages = page.getTotalPages();
-            long totalItems = page.getTotalElements();
-            List<Appointment> appointments = page.getContent();
-
-            model.addAttribute("currentPage", 1);
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("totalItems", totalItems);
-            model.addAttribute("appointments", appointments);
-            model.addAttribute("keyword", keyword);
-            model.addAttribute("statusList", statusList);
 
 
-            // Chuyển đổi chuỗi thành đối tượng Date với định dạng "yyyy-MM-dd"
-            SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = inputDateFormat.parse(keyword.trim());
+    @GetMapping("")
+    public String getAllPages(Model model,
+                              @RequestParam(name = "keyword", required = false) String keyword,
+                              @RequestParam(name = "page", defaultValue = "1") int page) {
+        if (keyword == null || keyword.isEmpty()) {
+            return getOnePage(model, page, null);
+        } else {
+            try {
+                List<Status> statusList = appointmentStatusService.findAll();
 
-            // Tìm danh sách cuộc hẹn theo ngày
-         //   List<Appointment> appointments = appointmentService.findByAppointmentDate(date);
+                // Chuyển đổi chuỗi thành đối tượng Date với định dạng "yyyy-MM-dd"
+                SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = inputDateFormat.parse(keyword.trim());
 
-            model.addAttribute("appointments", appointmentService.findByAppointmentDate(date));
-            return "dashboard/doctor/appointment_schedule";
-        } catch (ParseException e) {
-            // Xử lý nếu chuỗi không thể được phân tích thành ngày
-            e.printStackTrace();
-            model.addAttribute("error", "Ngày không hợp lệ. Vui lòng chọn ngày khác.");
-            return "dashboard/doctor/appointment_schedule"; // Trả về trang với thông báo lỗi
+                // Tìm danh sách cuộc hẹn theo ngày với phân trang
+                Page<Appointment> appointmentPage = appointmentService.findByAppointmentDate(date, page);
+                int totalPages = appointmentPage.getTotalPages();
+                long totalItems = appointmentPage.getTotalElements();
+                List<Appointment> appointments = appointmentPage.getContent();
+
+                model.addAttribute("currentPage", page);
+                model.addAttribute("totalPages", totalPages);
+                model.addAttribute("totalItems", totalItems);
+                model.addAttribute("appointments", appointments);
+                model.addAttribute("keyword", keyword);
+                model.addAttribute("statusList", statusList);
+
+                return "dashboard/doctor/appointment_schedule";
+            } catch (ParseException e) {
+                // Xử lý nếu chuỗi không thể được phân tích thành ngày
+                e.printStackTrace();
+                model.addAttribute("error", "Ngày không hợp lệ. Vui lòng chọn ngày khác.");
+                return "dashboard/doctor/appointment_schedule"; // Trả về trang với thông báo lỗi
+            }
         }
     }
-}
+
 
     @GetMapping("/page/{pageNumber}")
-    public String getOnePage(Model model, @PathVariable("pageNumber") int currentPage){
+    public String getOnePage(Model model,
+                             @PathVariable("pageNumber") int currentPage,
+                             @RequestParam(name = "keyword", required = false) String keyword) {
 
         List<Status> statusList = appointmentStatusService.findAll();
-        Page<Appointment> page = appointmentService.findPage(currentPage);
+        Page<Appointment> page;
+        if (keyword != null && !keyword.isEmpty()) {
+            try {
+                // Chuyển đổi chuỗi thành đối tượng Date với định dạng "yyyy-MM-dd"
+                SimpleDateFormat inputDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = inputDateFormat.parse(keyword.trim());
+                // Tìm danh sách cuộc hẹn theo ngày với phân trang
+                page = appointmentService.findByAppointmentDate(date, currentPage);
+            } catch (ParseException e) {
+                // Xử lý nếu chuỗi không thể được phân tích thành ngày
+                e.printStackTrace();
+                model.addAttribute("error", "Ngày không hợp lệ. Vui lòng chọn ngày khác.");
+                return "dashboard/doctor/appointment_schedule"; // Trả về trang với thông báo lỗi
+            }
+        } else {
+            page = appointmentService.findPage(currentPage);
+        }
+
         int totalPages = page.getTotalPages();
         long totalItems = page.getTotalElements();
         List<Appointment> appointments = page.getContent();
@@ -84,9 +99,12 @@ public String getAllPages(Model model, @RequestParam(name = "keyword", required 
         model.addAttribute("totalItems", totalItems);
         model.addAttribute("appointments", appointments);
         model.addAttribute("statusList", statusList);
+        model.addAttribute("keyword", keyword);
 
         return "dashboard/doctor/appointment_schedule";
     }
+
+
     @RequestMapping("/{id}")
     @ResponseBody
     public Optional<Appointment> getAppointmentById(@PathVariable Long id){
