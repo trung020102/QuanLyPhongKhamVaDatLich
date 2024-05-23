@@ -26,12 +26,12 @@ public class DoctorCRUDAPI {
     }
 
     // Read operation
-    @GetMapping("/get    ")
+    @GetMapping("/get")
     public ResponseEntity<?> getAllDoctors(){
         try {
             return ResponseEntity.ok(doctorCRUDService.fetchDoctorList());
         } catch (Exception e) {
-            System.out.println("Error fetching doctors " + e.getMessage());
+            System.out.println("Error fetching doctors: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching doctors.");
         }
