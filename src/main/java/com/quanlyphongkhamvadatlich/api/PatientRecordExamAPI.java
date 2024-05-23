@@ -45,14 +45,14 @@ public class PatientRecordExamAPI {
     private ServiceDetailBusiness serviceDetailBusiness;
 
     @PostMapping("/{id}")
-    public ResponseEntity<String> createPhysicalExam(@PathVariable(value = "id") Long id,@Valid @RequestBody ListPatientRecordDTO listPatientRecord) {
+    public ResponseEntity<String> createPhysicalExam(@PathVariable(value = "id") String id,@Valid @RequestBody ListPatientRecordDTO listPatientRecord) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal userDetails = (UserPrincipal) auth.getPrincipal();
         User user = userDetails.getUser();
         Doctor doctor = user.getDoctor();
 
-        Patient patient = patientService.getPatientById(id);
+        Patient patient = patientService.getPatientById(Long.parseLong(id));
         if (patient == null || doctor == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid patient or doctor information.");
         }

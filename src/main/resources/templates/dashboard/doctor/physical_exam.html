@@ -17,7 +17,6 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
-    <form method="post" th:action="@{'/doctor/physical_exam/'+ ${patient.getId()}}" id="form_physical" th:data-id="${patient.getId()}">
         <input type="hidden" th:value="${patient.getId()}" name="patientId" id="patientId">
         <div class="row">
             <div class="col-sm-6" >
@@ -59,8 +58,9 @@
             </div>
         </div>
         <div class="form-group" >
-            <label>Nhập chuẩn đoán:</label>
-            <textarea class="form-control" name="diagnosis" id="diagnosis" rows="3" placeholder="Enter ..."></textarea>
+            <label>Nhập chuẩn đoán <span style="color: red">*</span> :</label>
+            <textarea class="form-control" name="diagnosis" id="diagnosis" rows="3" placeholder="Enter ..." required></textarea>
+            <div class="invalid-feedback" id="diagnosisError" style="font-size: 20px">Vui lòng nhập chuẩn đoán.</div>
         </div>
 
 
@@ -68,7 +68,7 @@
         <!--body-->
         <div class="row">
             <div class="col-sm-12">
-                <label>Dịch vụ khám</label>
+                <label>Dịch vụ khám <span class="require" style="color: red">*</span></label>
                 <div class="d-flex p-0 mb-3">
                     <select id="selectServices" class="selectpicker" multiple data-live-search="true"
                             data-style="btn-outline-secondary" data-width="50%">
@@ -80,6 +80,7 @@
                     <button type="button" class="btn btn-sm btn-secondary ml-3" id="btnResetFilter_dichvu">Reset
                     </button>
                 </div>
+                <div class="invalid-feedback" id="serviceError" style="font-size: 20px">Vui lòng chọn dịch vụ.</div>
             </div>
             <div class="col-sm-12">
                 <table id="selectedServicesTable"
@@ -98,7 +99,7 @@
                 </table>
             </div>
             <div class="col-sm-12">
-                <label for="selectMedicines">Kê toa thuốc</label>
+                <label for="selectMedicines">Kê toa thuốc <span class="require" style="color: red">*</span></label>
                 <div class="d-flex p-0 mb-3">
                     <select id="selectMedicines" class="selectpicker" multiple data-live-search="true"
                             data-style="btn-outline-secondary" data-width="50%">
@@ -108,7 +109,9 @@
                     </select>
                     <button id="btnDone_thuoc" class="btn btn-sm btn-primary ml-3" type="button">Done</button>
                     <button type="button" class="btn btn-sm btn-secondary ml-3" id="btnResetFilter_thuoc">Reset</button>
+
                 </div>
+                <div class="invalid-feedback" id="medicineError" style="font-size: 20px">Vui lòng chọn thuốc.</div>
             </div>
             <div class="col-sm-12">
                 <table id="selectedMedicinesTable"
@@ -132,22 +135,48 @@
         </div>
         <div class="d-flex justify-content-center">
             <button class="btn btn-danger mx-3">Hủy</button>
-            <button class="btn btn-primary mx-3">Tạo</button>
+            <button class="btn btn-primary mx-3" id="submit">Tạo</button>
         </div>
     </div>
-    </form>
-    <!--<div id="success-message">
-        <script th:inline="javascript">
-            window.location.href = "/doctor/appointment_schedule";
-            alert("Thêm mới hồ sơ bệnh án thành công!");
-        </script>
-    </div>-->
 </th:block>
 
 <th:block layout:fragment="service-script">
     <script src="/dashboard/js/doctor.js"></script>
     <script>
         $(document).ready(function () {
+            function validateForm() {
+                var isValid = true;
+                var diagnosis = $("#diagnosis").val();
+                var selectedMedicines = $('#selectedMedicinesBody tr').length > 0;
+                var selectedServices = $('#selectedServicesBody tr').length > 0;
+                if (!diagnosis) {
+                    $("#diagnosis").addClass("is-invalid");
+                    $("#diagnosisError").show();
+                    isValid = false;
+                } else {
+                    $("#diagnosis").removeClass("is-invalid");
+                    $("#diagnosisError").hide();
+                }
+                if (!selectedServices) {
+                    $('#selectServices').addClass("is-invalid");
+                    $("#serviceError").show();
+                    isValid = false;
+                } else {
+                    $('#selectServices').removeClass("is-invalid");
+                    $("#serviceError").hide();
+                }
+                if (!selectedMedicines) {
+                    $('#selectMedicines').addClass("is-invalid");
+                    $("#medicineError").show();
+                    isValid = false;
+                } else {
+                    $('#selectMedicines').removeClass("is-invalid");
+                    $("#medicineError").hide();
+                }
+
+                return isValid;
+            }
+
 
             $('#btnDone_thuoc').click(function () {
             var selectedMedicines = $('#selectMedicines').val();
@@ -162,9 +191,9 @@
                     var row = '<tr>' +
                         '<td>' + medicine + '</td>' +
                         '<td>' + medicineName + '</td>' +
-                        '<td><input type="number" class="form-control" id="quantity_' + medicine + '"></td>' +
-                        '<td><input type="text" class="form-control" id="unit_' + medicine + '" placeholder="Nhập đơn vị"></td>' +
-                        '<td><input type="text" class="form-control" id="dosage_' + medicine + '" placeholder="Nhập liều dùng"></td>' +
+                        '<td><input type="number" class="form-control" id="quantity_' + medicine + '"min="1" required></td>' +
+                        '<td><input type="text" class="form-control" id="unit_' + medicine + '" placeholder="Nhập đơn vị" required></td>' +
+                        '<td><input type="text" class="form-control" id="dosage_' + medicine + '" placeholder="Nhập liều dùng" required></td>' +
                         '<td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>' +
                         '</tr>';
                     $('#selectedMedicinesBody').append(row);
@@ -192,7 +221,10 @@
                     });
                 }
             });
-            function sendMedicineDetailsToController() {
+            function sendPatientRecordToController() {
+                if (!validateForm()) {
+                    return;
+                }
                 var diagnosis = $("#diagnosis").val();
                 var medicineDetails = [];
                 $('#selectedMedicinesBody tr').each(function () {
@@ -226,9 +258,7 @@
                     listService: serviceDetails
                 };
 
-                var element = document.getElementById("form_physical");
-
-                var patientId = element.dataset.id;
+                var patientId = $("#patientId").val();
                 var url = 'http://localhost:8082/doctor/physical_exam/' + patientId;
                 $.ajax({
                     type: "POST",
@@ -240,8 +270,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify(jsonData),
                     success: function (response) {
-                        $('#success-message').text(response).show();
-                        $('#error-message').hide();
+                        window.location.href = 'http://localhost:8082/doctor/appointments';
                     },
                     error: function (xhr, status, error) {
                         $('#error-message').text(xhr.responseText).show();
@@ -249,9 +278,9 @@
                     }
                 });
             }
-            $('#form_physical').submit(function (event) {
+            $('#submit').on('click', function (event) {
                 event.preventDefault();
-                sendMedicineDetailsToController();
+                sendPatientRecordToController();
             });
 
         $('#selectedMedicinesBody').on('click', '.btn-danger', function () {

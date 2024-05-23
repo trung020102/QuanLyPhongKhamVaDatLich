@@ -15,8 +15,8 @@ import java.util.List;
 public class ListPatientRecordDTO {
     @NotEmpty(message = "Chuẩn đoán không được để trống!")
     private String diagnosis;
-    @NotEmpty
+    @NotEmpty(message = "Danh sách thuốc không được để trống!")
     private List<PrescriptionDetailDTO> listPrescription;
-    @NotEmpty
+    @NotEmpty(message = "Danh sách dịch vụ không được để trống!")
     private List<MedicalServiceDTO> listService;
 }

@@ -49,7 +49,7 @@ public class DoctorSecurity {
                 .formLogin(form -> form.loginPage("/doctor/login").permitAll()
                         .usernameParameter("username")
                         .passwordParameter("password")
-                        .defaultSuccessUrl("/doctor/physical_exam", true)
+                        .defaultSuccessUrl("/doctor/appointment_schedule", true)
                         .loginProcessingUrl("/doctor/login")
                 )
                 .logout(logout -> logout
