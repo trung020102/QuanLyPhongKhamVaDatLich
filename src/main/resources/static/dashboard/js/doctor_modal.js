@@ -140,7 +140,7 @@ $(document).ready(function() {
 
         var jsonVar = {
             avatar: avatar,
-            name: name,
+            doctor_name: name,
             specialty: specialty,
             diploma: diploma,
             workplace: workplace,
