@@ -27,7 +27,7 @@
     </button>
 
     <!-- Add service modal -->
-    <div id="serviceModal" class="modal">
+    <div id="serviceCreateModal" class="modal">
         <div class="modal-content">
             <span class="serviceClose">&times;</span>
             <p class="modal-title">Thông tin dịch vụ</p>
@@ -43,8 +43,8 @@
                         <input type="text" name="service_price" class="form-control" id="service_price" placeholder="Nhập giá dịch vụ">
                     </div>
                     <div class="input-container">
-                        <label for="service_desciption">Mô tả</label>
-                        <textarea name="service_desciption" class="form-control" id="service_desciption" placeholder="Nhập mô tả"></textarea>
+                        <label for="service_description">Mô tả</label>
+                        <textarea name="service_description" class="form-control" id="service_description" placeholder="Nhập mô tả"></textarea>
                     </div>
                 </div>
                 <div class="button-container">
@@ -59,42 +59,18 @@
         <!--body-->
         <div class="row">
             <div class="col-sm-12">
-                <table id="example1"
+                <table id="medical-service-table"
                        class="table table-bordered table-hover dataTable dtr-inline"
                        aria-describedby="example2_info">
                     <thead>
                     <tr>
-                        <th class="sorting"
-                            aria-label="Rendering engine: activate to sort column descending">
-                            STT
-                        </th>
-                        <th class="sorting">Tên dịch vụ</th>
-                        <th class="sorting">Giá dịch vụ</th>
-                        <th class="sorting">Mô tả</th>
+                        <th>STT</th>
+                        <th>Tên dịch vụ</th>
+                        <th>Giá dịch vụ</th>
+                        <th>Mô tả</th>
+                        <th>Hành động</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr class="odd">
-                        <td class="dtr-control sorting_1" tabindex="0">1</td>
-                        <td>Khám chẩn đoán</td>
-                        <td>100.000</td>
-                        <td>Sau khi sử dụng dịch vụ...</td>
-                        <td class="pr-3"> <button type="button" class="btn btn-success mr-2 openEditService">Edit</button>
-                            <button type="button" class="btn btn-danger">Delete</button> </td>
-                    </tr>
-                    <tr class="odd">
-                        <td class="dtr-control sorting_1" tabindex="0">2</td>
-                        <td>Khám chẩn đoán</td>
-                        <td>100.000</td>
-                        <td>Sau khi sử dụng dịch vụ...</td>
-                        <td class="button-cell">
-                            <div class="table-button-container">
-                                <button type="button" class="btn btn-success mr-2 openEditService">Edit</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -132,5 +108,6 @@
 
 <th:block layout:fragment="service-script">
     <script src="/dashboard/js/service_modal.js"></script>
+    <script src="/dashboard/js/service.js"></script>
 </th:block>
 </html>

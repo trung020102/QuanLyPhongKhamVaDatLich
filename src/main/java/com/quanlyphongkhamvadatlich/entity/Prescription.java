@@ -2,15 +2,17 @@ package com.quanlyphongkhamvadatlich.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "prescriptions")
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Builder
+@Table(name = "prescriptions")
 public class Prescription {
     @Id
     @Column(name = "prescription_id")
