@@ -208,7 +208,7 @@
 
                 if (selectedServices) {
                     selectedServices.forEach(function (service, index) {
-                        var serviceName = $('#selectMedicines option[value="' + service + '"]').text();
+                        var serviceName = $('#selectServices option[value="' + service + '"]').text();
                         var servicePrice = $('#selectServices option[value="' + service + '"]').data('price');
 
                         var row = '<tr>' +
@@ -270,7 +270,7 @@
                     contentType: 'application/json',
                     data: JSON.stringify(jsonData),
                     success: function (response) {
-                        window.location.href = 'http://localhost:8082/doctor/appointments';
+                        window.location.href = response.redirectUrl;
                     },
                     error: function (xhr, status, error) {
                         $('#error-message').text(xhr.responseText).show();

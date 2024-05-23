@@ -17,7 +17,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/doctor/physical_exam")
@@ -45,7 +48,7 @@ public class PatientRecordExamAPI {
     private ServiceDetailBusiness serviceDetailBusiness;
 
     @PostMapping("/{id}")
-    public ResponseEntity<String> createPhysicalExam(@PathVariable(value = "id") String id,@Valid @RequestBody ListPatientRecordDTO listPatientRecord) {
+    public ResponseEntity<Map<String, Object>> createPhysicalExam(@PathVariable(value = "id") String id,@Valid @RequestBody ListPatientRecordDTO listPatientRecord) {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserPrincipal userDetails = (UserPrincipal) auth.getPrincipal();
@@ -54,7 +57,7 @@ public class PatientRecordExamAPI {
 
         Patient patient = patientService.getPatientById(Long.parseLong(id));
         if (patient == null || doctor == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid patient or doctor information.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Invalid patient or doctor information."));
         }
 
         PatientRecord patientRecord = new PatientRecord();
@@ -93,6 +96,10 @@ public class PatientRecordExamAPI {
         savedPatientRecord.setTotalFees(totalFee);
         patientRecordService.save(savedPatientRecord);
 
-        return ResponseEntity.ok("Patient record has been added successfully.");
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Patient record has been added successfully.");
+        response.put("redirectUrl", "http://localhost:8082/doctor/appointments");
+
+        return ResponseEntity.ok(response);
     }
 }
