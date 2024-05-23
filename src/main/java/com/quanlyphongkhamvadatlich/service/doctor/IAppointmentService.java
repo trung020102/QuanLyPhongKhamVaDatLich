@@ -9,16 +9,19 @@ import java.util.Optional;
 
 public interface IAppointmentService {
 
+
+
     List<Appointment> fillAll();
 
-    Page<Appointment> findPage(int pageNumber);
+    List<Appointment> findAllOrderByAppointmentShiftAndOrderNumber();
+   Page<Appointment> findPage(int pageNumber);
 
     Optional<Appointment> findById(Long id);
 
-    Page<List<Appointment>> findPageWithKeyword(int pageNumber, Date date);
 
-    List<Appointment> findByAppointmentDate(Date date);
-
+  // Page<List<Appointment>> findPageWithKeyword(int pageNumber, Date date);
+    //List<Appointment> findByAppointmentDate(Date date);
+    Page<Appointment> findByAppointmentDate(Date appointmentDate, int pageNumber);
     Appointment createAppointment(Appointment appointment);
 
     Appointment updateAppointment(Long id, Appointment appointment);
