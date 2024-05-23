@@ -103,8 +103,8 @@ $(document).ready(function() {
         }
 
         var jsonVar = {
+            doctor_name: name,
             avatar: avatar,
-            name: name,
             specialty: specialty,
             diploma: diploma,
             workplace: workplace,

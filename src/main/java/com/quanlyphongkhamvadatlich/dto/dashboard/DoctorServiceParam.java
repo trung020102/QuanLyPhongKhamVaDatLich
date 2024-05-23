@@ -1,6 +1,6 @@
 package com.quanlyphongkhamvadatlich.dto.dashboard;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,22 +8,22 @@ import lombok.Setter;
 @Setter
 @Getter
 public class DoctorServiceParam {
-    @NotBlank
+    @NotNull
     @Size(max = 255)
     private String doctor_name;
-    @NotBlank
-    @Size(max = 255)
+    @NotNull
+    @Size(max = 2000)
     private String avatar;
-    @NotBlank
+    @NotNull
     @Size(max = 255)
     private String specialty;
-    @NotBlank
-    @Size
+    @NotNull
+    @Size(max = 255)
     private String diploma;
-    @NotBlank
+    @NotNull
     @Size(max = 255)
     private String workplace;
-    @NotBlank
+    @NotNull
     @Size(max = 2000)
     private String introduction;
 }

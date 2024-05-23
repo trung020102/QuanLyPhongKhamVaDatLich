@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +28,14 @@ public class DoctorCRUDService{
     public List<DoctorServiceResult> fetchDoctorList() {
         List<Doctor> doctorList = doctorRepository.findAll();
         return doctorList.stream().map(doctorServiceMapper::toResult).toList();
+    }
+
+    public Optional<DoctorServiceResult> fetchDoctorById(Long id) {
+        Doctor doctor = doctorRepository.findById(id).orElse(null);
+        if (doctor != null) {
+            return Optional.of(doctorServiceMapper.toResult(doctor));
+        }
+        return Optional.empty();
     }
 
     //Update operation

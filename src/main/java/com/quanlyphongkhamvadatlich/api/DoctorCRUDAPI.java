@@ -1,12 +1,15 @@
 package com.quanlyphongkhamvadatlich.api;
 
 import com.quanlyphongkhamvadatlich.dto.dashboard.DoctorServiceParam;
+import com.quanlyphongkhamvadatlich.dto.dashboard.DoctorServiceResult;
 import com.quanlyphongkhamvadatlich.service.dashboard.DoctorCRUDService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/doctors")
@@ -32,6 +35,11 @@ public class DoctorCRUDAPI {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while fetching doctors.");
         }
+    }
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Optional<DoctorServiceResult>> getDoctorById(@PathVariable Long id) {
+        return ResponseEntity.ok(doctorCRUDService.fetchDoctorById(id));
     }
 
     // Update operation

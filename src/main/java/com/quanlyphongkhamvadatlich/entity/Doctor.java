@@ -15,7 +15,7 @@ public class Doctor {
     private Long id;
 
     @Column(name = "doctor_name")
-    private String username;
+    private String doctor_name;
 
     @Column(name = "avatar")
     private String avatar;
