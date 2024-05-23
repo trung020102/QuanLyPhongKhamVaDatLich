@@ -22,38 +22,69 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
-    <button class="button-detail openServiceModalBtn">
+    <button class="button-detail openServiceModalBtn" data-toggle="modal" data-target="#serviceCreateModal">
         Thêm dịch vụ
     </button>
-
-    <!-- Add service modal -->
-    <div id="serviceCreateModal" class="modal">
-        <div class="modal-content">
-            <span class="serviceClose">&times;</span>
-            <p class="modal-title">Thông tin dịch vụ</p>
-            <div class="modal-content-body">
-                <hr>
-                <div class="input-row">
-                    <div class="input-container">
-                        <label for="service_name">Tên dịch vụ</label>
-                        <input type="text" name="service_name" class="form-control" id="service_name" placeholder="Nhập tên dịch vụ">
-                    </div>
-                    <div class="input-container">
-                        <label for="service_price">Giá dịch vụ</label>
-                        <input type="text" name="service_price" class="form-control" id="service_price" placeholder="Nhập giá dịch vụ">
-                    </div>
-                    <div class="input-container">
-                        <label for="service_description">Mô tả</label>
-                        <textarea name="service_description" class="form-control" id="service_description" placeholder="Nhập mô tả"></textarea>
+    <div id="serviceCreateModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông tin dịch vụ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-row">
+                        <div class="input-container">
+                            <label for="service_name">Tên dịch vụ</label>
+                            <input type="text" name="service_name" class="form-control" id="service_name" placeholder="Nhập tên dịch vụ">
+                        </div>
+                        <div class="input-container">
+                            <label for="service_price">Giá dịch vụ</label>
+                            <input type="text" name="service_price" class="form-control" id="service_price" placeholder="Nhập giá dịch vụ">
+                        </div>
+                        <div class="input-container">
+                            <label for="service_description">Mô tả</label>
+                            <textarea name="service_description" class="form-control" id="service_description" placeholder="Nhập mô tả"></textarea>
+                        </div>
                     </div>
                 </div>
-                <div class="button-container">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="okServiceBtn" style="margin-right: 10px">Xác nhận</button>
                     <button type="button" class="btn btn-danger" id="cancelBtn">Hủy bỏ</button>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Add service modal -->
+<!--    <div id="" class="modal">-->
+<!--        <div class="modal-content">-->
+<!--            <span class="serviceClose">&times;</span>-->
+<!--            <p class="modal-title">Thông tin dịch vụ</p>-->
+<!--            <div class="modal-content-body">-->
+<!--                <hr>-->
+<!--                <div class="input-row">-->
+<!--                    <div class="input-container">-->
+<!--                        <label for="service_name">Tên dịch vụ</label>-->
+<!--                        <input type="text" name="service_name" class="form-control" id="service_name" placeholder="Nhập tên dịch vụ">-->
+<!--                    </div>-->
+<!--                    <div class="input-container">-->
+<!--                        <label for="service_price">Giá dịch vụ</label>-->
+<!--                        <input type="text" name="service_price" class="form-control" id="service_price" placeholder="Nhập giá dịch vụ">-->
+<!--                    </div>-->
+<!--                    <div class="input-container">-->
+<!--                        <label for="service_description">Mô tả</label>-->
+<!--                        <textarea name="service_description" class="form-control" id="service_description" placeholder="Nhập mô tả"></textarea>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="button-container">-->
+<!--                    <button type="button" class="btn btn-primary" id="okServiceBtn" style="margin-right: 10px">Xác nhận</button>-->
+<!--                    <button type="button" class="btn btn-danger" id="cancelBtn">Hủy bỏ</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
         <!--body-->

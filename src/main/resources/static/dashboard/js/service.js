@@ -67,6 +67,12 @@ const MedicalServiceCreate = (function() {
         serviceDescriptionSelector: $('#service_description'),
         createBtnSelector: $('#okServiceBtn')
     }
+    module.init = () =>{
+
+    }
+    const openCreateServiceModalButton = () => {
+
+    }
     return module;
 })();
 
