@@ -49,4 +49,9 @@ public class HomeAdminController {
     public ModelAndView toPatientEdit() {
         return new ModelAndView("dashboard/admin/service");
     }
+    
+    @GetMapping("/statistical")
+    public String statistical() {
+        return "dashboard/admin/revenue-statistics";
+    }
 }
