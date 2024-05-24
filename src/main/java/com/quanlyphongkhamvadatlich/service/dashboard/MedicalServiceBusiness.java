@@ -29,10 +29,11 @@ public class MedicalServiceBusiness {
 
     public void updateMedicalService(Long id, MedicalServiceParam serviceParam) {
         MedicalService medicalService = medicalServiceRepository.findById(id).orElseThrow();
-        MedicalService newService = medicalServiceMapper.toEntity(serviceParam);
-        newService.setId(medicalService.getId());
+        medicalService.setServiceName(serviceParam.getServiceName());
+        medicalService.setPrice(serviceParam.getPrice());
+        medicalService.setDescription(serviceParam.getDescription());
 
-        medicalServiceRepository.save(newService);
+        medicalServiceRepository.save(medicalService);
     }
 
     public void deleteMedicalService(Long id) {

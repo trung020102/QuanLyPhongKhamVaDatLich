@@ -1,14 +1,9 @@
 .modal {
-    display: none;
     position: fixed;
-    z-index: 1;
     top: 2px;
-
     left: 140px;
-    width: 100%;
-    height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+
 }
 
 .modal-title {
@@ -34,14 +29,14 @@
     cursor: pointer;
 }
 
-.modal-content .modal-title{
+.modal-content .modal-title {
     font-weight: 0.6;
     opacity: 0.7;
     font-size: 30px;
 
 }
 
-.modal-content .modal-content-body{
+.modal-content .modal-content-body {
     width: 100%;
     height: 100%;
 
@@ -66,7 +61,7 @@
 }
 
 .openDoctorModalBtn {
-    background-color: rgba(60,179,113,1);
+    background-color: rgba(60, 179, 113, 1);
     border-radius: 10px;
     border: none;
     color: white;
@@ -78,17 +73,17 @@
 }
 
 .openDoctorModalBtn:hover {
-    background-color: rgba(60,149,113,1);
+    background-color: rgba(60, 149, 113, 1);
 }
 
 .doctorEditClose {
-        color: #aaa;
-        position: absolute; /* Đặt vị trí tuyệt đối */
-        top: 10px; /* Khoảng cách từ phía trên */
-        right: 10px; /* Khoảng cách từ phía trái */
-        font-size: 30px;
-        font-weight: bold;
-        cursor: pointer;
+    color: #aaa;
+    position: absolute; /* Đặt vị trí tuyệt đối */
+    top: 10px; /* Khoảng cách từ phía trên */
+    right: 10px; /* Khoảng cách từ phía trái */
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .input-row {
@@ -126,7 +121,7 @@
     padding: 12px;
     margin: 10px 40%;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
     text-align: center;
 }
 
@@ -147,7 +142,7 @@
     padding: 12px;
     margin: 10px 40%;
     border-radius: 5px;
-    cursor:pointer;
+    cursor: pointer;
     text-align: center;
 }
 
