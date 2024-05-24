@@ -48,10 +48,7 @@ public class DoctorController {
         return new ModelAndView("dashboard/doctor/history_exam");
     }
 
-    @GetMapping("/physical_exam")
-    public ModelAndView toPhysicalExam(){
-        return new ModelAndView("dashboard/doctor/physical_exam");
-    }
+
     @GetMapping("/appointment_schedule")
     public ModelAndView appointmentSchedule() {
         return new ModelAndView("dashboard/doctor/appointment_schedule");
