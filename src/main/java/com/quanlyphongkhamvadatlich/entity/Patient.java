@@ -30,7 +30,6 @@ public class Patient extends BaseEntity {
     @Id
     @Column(name = "patient_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
 
     @Column(name = "name")
