@@ -149,6 +149,8 @@
                 var diagnosis = $("#diagnosis").val();
                 var selectedMedicines = $('#selectedMedicinesBody tr').length > 0;
                 var selectedServices = $('#selectedServicesBody tr').length > 0;
+
+                // Validate diagnosis
                 if (!diagnosis) {
                     $("#diagnosis").addClass("is-invalid");
                     $("#diagnosisError").show();
@@ -157,6 +159,8 @@
                     $("#diagnosis").removeClass("is-invalid");
                     $("#diagnosisError").hide();
                 }
+
+                // Validate selected services
                 if (!selectedServices) {
                     $('#selectServices').addClass("is-invalid");
                     $("#serviceError").show();
@@ -165,6 +169,8 @@
                     $('#selectServices').removeClass("is-invalid");
                     $("#serviceError").hide();
                 }
+
+                // Validate selected medicines
                 if (!selectedMedicines) {
                     $('#selectMedicines').addClass("is-invalid");
                     $("#medicineError").show();
@@ -174,35 +180,65 @@
                     $("#medicineError").hide();
                 }
 
+                // Validate medicine details
+                $('#selectedMedicinesBody tr').each(function () {
+                    var quantity = $(this).find('td:eq(2) input').val();
+                    var unit = $(this).find('td:eq(3) input').val();
+                    var dosage = $(this).find('td:eq(4) input').val();
+
+                    if (!quantity || quantity <= 0) {
+                        $(this).find('td:eq(2) input').addClass('is-invalid');
+                        isValid = false;
+                    } else {
+                        $(this).find('td:eq(2) input').removeClass('is-invalid');
+                    }
+
+                    if (!unit) {
+                        $(this).find('td:eq(3) input').addClass('is-invalid');
+                        isValid = false;
+                    } else {
+                        $(this).find('td:eq(3) input').removeClass('is-invalid');
+                    }
+
+                    if (!dosage) {
+                        $(this).find('td:eq(4) input').addClass('is-invalid');
+                        isValid = false;
+                    } else {
+                        $(this).find('td:eq(4) input').removeClass('is-invalid');
+                    }
+                });
+
                 return isValid;
             }
 
-
             $('#btnDone_thuoc').click(function () {
-            var selectedMedicines = $('#selectMedicines').val();
+                var selectedMedicines = $('#selectMedicines').val();
 
+                $('#selectedMedicinesBody').empty();
 
-            $('#selectedMedicinesBody').empty();
+                if (selectedMedicines) {
+                    selectedMedicines.forEach(function (medicine, index) {
+                        var medicineName = $('#selectMedicines option[value="' + medicine + '"]').text();
 
-            if (selectedMedicines) {
-                selectedMedicines.forEach(function (medicine, index) {
-                    var medicineName = $('#selectMedicines option[value="' + medicine + '"]').text();
+                        var row = '<tr>' +
+                            '<td>' + medicine + '</td>' +
+                            '<td>' + medicineName + '</td>' +
+                            '<td><input type="number" class="form-control" id="quantity_' + medicine + '" min="1" required></td>' +
+                            '<td><input type="text" class="form-control" id="unit_' + medicine + '" placeholder="Nhập đơn vị" required></td>' +
+                            '<td><input type="text" class="form-control" id="dosage_' + medicine + '" placeholder="Nhập liều dùng" required></td>' +
+                            '<td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>' +
+                            '</tr>';
+                        $('#selectedMedicinesBody').append(row);
+                    });
+                }
 
-                    var row = '<tr>' +
-                        '<td>' + medicine + '</td>' +
-                        '<td>' + medicineName + '</td>' +
-                        '<td><input type="number" class="form-control" id="quantity_' + medicine + '"min="1" required></td>' +
-                        '<td><input type="text" class="form-control" id="unit_' + medicine + '" placeholder="Nhập đơn vị" required></td>' +
-                        '<td><input type="text" class="form-control" id="dosage_' + medicine + '" placeholder="Nhập liều dùng" required></td>' +
-                        '<td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>' +
-                        '</tr>';
-                    $('#selectedMedicinesBody').append(row);
-                });
-            }
+                // Clear validation errors when medicines are added
+                $('#selectMedicines').removeClass('is-invalid');
+                $("#medicineError").hide();
             });
+
             $('#btnDone_dichvu').click(function () {
                 var selectedServices = $('#selectServices').val();
-
 
                 $('#selectedServicesBody').empty();
 
@@ -220,7 +256,12 @@
                         $('#selectedServicesBody').append(row);
                     });
                 }
+
+                // Clear validation errors when services are added
+                $('#selectServices').removeClass('is-invalid');
+                $("#serviceError").hide();
             });
+
             function sendPatientRecordToController() {
                 if (!validateForm()) {
                     return;
@@ -243,8 +284,8 @@
                 var serviceDetails = [];
                 $('#selectedServicesBody tr').each(function () {
                     var serviceId = $(this).find('td:eq(0)').text();
-                    var serviceName = $(this).find('td:eq(2)').val();
-                    var servicePrice = $(this).find('td:eq(3)').val();
+                    var serviceName = $(this).find('td:eq(1)').text();
+                    var servicePrice = $(this).find('td:eq(2)').text();
                     var serviceDetail = {
                         "serviceId": serviceId,
                         "serviceName": serviceName,
@@ -271,6 +312,7 @@
                     data: JSON.stringify(jsonData),
                     success: function (response) {
                         window.location.href = response.redirectUrl;
+                        alert("Bệnh án đã được tạo thành công!");
                     },
                     error: function (xhr, status, error) {
                         $('#error-message').text(xhr.responseText).show();
@@ -278,24 +320,49 @@
                     }
                 });
             }
+
             $('#submit').on('click', function (event) {
                 event.preventDefault();
                 sendPatientRecordToController();
             });
 
-        $('#selectedMedicinesBody').on('click', '.btn-danger', function () {
-            $(this).closest('tr').remove();
-        });
-        $('#btnResetFilter_thuoc').click(function () {
-            $('#selectedMedicinesBody').empty();
-        });
-        $('#selectedServicesBody').on('click', '.btn-danger', function () {
+            $('#selectedMedicinesBody').on('click', '.btn-danger', function () {
                 $(this).closest('tr').remove();
+
+                // Clear validation errors when medicines are removed
+                if ($('#selectedMedicinesBody tr').length === 0) {
+                    $('#selectMedicines').addClass('is-invalid');
+                    $("#medicineError").show();
+                }
             });
-        $('#btnResetFilter_dichvu').click(function () {
+
+            $('#btnResetFilter_thuoc').click(function () {
+                $('#selectedMedicinesBody').empty();
+
+                // Clear validation errors when medicines are reset
+                $('#selectMedicines').addClass('is-invalid');
+                $("#medicineError").show();
+            });
+
+            $('#selectedServicesBody').on('click', '.btn-danger', function () {
+                $(this).closest('tr').remove();
+
+                // Clear validation errors when services are removed
+                if ($('#selectedServicesBody tr').length === 0) {
+                    $('#selectServices').addClass('is-invalid');
+                    $("#serviceError").show();
+                }
+            });
+
+            $('#btnResetFilter_dichvu').click(function () {
                 $('#selectedServicesBody').empty();
+
+                // Clear validation errors when services are reset
+                $('#selectServices').addClass('is-invalid');
+                $("#serviceError").show();
             });
         });
     </script>
 </th:block>
+
 </html>
