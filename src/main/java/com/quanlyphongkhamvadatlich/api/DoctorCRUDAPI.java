@@ -45,7 +45,7 @@ public class DoctorCRUDAPI {
     // Update operation
     @PutMapping("/put/{id}")
     public ResponseEntity<?> updateDoctor(@PathVariable Long id,
-                                          @RequestBody DoctorServiceParam doctorServiceParam){
+                                          @Valid @RequestBody DoctorServiceParam doctorServiceParam){
         try {
             System.out.println("Updating doctor with ID: " + id);
             doctorCRUDService.updateDoctor(id, doctorServiceParam);

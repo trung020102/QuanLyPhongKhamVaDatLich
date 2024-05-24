@@ -20,6 +20,19 @@ $(document).ready(function() {
         doctorModal.style.display = "none";
     }
 
+    $('.button-container').on('click', '#cancelBtn', function() {
+        closeDoctorModal();
+        document.getElementById('doctor_name').value = '';
+        document.getElementById('doctor_specialty').value = '';
+        document.getElementById('doctor_workplace').value = '';
+        document.getElementById('doctor_diploma').value = '';
+        document.getElementById('doctor_introduction').value = '';
+    })
+
+    $('.button-container').on('click', '#cancelEditBtn', function() {
+        closeEditDoctorModal();
+    })
+
     $('table').on('click', '#openDoctorEditModal', function() {
         var id = $(this).data('id');
         $('#doctor_id_edit').val(id);
@@ -58,11 +71,27 @@ $(document).ready(function() {
         doctorEditModal.style.display = "none";
     }
 
+    let deleteDoctorID;
+
     $('table').on('click', '#delete', function() {
-        var id = $(this).closest('tr').find('td:first').text();
+        deleteDoctorID = $(this).closest('tr').find('td:first').text();
+        openConfirmDeleteModal();
+    })
+
+    function openConfirmDeleteModal() {
+        var confirmDeleteModal = document.getElementById("confirmDeleteModal");
+        confirmDeleteModal.style.display = "block";
+    }
+
+    function closeConfirmDeleteModal() {
+        var confirmDeleteModal = document.getElementById("confirmDeleteModal");
+        confirmDeleteModal.style.display = "none";
+    }
+
+    $('#confirmDelete').on('click', function() {
         $.ajax({
             type: "DELETE",
-            url: "http://localhost:8082/api/doctors/delete/" + id,
+            url: "http://localhost:8082/api/doctors/delete/" + deleteDoctorID,
             success: function(data) {
                 alert("Delete success");
                 assignDataToTable();
@@ -71,7 +100,17 @@ $(document).ready(function() {
                 console.log(err);
             }
         });
+
+        closeConfirmDeleteModal();
     });
+
+    $('#cancelDelete').on('click', function() {
+        closeConfirmDeleteModal();
+    });
+
+    $('.deleteModalClose').on('click', function() {
+        closeConfirmDeleteModal();
+    })
 
     $('#okBtn').on('click', function() {
         var name = $("#doctor_name").val();
