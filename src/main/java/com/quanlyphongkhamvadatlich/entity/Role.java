@@ -1,12 +1,14 @@
 package com.quanlyphongkhamvadatlich.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "roles")
 public class Role {
     @Id

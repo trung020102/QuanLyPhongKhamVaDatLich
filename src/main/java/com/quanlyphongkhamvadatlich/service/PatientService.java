@@ -27,7 +27,7 @@ public class PatientService {
                 .birthday(model.getBirthday())
                 .gender(model.getGender())
                 .address(model.getAddress())
-                .citizen_number(model.getCitizen_number())
+                .citizenNumber(model.getCitizen_number())
                 .career(model.getCareer())
                 .insurance_number(model.getInsurance_number())
                 .user(user)

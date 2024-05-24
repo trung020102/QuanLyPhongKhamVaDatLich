@@ -38,14 +38,6 @@
 
                 <div class="input-row">
                     <div class="input-container">
-                        <img src="/dashboard/img/user-icon.jpg" alt="user icon" id="avatar">
-                        <label for="upload_image" id="upload_label">Cập nhật avatar</label>
-                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="upload_image">
-                    </div>
-                </div>
-
-                <div class="input-row">
-                    <div class="input-container">
                         <label for="doctor_name">Họ và tên</label>
                         <input class="form-control" type="text" id="doctor_name" placeholder="Nhập họ và tên">
                     </div>
@@ -93,13 +85,12 @@
                             aria-label="Rendering engine: activate to sort column descending">
                             STT
                         </th>
-
-                        <th class="sorting">Ảnh</th>
                         <th class="sorting">Họ và tên</th>
                         <th class="sorting">Chuyên môn</th>
                         <th class="sorting">Bằng cấp</th>
                         <th class="sorting">Nơi công tác</th>
                         <th class="sorting">Giới thiệu</th>
+                        <th class="sorting">Operation</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -120,9 +111,6 @@
 
                 <div class="input-row">
                     <div class="input-container">
-                        <img src="/dashboard/img/user-icon.jpg" alt="user icon" id="changeAvatar">
-                        <label for="change_upload_image" id="change_upload_label">Cập nhật avatar</label>
-                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="change_upload_image">
                         <input type="hidden" id="doctor_id_edit">
                     </div>
                 </div>
@@ -147,11 +135,6 @@
                     <div class="input-container">
                         <label for="doctor_workplace_edit">Nơi công tác</label>
                         <input class="form-control" type="text" id="doctor_workplace_edit" placeholder="Nhập nơi công tác">
-                    </div>
-
-                    <div class="input-container">
-                        <label for="doctorID_edit">Mã bác sĩ</label>
-                        <input class="form-control" type="text" id="doctorID_edit" disabled value="GJH934">
                     </div>
                 </div>
 

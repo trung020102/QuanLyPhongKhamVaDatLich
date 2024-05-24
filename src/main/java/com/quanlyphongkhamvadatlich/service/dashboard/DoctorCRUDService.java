@@ -40,12 +40,13 @@ public class DoctorCRUDService{
 
     //Update operation
     public void updateDoctor(Long id, DoctorServiceParam doctorServiceParam) {
-        Doctor doctor = doctorRepository.findById(id).orElse(null);
-        if (doctor != null) {
-            Doctor newDoctor = doctorServiceMapper.toEntity(doctorServiceParam);
-            newDoctor.setId(doctor.getId());
-            doctorRepository.save(newDoctor);
-        }
+        Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
+        doctor.setDoctor_name(doctorServiceParam.getDoctor_name());
+        doctor.setSpecialty(doctorServiceParam.getSpecialty());
+        doctor.setDiploma(doctorServiceParam.getDiploma());
+        doctor.setWorkplace(doctorServiceParam.getWorkplace());
+        doctor.setIntroduction(doctorServiceParam.getIntroduction());
+        doctorRepository.save(doctor);
     }
 
     //Delete operation

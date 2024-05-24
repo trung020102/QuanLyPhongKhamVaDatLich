@@ -35,20 +35,16 @@ $(document).ready(function() {
             closeEditDoctorModal();
         });
 
-        console.log("Fetching data for doctor ID:", id);
-
         $.ajax({
             type: "GET",
             url: "http://localhost:8082/api/doctors/get/" + id,
             success: function(data) {
-                console.log("Data received:", data);
-
-                $('#doctor_name_edit').val(data.name);
+                $('#doctor_name_edit').val(data.doctor_name);
                 $('#doctor_specialty_edit').val(data.specialty);
                 $('#doctor_workplace_edit').val(data.workplace);
                 $('#doctor_diploma_edit').val(data.diploma);
                 $('#doctor_introduction_edit').val(data.introduction);
-                $('#changeAvatar').attr('src', data.avatar);
+                $('#changeAvatar').val(data.avatar);
             },
             error: function(err) {
                 console.log("Error fetching doctor data:", err);
@@ -60,18 +56,6 @@ $(document).ready(function() {
     function closeEditDoctorModal() {
         var doctorEditModal = document.getElementById("doctorEditModal");
         doctorEditModal.style.display = "none";
-    }
-
-    var profilePic = document.getElementById("avatar");
-    var avatarBtn = document.getElementById("upload_image");
-    avatarBtn.onchange = function() {
-        profilePic.src = URL.createObjectURL(avatarBtn.files[0]);
-    }
-
-    var changeProfilePic = document.getElementById("changeAvatar");
-    var changeAvatarBtn = document.getElementById("change_upload_image");
-    changeAvatarBtn.onchange = function() {
-        changeProfilePic.src = URL.createObjectURL(changeAvatarBtn.files[0]);
     }
 
     $('table').on('click', '#delete', function() {
@@ -90,7 +74,6 @@ $(document).ready(function() {
     });
 
     $('#okBtn').on('click', function() {
-        var avatar = $("#upload_image").val();
         var name = $("#doctor_name").val();
         var specialty = $("#doctor_specialty").val();
         var workplace = $("#doctor_workplace").val();
@@ -104,14 +87,11 @@ $(document).ready(function() {
 
         var jsonVar = {
             doctor_name: name,
-            avatar: avatar,
             specialty: specialty,
             diploma: diploma,
             workplace: workplace,
             introduction: introduction
         };
-
-        console.log(JSON.stringify(jsonVar));
 
         $.ajax({
             type: "POST",
@@ -131,7 +111,6 @@ $(document).ready(function() {
 
     $('#okEditBtn').on('click', function() {
         var id = $('#doctor_id_edit').val();
-        var avatar = $("#change_upload_image").val();
         var name = $("#doctor_name_edit").val();
         var specialty = $("#doctor_specialty_edit").val();
         var workplace = $("#doctor_workplace_edit").val();
@@ -139,7 +118,6 @@ $(document).ready(function() {
         var introduction = $("#doctor_introduction_edit").val();
 
         var jsonVar = {
-            avatar: avatar,
             doctor_name: name,
             specialty: specialty,
             diploma: diploma,
@@ -156,7 +134,6 @@ $(document).ready(function() {
             contentType: "application/json",
             url: "http://localhost:8082/api/doctors/put/" + id,
             success: function(data) {
-                $("#change_upload_image").val("");
                 $("#doctor_name_edit").val("");
                 $("#doctor_specialty_edit").val("");
                 $("#doctor_workplace_edit").val("");
@@ -183,7 +160,6 @@ $(document).ready(function() {
                 for (var i in doctor) {
                     $("tbody").append("<tr>" +
                         "<td>" + doctor[i].id + "</td>" +
-                        "<td>" + doctor[i].avatar + "</td>" +
                         "<td>" + doctor[i].doctor_name + "</td>" +
                         "<td>" + doctor[i].specialty + "</td>" +
                         "<td>" + doctor[i].diploma + "</td>" +

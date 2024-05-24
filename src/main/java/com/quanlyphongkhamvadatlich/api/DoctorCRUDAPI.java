@@ -45,16 +45,14 @@ public class DoctorCRUDAPI {
     // Update operation
     @PutMapping("/put/{id}")
     public ResponseEntity<?> updateDoctor(@PathVariable Long id,
-                                          @Valid @RequestBody DoctorServiceParam doctorServiceParam){
+                                          @RequestBody DoctorServiceParam doctorServiceParam){
         try {
             System.out.println("Updating doctor with ID: " + id);
-            System.out.println("Received DoctorServiceParam: " + doctorServiceParam);
             doctorCRUDService.updateDoctor(id, doctorServiceParam);
             return ResponseEntity.ok().build();
         } catch(Exception e){
-            System.out.println("Error updating doctor: " + e.getMessage());
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the doctor.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("An error occurred while updating the doctor.");
         }
     }
 

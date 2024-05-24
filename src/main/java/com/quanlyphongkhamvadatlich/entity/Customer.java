@@ -1,14 +1,16 @@
 package com.quanlyphongkhamvadatlich.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "customers")
-public class Customer {
+public class Customer extends BaseEntity {
     @Id
     @Column(name="customer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
