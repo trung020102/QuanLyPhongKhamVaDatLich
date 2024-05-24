@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.quanlyphongkhamvadatlich.repository.UserRepository;
+import com.quanlyphongkhamvadatlich.service.UserDetailService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,7 +31,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PersonalInformationController {
     private final UserService userService;
+
     private final UploadFileService fileService;
+
 
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
