@@ -1,22 +1,18 @@
 package com.quanlyphongkhamvadatlich.dto.dashboard;
 
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class MedicalServiceDTO {
-
-    private Long id;
+    private Long serviceId;
     private String serviceName;
-
-
-    private String description;
-
-
-    private BigDecimal price;
+    private BigDecimal servicePrice;
 }

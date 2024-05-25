@@ -5,7 +5,7 @@
 >
 
 <head>
-    <link rel="stylesheet" href="/dashboard/css/doctor.css" />
+    <link rel="stylesheet" href="/dashboard/css/doctor.css"/>
 </head>
 
 <th:block layout:fragment="content-header">
@@ -23,26 +23,17 @@
 
 <th:block layout:fragment="content-body">
     <!-- Add doctor modal button-->
-    <button class="button-detail openDoctorModalBtn">
+    <button class="button-detail openDoctorModalBtn" data-toggle="modal" data-target="#doctorModal">
         Thêm bác sĩ
     </button>
 
     <!-- Add doctor modal -->
     <div id="doctorModal" class="modal">
         <div class="modal-content">
-            <span class="doctorClose">&times;</span>
+            <span class="doctorClose" data-dismiss="modal">&times;</span>
             <p class="modal-title">Thông tin bác sĩ</p>
             <div class="modal-content-body">
                 <hr>
-
-                <div class="input-row">
-                    <div class="input-container">
-                        <img src="/dashboard/img/user-icon.jpg" alt="user icon" id="avatar">
-                        <label for="upload_image" id="upload_label">Cập nhật avatar</label>
-                        <input type="file" accept="image/jpeg, image/png, image/jpg" id="upload_image">
-                    </div>
-                </div>
-
                 <div class="input-row">
                     <div class="input-container">
                         <label for="doctor_name">Họ và tên</label>
@@ -62,18 +53,23 @@
 
                     <div class="input-container">
                         <label for="doctor_diploma">Bằng cấp</label>
-                        <input class="form-control" type="email" id="doctor_diploma" placeholder="Nhập bằng cấp">
+                        <input class="form-control" type="text" id="doctor_diploma" placeholder="Nhập bằng cấp">
                     </div>
                 </div>
 
                 <div class="input-container">
                     <label for="doctor_introduction">Giới thiệu</label>
-                    <textarea class="form-control" rows="3" id="doctor_introduction" placeholder="Nhập giới thiệu"></textarea>
+                    <textarea class="form-control" rows="3" id="doctor_introduction"
+                              placeholder="Nhập giới thiệu"></textarea>
                 </div>
 
                 <div class="button-container">
-                    <button id="okBtn" type="button" class="btn btn-primary" style="margin-left: 40%; margin-top: 20px;">Xác nhận</button>
-                    <button id="cancelBtn" type="button" class="btn btn-danger" style="margin-left: 20px; margin-top: 20px">Hủy bỏ</button>
+                    <button id="create_Doctor_Btn" type="button" class="btn btn-primary"
+                            style="margin-left: 40%; margin-top: 20px;">Xác nhận
+                    </button>
+                    <button id="cancelBtn" type="button" class="btn btn-danger" data-dismiss="modal"
+                            style="margin-left: 20px; margin-top: 20px">Hủy bỏ
+                    </button>
                 </div>
             </div>
         </div>
@@ -160,7 +156,8 @@
                     </div>
                     <div class="input-container">
                         <label for="doctor_specialty_edit">Chuyên môn</label>
-                        <input class="form-control" type="text" id="doctor_specialty_edit" placeholder="Nhập chuyên môn">
+                        <input class="form-control" type="text" id="doctor_specialty_edit"
+                               placeholder="Nhập chuyên môn">
                     </div>
                 </div>
 
@@ -172,7 +169,8 @@
 
                     <div class="input-container">
                         <label for="doctor_workplace_edit">Nơi công tác</label>
-                        <input class="form-control" type="text" id="doctor_workplace_edit" placeholder="Nhập nơi công tác">
+                        <input class="form-control" type="text" id="doctor_workplace_edit"
+                               placeholder="Nhập nơi công tác">
                     </div>
 
                     <div class="input-container">
@@ -184,19 +182,24 @@
                 <div class="input-row">
                     <div class="input-container">
                         <label for="doctor_introduction_edit">Giới thiệu</label>
-                        <textarea class="form-control" rows="3" id="doctor_introduction_edit" placeholder="Nhập giới thiệu"></textarea>
+                        <textarea class="form-control" rows="3" id="doctor_introduction_edit"
+                                  placeholder="Nhập giới thiệu"></textarea>
                     </div>
                 </div>
                 <div class="button-container">
-                    <button id="okEditBtn" type="button" class="btn btn-primary" style="margin-left: 40%; margin-top: 20px;">Xác nhận</button>
-                    <button id="cancelEditBtn" type="button" class="btn btn-danger" style="margin-left: 20px; margin-top: 20px">Hủy bỏ</button>
+                    <button id="okEditBtn" type="button" class="btn btn-primary"
+                            style="margin-left: 40%; margin-top: 20px;">Xác nhận
+                    </button>
+                    <button id="cancelEditBtn" type="button" class="btn btn-danger"
+                            style="margin-left: 20px; margin-top: 20px">Hủy bỏ
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </th:block>
 
-<th:block layout:fragment="document-script">
-    <script src="/dashboard/js/doctor_modal.js"></script>
+<th:block layout:fragment="doctor-script">
+    <script src="/dashboard/js/doctor.js"></script>
 </th:block>
 </html>
