@@ -112,7 +112,7 @@ $(document).ready(function() {
         closeConfirmDeleteModal();
     })
 
-    $('#okBtn').on('click', function() {
+    $('#create_Doctor_Btn').on('click', function() {
         var name = $("#doctor_name").val();
         var specialty = $("#doctor_specialty").val();
         var workplace = $("#doctor_workplace").val();
