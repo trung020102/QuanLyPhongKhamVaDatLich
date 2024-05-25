@@ -59,8 +59,13 @@
         </div>
         <div class="form-group" >
             <label>Nhập chuẩn đoán <span style="color: red">*</span> :</label>
-            <textarea class="form-control" name="diagnosis" id="diagnosis" rows="3" placeholder="Enter ..." required></textarea>
+            <textarea class="form-control" name="diagnosis" id="diagnosis" rows="3" placeholder="Nhập chuẩn đoán..." required></textarea>
             <div class="invalid-feedback" id="diagnosisError" style="font-size: 20px">Vui lòng nhập chuẩn đoán.</div>
+        </div>
+        <div class="form-group" >
+        <label>Nhập ghi chú <span style="color: red">*</span> :</label>
+        <textarea class="form-control" name="note" id="note" rows="3" placeholder="Nhập ghi chú..." required></textarea>
+        <div class="invalid-feedback" id="noteError" style="font-size: 20px">Vui lòng nhập ghi chú.</div>
         </div>
 
 
@@ -141,16 +146,17 @@
 </th:block>
 
 <th:block layout:fragment="service-script">
-    <script src="/dashboard/js/doctor.js"></script>
+    <!--<script src="/dashboard/js/doctor.js"></script>-->
     <script>
         $(document).ready(function () {
             function validateForm() {
                 var isValid = true;
                 var diagnosis = $("#diagnosis").val();
+                var note = $("#note").val();
                 var selectedMedicines = $('#selectedMedicinesBody tr').length > 0;
                 var selectedServices = $('#selectedServicesBody tr').length > 0;
 
-                // Validate diagnosis
+
                 if (!diagnosis) {
                     $("#diagnosis").addClass("is-invalid");
                     $("#diagnosisError").show();
@@ -159,8 +165,14 @@
                     $("#diagnosis").removeClass("is-invalid");
                     $("#diagnosisError").hide();
                 }
-
-                // Validate selected services
+                if (!note) {
+                    $("#note").addClass("is-invalid");
+                    $("#noteError").show();
+                    isValid = false;
+                } else {
+                    $("#note").removeClass("is-invalid");
+                    $("#noteError").hide();
+                }
                 if (!selectedServices) {
                     $('#selectServices').addClass("is-invalid");
                     $("#serviceError").show();
@@ -169,8 +181,6 @@
                     $('#selectServices').removeClass("is-invalid");
                     $("#serviceError").hide();
                 }
-
-                // Validate selected medicines
                 if (!selectedMedicines) {
                     $('#selectMedicines').addClass("is-invalid");
                     $("#medicineError").show();
@@ -193,13 +203,6 @@
                         $(this).find('td:eq(2) input').removeClass('is-invalid');
                     }
 
-                    if (!unit) {
-                        $(this).find('td:eq(3) input').addClass('is-invalid');
-                        isValid = false;
-                    } else {
-                        $(this).find('td:eq(3) input').removeClass('is-invalid');
-                    }
-
                     if (!dosage) {
                         $(this).find('td:eq(4) input').addClass('is-invalid');
                         isValid = false;
@@ -209,6 +212,14 @@
                 });
 
                 return isValid;
+            }
+            function formatPrice() {
+                const priceElements = document.querySelectorAll('#format_price');
+                priceElements.forEach(element => {
+                    const price = parseFloat(element.textContent.replace(/[^\d.-]/g, ''));
+                    const formattedPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+                    element.textContent = formattedPrice;
+                });
             }
 
             $('#btnDone_thuoc').click(function () {
@@ -224,7 +235,12 @@
                             '<td>' + medicine + '</td>' +
                             '<td>' + medicineName + '</td>' +
                             '<td><input type="number" class="form-control" id="quantity_' + medicine + '" min="1" required></td>' +
-                            '<td><input type="text" class="form-control" id="unit_' + medicine + '" placeholder="Nhập đơn vị" required></td>' +
+                            '<td><select class="form-control" id="unit_' + medicine + '" required>' +
+                            '<option value="Viên">Viên</option>' +
+                            '<option value="Vỉ">Vỉ</option>' +
+                            '<option value="Hộp">Hộp</option>' +
+                            '<option value="Chai">Chai</option>' +
+                            '</select></td>' +
                             '<td><input type="text" class="form-control" id="dosage_' + medicine + '" placeholder="Nhập liều dùng" required></td>' +
                             '<td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>' +
                             '</tr>';
@@ -250,14 +266,14 @@
                         var row = '<tr>' +
                             '<td>' + service + '</td>' +
                             '<td>' + serviceName + '</td>' +
-                            '<td>' + servicePrice + '</td>' +
+                            '<td id="format_price">' + servicePrice + '</td>' +
                             '<td><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></td>' +
                             '</tr>';
                         $('#selectedServicesBody').append(row);
                     });
                 }
+                formatPrice();
 
-                // Clear validation errors when services are added
                 $('#selectServices').removeClass('is-invalid');
                 $("#serviceError").hide();
             });
@@ -267,11 +283,12 @@
                     return;
                 }
                 var diagnosis = $("#diagnosis").val();
+                var note = $("#note").val();
                 var medicineDetails = [];
                 $('#selectedMedicinesBody tr').each(function () {
                     var medicineId = $(this).find('td:eq(0)').text();
                     var quantity = $(this).find('td:eq(2) input').val();
-                    var unit = $(this).find('td:eq(3) input').val();
+                    var unit = $(this).find('td:eq(3) select').val();
                     var dosage = $(this).find('td:eq(4) input').val();
                     var medicineDetail = {
                         "medicineId": medicineId,
@@ -285,7 +302,7 @@
                 $('#selectedServicesBody tr').each(function () {
                     var serviceId = $(this).find('td:eq(0)').text();
                     var serviceName = $(this).find('td:eq(1)').text();
-                    var servicePrice = $(this).find('td:eq(2)').text();
+                    var servicePrice = $(this).find('td:eq(2)').text().replace(/[^\d.-]/g, '');
                     var serviceDetail = {
                         "serviceId": serviceId,
                         "serviceName": serviceName,
@@ -295,9 +312,12 @@
                 });
                 var jsonData = {
                     diagnosis: diagnosis,
+                    note: note,
                     listPrescription: medicineDetails,
                     listService: serviceDetails
                 };
+
+                console.log(JSON.stringify(jsonData));
 
                 var patientId = $("#patientId").val();
                 var url = 'http://localhost:8082/doctor/physical_exam/' + patientId;
@@ -338,16 +358,12 @@
 
             $('#btnResetFilter_thuoc').click(function () {
                 $('#selectedMedicinesBody').empty();
-
-                // Clear validation errors when medicines are reset
                 $('#selectMedicines').addClass('is-invalid');
                 $("#medicineError").show();
             });
 
             $('#selectedServicesBody').on('click', '.btn-danger', function () {
                 $(this).closest('tr').remove();
-
-                // Clear validation errors when services are removed
                 if ($('#selectedServicesBody tr').length === 0) {
                     $('#selectServices').addClass('is-invalid');
                     $("#serviceError").show();
@@ -356,12 +372,11 @@
 
             $('#btnResetFilter_dichvu').click(function () {
                 $('#selectedServicesBody').empty();
-
-                // Clear validation errors when services are reset
                 $('#selectServices').addClass('is-invalid');
                 $("#serviceError").show();
             });
         });
+
     </script>
 </th:block>
 

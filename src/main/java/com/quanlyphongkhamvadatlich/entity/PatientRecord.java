@@ -42,4 +42,7 @@ public class PatientRecord extends BaseEntity {
 
     @Column(name = "total_fees")
     private BigDecimal totalFees;
+
+    @Column(name = "note")
+    private String note;
 }

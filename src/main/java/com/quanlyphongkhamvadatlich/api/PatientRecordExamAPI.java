@@ -64,6 +64,7 @@ public class PatientRecordExamAPI {
         patientRecord.setPatient(patient);
         patientRecord.setDoctor(doctor);
         patientRecord.setDiagnosis(listPatientRecord.getDiagnosis());
+        patientRecord.setNote(listPatientRecord.getNote());
         PatientRecord savedPatientRecord = patientRecordService.save(patientRecord);
         BigDecimal totalFee = BigDecimal.ZERO;
         Prescription prescription = new Prescription();
@@ -99,7 +100,6 @@ public class PatientRecordExamAPI {
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Patient record has been added successfully.");
         response.put("redirectUrl", "http://localhost:8082/doctor/appointments");
-
         return ResponseEntity.ok(response);
     }
 }
