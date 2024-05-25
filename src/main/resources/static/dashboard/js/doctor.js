@@ -15,7 +15,7 @@ $(function () {
 const DocterCreate = (function () {
     const module = {
         createDoctorUrl: '/api/doctor',
-        modalEditDocter: $('#serviceEditModal'),
+        modalEditDoctor: $('#serviceEditModal'),
         doctorNameSelector: $('#doctor_name'),
         doctorSpecialtySelector: $('#doctor_specialty'),
         doctorWorkplaceSelector: $('#doctor_workplace'),
