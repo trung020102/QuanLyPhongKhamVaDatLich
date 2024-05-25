@@ -1,16 +1,16 @@
 package com.quanlyphongkhamvadatlich.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.List;
-
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "doctors")
-public class Doctor {
+public class Doctor extends BaseEntity {
     @Id
     @Column(name="doctor_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +30,4 @@ public class Doctor {
 
     @Column(name = "introduction", columnDefinition = "TEXT")
     private String introduction;
-
-    // Mối quan hệ với entity PatientRecord
-    @OneToMany(mappedBy = "doctor")
-    private List<PatientRecord> patientRecords;
 }

@@ -1,16 +1,20 @@
 package com.quanlyphongkhamvadatlich.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name="medical_services")
-public class MedicalService {
+@Builder
+@Table(name="medical_service")
+public class MedicalService extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="medical_service_id")
@@ -23,5 +27,9 @@ public class MedicalService {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "medicalService", fetch = FetchType.EAGER)
+    private List<ServiceDetail> serviceDetails;
 
 }

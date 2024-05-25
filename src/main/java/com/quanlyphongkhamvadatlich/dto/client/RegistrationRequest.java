@@ -17,8 +17,8 @@ public class RegistrationRequest{
     @Email(message = "Định dạng email không hợp lệ")
     private String email;
 
-    @NotBlank(message = "Tên người dùng không được để trống")
-    private String userName;
+    @NotBlank(message = "Họ và tên không được để trống")
+    private String fullName;
 
     @NotBlank(message = "Mật khẩu không được để trống")
     @Size(min = 6, max = 20, message = "Mật khẩu phải có độ dài từ 6 đến 20 ký tự")

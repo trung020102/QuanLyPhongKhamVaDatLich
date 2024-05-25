@@ -19,15 +19,10 @@ public class DoctorController {
     @GetMapping("/login")
     public String toLoginDoctor(@AuthenticationPrincipal UserPrincipal principal) {
         if (principal != null)
-            if(principal.isDoctor())
-                 return "redirect:/doctor/physical_exam";
+            return "redirect:/doctor/appointments";
 
         return "dashboard/doctor/login";
     }
-   /*@GetMapping("/login")
-   public String getDoctorLoginPage() {
-       return "dashboard/doctor/login"; // Trả về giao diện đăng nhập cho vai trò ADMIN
-   }*/
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -42,6 +37,10 @@ public class DoctorController {
             session.invalidate();
         }
         return "redirect:/doctor/login"; // Điều hướng đến trang đăng nhập và thông báo đăng xuất thành công
+    }
+    @GetMapping("/visits_statistics") //  thống kê sô lượt khám cua bác sĩ
+    public ModelAndView VisitsStatistics() {
+        return new ModelAndView("dashboard/doctor/visits_statistics");
     }
 
     @GetMapping("/history_exam")

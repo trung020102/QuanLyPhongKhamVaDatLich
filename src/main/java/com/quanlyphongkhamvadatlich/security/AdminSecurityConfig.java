@@ -49,8 +49,8 @@ public class AdminSecurityConfig {
                 .formLogin(form -> form.loginPage("/admin/login").permitAll()
                         .usernameParameter("username")
                         .passwordParameter("password")
-                       .defaultSuccessUrl("/admin/patient", true)
-                        .loginProcessingUrl("/admin/patient")
+                        .defaultSuccessUrl("/admin/patient", true)
+                        .loginProcessingUrl("/admin/login")
                 )
                 .logout(logout -> logout
                         .logoutRequestMatcher(

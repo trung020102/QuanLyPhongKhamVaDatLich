@@ -1,7 +1,6 @@
 package com.quanlyphongkhamvadatlich.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,29 +31,24 @@ public class User extends BaseEntity{
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name= "token")
+    @Column(name = "token")
     private String token;
 
     @Column(name = "token_expiration_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tokenExpirationTime;
 
-    @Column(name="avatar")
+    @Column(name = "avatar")
     private String avatar;
 
     @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "profile_id")
-    private String profile_id;
-
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy = "user")
-    private List<Patient> patients;
-
-    @OneToMany(mappedBy = "user")
-    private List<Appointment> appointments;
+    @OneToOne
+    @JoinColumn(name = "customer_id", nullable = true)
+    private Customer customer;
 }

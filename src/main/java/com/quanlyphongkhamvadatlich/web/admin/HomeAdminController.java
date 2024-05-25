@@ -18,15 +18,11 @@ public class HomeAdminController {
     @GetMapping("/login")
     public String toLoginAdmin(@AuthenticationPrincipal UserPrincipal principal) {
         if (principal != null)
-            if(principal.isAdmin())
-                return "redirect:/admin/patient";
+            return "redirect:/admin/patient";
 
         return "dashboard/admin/login";
     }
-   /* @GetMapping("/login")
-    public String getAdminLoginPage() {
-        return "dashboard/admin/login"; // Trả về giao diện đăng nhập cho vai trò ADMIN
-    }*/
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         // Xóa phiên đăng nhập
@@ -53,10 +49,9 @@ public class HomeAdminController {
     public ModelAndView toPatientEdit() {
         return new ModelAndView("dashboard/admin/service");
     }
-
-    @GetMapping("/visits_statistics") //  thống kê sô lượt khám cua bác sĩ
-    public ModelAndView VisitsStatistics() {
-        return new ModelAndView("dashboard/admin/visits_statistics");
+    
+    @GetMapping("/statistical")
+    public String statistical() {
+        return "dashboard/admin/revenue-statistics";
     }
-
 }

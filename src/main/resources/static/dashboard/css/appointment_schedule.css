@@ -52,6 +52,9 @@
     margin-top: 20px ;
     margin-bottom: 20px;
 }
+
+
+
 .appoinment-info .button-send{
 
     margin: 0 20px;
@@ -67,7 +70,21 @@
     border-color:#0c84ff ;
     padding: 4px 16px;
 }
+.appoinment-info .button-create{
+    background-color: #ffffff;
+    margin-left: 3px ;
+    margin-right: 10px ;
+    border-color:  #0c84ff;
+}
 
+.appoinment-info .button-create i{
+   color:#0c84ff ;
+}
+.appoinment-info .button-create:hover {
+    background-color: #FFFFFF; /* Green */
+    color: #0c84ff;
+    border-color:  #0c84ff;
+}
 
 .appoinment-info .button-detail{
     background-color: #F9AA33;
@@ -102,11 +119,11 @@
     z-index: 1; /* Sit on top */
     top:2px; /* Đặt modal ở đỉnh cùng của màn hình */
 
-    left: 140px;
+    left: 134px;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: #343232CC; /* Black w/ opacity */
 }
 
 
@@ -117,7 +134,7 @@
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 70%; /* Could be more or less, depending on screen size */
+    width: 80%; /* Could be more or less, depending on screen size */
 }
 
 /* Close Button */
@@ -278,4 +295,24 @@ label {
     cursor: pointer;
 }
 
-/*confirm xóa*/
+.hover-underline:hover {
+    text-decoration: underline;
+}
+
+/*phân trang*/
+
+.page-item.disabled .page-link {
+    pointer-events: none;
+    cursor: default;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+/*select*/
+.form-select {
+    border: none; /* Removes the border */
+    background-color: transparent; /* Makes the background transparent */
+    -webkit-appearance: none; /* Removes default appearance in WebKit browsers */
+    -moz-appearance: none; /* Removes default appearance in Mozilla browsers */
+    appearance: none; /* Removes default appearance in other browsers */
+}
