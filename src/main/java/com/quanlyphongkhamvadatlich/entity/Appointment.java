@@ -54,6 +54,10 @@ public class Appointment extends BaseEntity {
     @Column(name = "order_number")
     private Integer orderNumber;
 
+// them cot trang thai da goi hoa don hay chua, cho gia tri mac dinh trong database là false
+    // kiem tra neu trang thai cuoc hen nay la complete va is_senđded_invoice là faslse thi cho goi mail - hien thi nut goi mail
+    // sau khi goi xong thi cap nhat trang thai, va hien thi text/button la da goi hoa don
+
     public Appointment(Long appointmentId) {
         super();
     }

@@ -361,9 +361,22 @@ function updateAppointmentColor(appointmentId, statusId) {
 }
 /////////////////////Gửi mail hóa đơn
 // Function to open modal and set appId
-function sendInvoice() {
+$(document).ready(function() {
+    // Attach click event listener to elements with class 'button-send'
+    $('.button-send').on('click', function() {
+        // Get the appointment ID from the clicked element
+        const appointmentId = $(this).data("appointment-id")
+
+        // Set the appointment ID in a data attribute of the submit button
+        document.getElementById('sendBtn').setAttribute('data-id', appointmentId);
+        // Show the modal
+        $('#sendModal').show();  // Thay thế .modal('show') bằng .show()
+    });
+});
+
+function sendInvoice(button) {
     // Lấy appointmentId từ data-id của button
-    var appointmentId = document.querySelector(".button-send").getAttribute("data-id");
+    var appointmentId = button.getAttribute("data-id");
 
     // Kiểm tra nếu có appointmentId
     if (appointmentId) {
@@ -378,11 +391,12 @@ function sendInvoice() {
                 if (!response.ok) {
                     throw new Error('Failed to send invoice');
                 }
-                return response.json();
-            })
-            .then(data => {
+                // Không cần xử lý phản hồi JSON, chỉ cần kiểm tra trạng thái
                 console.log('Invoice sent successfully');
                 // Thực hiện các hành động cần thiết sau khi gửi hoá đơn thành công
+                // Redirect lại trang để cập nhật thay đổi
+                // window.location.href = "/doctor/appointments/page/";
+                window.location.reload()
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -390,3 +404,13 @@ function sendInvoice() {
             });
     }
 }
+
+// Hàm để đóng modal
+function closeModal() {
+    $('#sendModal').hide();  // Thay thế .modal('hide') bằng .hide()
+}
+
+// Đóng modal khi nhấn vào biểu tượng đóng
+document.querySelector(".close").addEventListener("click", function() {
+    closeModal();
+});

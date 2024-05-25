@@ -159,7 +159,8 @@ public class AppointmentServiceImpl implements IAppointmentService {
                 StandardCharsets.UTF_8.name());
 
         helper.setTo(notifierDTO.getEmail());
-        helper.setFrom(new InternetAddress("nhatminhle1402@gmail.com"));
+        //helper.setFrom(new InternetAddress("nhatminhle1402@gmail.com"));
+        helper.setFrom(new InternetAddress("Vanphongnhakhoa@gmail.com"));
         helper.setSubject("KẾT QUẢ KHÁM VÀ CHI TIẾT HÓA ĐƠN!");
         helper.setText(process, true);
 

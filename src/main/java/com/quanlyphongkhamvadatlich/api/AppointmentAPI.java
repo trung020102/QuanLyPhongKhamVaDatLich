@@ -168,40 +168,41 @@ public class AppointmentAPI {
         return "redirect:/doctor/appointments"; // Redirect to appointment list page
     }
 
-    @GetMapping("/invoice")
-    public String success(Model model, @RequestParam(name = "appointmentId") Long appointmentId) throws MessagingException {
-
-
-        Appointment appointment = appointmentService.findById(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Appointment not found"));
-
-
-        // Lấy thông tin hồ sơ bệnh nhân từ database
-
-        PatientRecord patientRecord = appointmentService.findByPatientRecordId(appointment.getPatient().getId())
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
-
-
-        // Tạo đối tượng DTO
-        SendInvoiceEmailNotifierDTO dto = new SendInvoiceEmailNotifierDTO();
-        dto.setEmail(patientRecord.getPatient().getUser().getEmail());
-        dto.setOrderNumber(appointment.getOrderNumber());
-        dto.setPatientId(patientRecord.getPatient().getId());
-        dto.setName(patientRecord.getPatient().getName());
-        dto.setPhone(patientRecord.getPatient().getPhone());
-        dto.setAppointmentDate(appointment.getAppointmentDate());
-        dto.setAppointmentShift(appointment.getAppointmentShift());
-        dto.setNameDoctor(patientRecord.getDoctor().getUsername());
-        dto.setDiagnosis(patientRecord.getDiagnosis());
-        dto.setServiceDetails(patientRecord.getServiceDetails());
-        dto.setTotalFees(patientRecord.getTotalFees());
-
-//        MimeMessage message = javaMailSender.createMimeMessage();
-//        Context context = new Context();
-//        context.setVariable("notifierInvoice", dto);
-        appointmentService.appointmentSendInvoice(dto);
-
-
-        return "redirect:/doctor/appointments/page/";
-    }
+//    @GetMapping("/invoice")
+//    public String success(Model model, @RequestParam(name = "appointmentId") Long appointmentId) throws MessagingException {
+//
+//
+//        Appointment appointment = appointmentService.findById(appointmentId)
+//                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+//
+//
+//        // Lấy thông tin hồ sơ bệnh nhân từ database
+//
+//        PatientRecord patientRecord = appointmentService.findByPatientRecordId(appointment.getPatient().getId())
+//                .orElseThrow(() -> new RuntimeException("Patient not found"));
+//
+//
+//        // Tạo đối tượng DTO
+//        SendInvoiceEmailNotifierDTO dto = new SendInvoiceEmailNotifierDTO();
+//        dto.setEmail(patientRecord.getPatient().getUser().getEmail());
+//        dto.setOrderNumber(appointment.getOrderNumber());
+//        dto.setPatientId(patientRecord.getPatient().getId());
+//        dto.setName(patientRecord.getPatient().getName());
+//        dto.setPhone(patientRecord.getPatient().getPhone());
+//        dto.setAppointmentDate(appointment.getAppointmentDate());
+//        dto.setAppointmentShift(appointment.getAppointmentShift());
+//        dto.setNameDoctor(patientRecord.getDoctor().getUsername());
+//        dto.setDiagnosis(patientRecord.getDiagnosis());
+//        dto.setServiceDetails(patientRecord.getServiceDetails());
+//        dto.setTotalFees(patientRecord.getTotalFees());
+//
+////        MimeMessage message = javaMailSender.createMimeMessage();
+////        Context context = new Context();
+////        context.setVariable("notifierInvoice", dto);
+//        appointmentService.appointmentSendInvoice(dto);
+//        return null;
+//
+//
+////        return "redirect:/doctor/appointments/page/";
+//    }
 }
