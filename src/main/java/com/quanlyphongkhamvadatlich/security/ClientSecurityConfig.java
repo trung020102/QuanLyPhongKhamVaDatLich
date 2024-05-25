@@ -7,6 +7,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -37,6 +38,7 @@ public class ClientSecurityConfig {
         public SecurityFilterChain securityFilterChainForClient(HttpSecurity http) throws Exception {
                 http.securityMatcher("/client/**");
                 http.authenticationProvider(authenticationProviderForClient());
+                http.csrf(AbstractHttpConfigurer::disable);
                 http
                         .authorizeHttpRequests((authorize) -> authorize
                                 .requestMatchers("/client/css/**",

@@ -123,3 +123,15 @@
 a:hover {
     text-decoration: none !important;
 }
+
+.fa-calendar-xmark {
+    color: #fe2d2d;
+}
+
+.fa-calendar-xmark:hover {
+    color: #da0a0a;
+}
+
+.area-cancel:hover {
+    cursor: pointer;
+}

@@ -37,8 +37,8 @@ public class Appointment extends BaseEntity {
 
 
     // Mối quan hệ một-nhiều với entity EmailAttachment
-    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EmailAttachment> emailAttachments;
+    // @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
+    // private List<EmailAttachment> emailAttachments;
 
 
     @Column(name = "appointment_shift")
