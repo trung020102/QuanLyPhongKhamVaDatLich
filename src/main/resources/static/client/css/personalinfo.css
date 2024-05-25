@@ -49,3 +49,7 @@
     background-color: #223a66;
     color: #fff;
 }
+.btn:hover{
+    background-color: #e12454;
+    color: #fff;
+}

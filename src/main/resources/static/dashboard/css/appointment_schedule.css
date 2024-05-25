@@ -316,3 +316,7 @@ label {
     -moz-appearance: none; /* Removes default appearance in Mozilla browsers */
     appearance: none; /* Removes default appearance in other browsers */
 }
+.disabled-button {
+    pointer-events: none;
+    opacity: 0.6;
+}
