@@ -271,36 +271,11 @@ $(function() {
         });
     });
 
-    // function displayResults(results) {
-    //     var resultsContainer = document.getElementById('resultsContainer');
-    //     resultsContainer.innerHTML = '';
-    //     results.content.forEach(app => {
-    //         var tr = document.createElement('tr');
-    //         tr.innerHTML = `
-    //                 <th scope="row">${app.slotTime}</th>
-    //                 <td>${app.orderNumber}</td>
-    //                 <td>${app.patient.name}</td>
-    //                 <td>${app.patient.gender}</td>
-    //                 <td style="font-weight: bold; color: ${getStatusColor(app.appointmentStatus.statusName)}">
-    //                     ${app.appointmentStatus.statusName}
-    //                 </td>
-    //                 <td>
-    //                     <button class="button-detail openModalBtn detailBtn" data-id="${app.id}">Detail</button>
-    //                     <button class="button-send openModalSendBtn" data-id="${app.id}">Send The Invoice <i class="fa fa-check-circle"></i></button>
-    //                     <button class="button-create" data-id="${app.id}"><i class="fa fa-plus-circle"></i></button>
-    //                     <a onclick="return confirm('Are you sure you want to delete this Appointment?')" href="/doctor/appointments/delete/${app.id}">
-    //                         <i class="fa fa-trash"></i>
-    //                     </a>
-    //                 </td>
-    //             `;
-    //         resultsContainer.appendChild(tr);
-    //     });
-    // }
 
     function getStatusColor(statusName) {
-        if (statusName === 'Scheduled') return '#F9AA33';
-        if (statusName === 'Completed') return 'green';
-        if (statusName === 'Canceled') return 'red';
+        if (statusName === 'Đang khám') return '#F9AA33';
+        if (statusName === 'Hoàn thành') return 'green';
+        if (statusName === 'Hủy khám') return 'red';
         return 'black';
     }
 
@@ -376,11 +351,42 @@ function updateAppointmentColor(appointmentId, statusId) {
     // Đặt màu chữ dựa trên statusId
     if (statusId === "1") { // Giả sử statusId của "Scheduled" là "1"
         span.css("color", "#F9AA33"); // Màu cam
-    } else if (statusId === "2") { // Giả sử statusId của "Completed" là "2"
+    } else if (statusId === "3") { // Giả sử statusId của "Completed" là "2"
         span.css("color", "green"); // Màu xanh lá cây
-    } else if (statusId === "3") { // Giả sử statusId của "Canceled" là "3"
+    } else if (statusId === "4") { // Giả sử statusId của "Canceled" là "3"
         span.css("color", "red"); // Màu đỏ
     } else {
         span.css("color", "black"); // Màu mặc định
+    }
+}
+/////////////////////Gửi mail hóa đơn
+// Function to open modal and set appId
+function sendInvoice() {
+    // Lấy appointmentId từ data-id của button
+    var appointmentId = document.querySelector(".button-send").getAttribute("data-id");
+
+    // Kiểm tra nếu có appointmentId
+    if (appointmentId) {
+        // Gọi đến đoạn mã JavaScript để gửi yêu cầu đến server
+        fetch(`/doctor/appointments/invoice?appointmentId=${appointmentId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to send invoice');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Invoice sent successfully');
+                // Thực hiện các hành động cần thiết sau khi gửi hoá đơn thành công
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Xử lý lỗi nếu có
+            });
     }
 }

@@ -3,6 +3,8 @@ package com.quanlyphongkhamvadatlich.repository;
 import com.quanlyphongkhamvadatlich.entity.Appointment;
 import com.quanlyphongkhamvadatlich.entity.User;
 
+import com.quanlyphongkhamvadatlich.entity.Patient;
+import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -74,4 +76,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
                         @Param("appointmentDate") Date appointmentDate, @Param("statusId") int statusId);
 
         Optional<Appointment> findByIdAndUserId(Long appointmentID, Long userID);
+  
+        @Query("SELECT a FROM Appointment a WHERE a.patient.id = :patientId")
+        Appointment findByPatientId(@Param("patientId") Long patientId);
 }

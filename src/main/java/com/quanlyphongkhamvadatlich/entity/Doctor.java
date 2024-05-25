@@ -3,8 +3,8 @@ package com.quanlyphongkhamvadatlich.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

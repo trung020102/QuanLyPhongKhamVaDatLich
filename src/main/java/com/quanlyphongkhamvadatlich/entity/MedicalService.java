@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name="medical_service")
+@Table(name="medical_services")
 public class MedicalService extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

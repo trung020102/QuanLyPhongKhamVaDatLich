@@ -1,19 +1,37 @@
 package com.quanlyphongkhamvadatlich.service.doctor.impl;
+import com.quanlyphongkhamvadatlich.dto.client.AutoSchedulerEmailNotifierDTO;
+import com.quanlyphongkhamvadatlich.dto.dashboard.MedicalServiceDTO;
+import com.quanlyphongkhamvadatlich.dto.dashboard.SendInvoiceEmailNotifierDTO;
 import com.quanlyphongkhamvadatlich.entity.Appointment;
+import com.quanlyphongkhamvadatlich.entity.MedicalService;
+import com.quanlyphongkhamvadatlich.entity.PatientRecord;
 import com.quanlyphongkhamvadatlich.entity.Status;
 import com.quanlyphongkhamvadatlich.repository.AppointmentRepository;
 import com.quanlyphongkhamvadatlich.repository.AppointmentStatusRepository;
+import com.quanlyphongkhamvadatlich.repository.PatientRecordRepository;
 import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentService;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Service
 public class AppointmentServiceImpl implements IAppointmentService {
@@ -24,6 +42,14 @@ public class AppointmentServiceImpl implements IAppointmentService {
     @Autowired
     private AppointmentStatusRepository appointmentStatusRepository;
 
+    @Autowired
+    private PatientRecordRepository patientRecordRepository;
+
+    @Autowired
+    private  JavaMailSender javaMailSender;
+
+    @Autowired
+    private  SpringTemplateEngine templateEngine;
 
     @Override
     public List<Appointment> fillAll() {
@@ -65,7 +91,10 @@ public class AppointmentServiceImpl implements IAppointmentService {
         return appointmentRepository.findById(id);
     }
 
-
+    @Override
+    public Optional<PatientRecord> findByPatientRecordId(Long id) {
+        return patientRecordRepository.findById(id);
+    }
 //    @Override
 //    public List<Appointment> findByAppointmentDate(Date date) {
 //        return appointmentRepository.findByAppointmentDate(date);
@@ -80,45 +109,63 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Override
     public Appointment updateAppointment(Long id, Appointment appointment) {
-//        // Kiểm tra xem cuộc hẹn có tồn tại không
-//        Appointment existingAppointment = appointmentRepository.findById(id).orElse(null);
-//
-//        if (existingAppointment != null) {
-//            // Cập nhật dữ liệu cuộc hẹn
-//            existingAppointment.setAppointmentDate(appointment.getAppointmentDate());
-//            existingAppointment.setAppointmentShift(appointment.getAppointmentShift());
-//            existingAppointment.setOrder_number(appointment.getOrder_number());
-//            existingAppointment.setPatient(appointment.getPatient());
-//            existingAppointment.setStatus(appointment.getStatus());
-//
-//            // Lưu và trả về cuộc hẹn đã cập nhật
-//            return appointmentRepository.save(existingAppointment);
-//        } else {
-//            return null; // Xử lý trường hợp nếu cuộc hẹn không tồn tại
-//        }
-
-       /* Appointment existingAppointment = appointmentRepository.findById(appointment.getId()).orElse(null);
-
-        if (existingAppointment != null) {
-            // Update appointment data
-            existingAppointment.setAppointmentDate(appointment.getAppointmentDate());
-            existingAppointment.setTimeSlot(appointment.getTimeSlot());
-            existingAppointment.setOrderNumber(appointment.getOrderNumber());
-
-            existingAppointment.setPatient(appointment.getPatient());
-            existingAppointment.setAppointmentStatus(appointment.getAppointmentStatus());
-            return appointmentRepository.save(existingAppointment);
-        } else {
-            return null; // Handle if appointment does not exist
-        }*/
- return null;
-
+            return null;
     }
 
     @Override
     public void deleteAppointment(Long id) {
         appointmentRepository.deleteById(id);
     }
+
+    @Override
+    public SendInvoiceEmailNotifierDTO createInvoiceEmailNotifier(Long appointmentId) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+
+
+        // Lấy thông tin hồ sơ bệnh nhân từ database
+
+        PatientRecord patientRecord = patientRecordRepository.findById(appointment.getPatient().getId())
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+
+
+        // Tạo đối tượng DTO
+        SendInvoiceEmailNotifierDTO dto = new SendInvoiceEmailNotifierDTO();
+        dto.setEmail(patientRecord.getPatient().getUser().getEmail());
+        dto.setOrderNumber(appointment.getOrderNumber());
+        dto.setPatientId(patientRecord.getPatient().getId());
+        dto.setName(patientRecord.getPatient().getName());
+        dto.setPhone(patientRecord.getPatient().getPhone());
+        dto.setAppointmentDate(appointment.getAppointmentDate());
+        dto.setAppointmentShift(appointment.getAppointmentShift());
+        dto.setNameDoctor(patientRecord.getDoctor().getUsername());
+        dto.setDiagnosis(patientRecord.getDiagnosis());
+        dto.setServiceDetails(patientRecord.getServiceDetails());
+        dto.setTotalFees(patientRecord.getTotalFees());
+
+        return dto;
+    }
+
+
+    @Override
+    public void appointmentSendInvoice(SendInvoiceEmailNotifierDTO notifierDTO) throws MessagingException{
+        MimeMessage message = javaMailSender.createMimeMessage();
+        Context context = new Context();
+        context.setVariable("notifierInvoice", notifierDTO);
+
+        String process = templateEngine.process("template-email/send-invoice", context);
+        MimeMessageHelper helper = new MimeMessageHelper(message,
+                MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                StandardCharsets.UTF_8.name());
+
+        helper.setTo(notifierDTO.getEmail());
+        helper.setFrom(new InternetAddress("nhatminhle1402@gmail.com"));
+        helper.setSubject("KẾT QUẢ KHÁM VÀ CHI TIẾT HÓA ĐƠN!");
+        helper.setText(process, true);
+
+        javaMailSender.send(message);
+    }
+
 
 
     @Transactional
@@ -127,10 +174,15 @@ public class AppointmentServiceImpl implements IAppointmentService {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
+//        Status status = appointmentStatusRepository.findById(appointmentStatusId)
+//                .orElseThrow(() -> new RuntimeException("Appointment status not found"));
+
         Status status = appointmentStatusRepository.findById(appointmentStatusId)
                 .orElseThrow(() -> new RuntimeException("Appointment status not found"));
 
         appointment.setStatus(status);
         appointmentRepository.saveAndFlush(appointment);
     }
+
+
 }

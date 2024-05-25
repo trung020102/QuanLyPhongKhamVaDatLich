@@ -1,6 +1,10 @@
 package com.quanlyphongkhamvadatlich.service.doctor;
 
+import com.quanlyphongkhamvadatlich.dto.client.AutoSchedulerEmailNotifierDTO;
+import com.quanlyphongkhamvadatlich.dto.dashboard.SendInvoiceEmailNotifierDTO;
 import com.quanlyphongkhamvadatlich.entity.Appointment;
+import com.quanlyphongkhamvadatlich.entity.PatientRecord;
+import jakarta.mail.MessagingException;
 import org.springframework.data.domain.Page;
 
 import java.util.Date;
@@ -9,7 +13,7 @@ import java.util.Optional;
 
 public interface IAppointmentService {
 
-
+     Optional<PatientRecord> findByPatientRecordId(Long id);
 
     List<Appointment> fillAll();
 
@@ -29,4 +33,7 @@ public interface IAppointmentService {
     void updateAppointmentStatus(Long appointmentId, Long appointmentStatusId);
 
     void deleteAppointment(Long id);
+
+    void appointmentSendInvoice(SendInvoiceEmailNotifierDTO notifierDTO) throws MessagingException;
+     SendInvoiceEmailNotifierDTO createInvoiceEmailNotifier(Long patientId);
 }
