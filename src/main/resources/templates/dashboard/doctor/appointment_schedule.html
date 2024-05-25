@@ -126,7 +126,8 @@
                                     <!-- Detail button -->
                                     <button class="button-detail openModalBtn detailBtn" data-id="[[${app.getId()}]]">Chi tiết</button>
                                     <!-- Send Invoice button -->
-                                    <button class="button-send openModalSendBtn" data-id="[[${app.getId()}]]">Gửi hóa đơn <i class="fa fa-check-circle"></i></button>
+                                    <button class="button-send" data-toggle="modal" data-target="#sendModal" th:data-appointment-id="${app.getId()}">Gử̉i hóa đơn <i class="fa fa-check-circle"></i></button>
+
 
                                     <button class="button-create" data-id="[[${app.getId()}]]"> <i class="fa fa-plus-circle"></i></button>
                                     <!-- Delete button -->
@@ -245,7 +246,7 @@
 
 
 <!--   modal send -->
-    <!-- The Modal -->
+    <!-- Modal -->
     <div id="sendModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content" style="width: 50%;top:-26%;">
@@ -254,24 +255,20 @@
             <div class="modal-content-body">
                 <hr>
                 <div class="input-row">
-
                     <div class="input-container">
                         <label for="gmail">Gửi qua email :</label>
-                        <input  class="form-control mail-input" type="email" id="gmail" name="gmail">
+                        <input class="form-control mail-input" type="email" id="gmail" name="gmail" readonly>
                     </div>
-
-
                 </div>
-
                 <!-- Button Send và Cancel -->
                 <div class="button-container">
                     <button id="sendBtn">Gửi</button>
                     <button id="cancelBtn">Hủy</button>
                 </div>
             </div>
-
         </div>
     </div>
+
     <div class="panel-footer">
         <!-- Phân trang -->
         <nav aria-label="Page navigation">
