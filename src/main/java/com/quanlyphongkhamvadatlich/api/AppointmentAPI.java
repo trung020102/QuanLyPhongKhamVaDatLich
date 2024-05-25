@@ -168,7 +168,7 @@ public class AppointmentAPI {
         return "redirect:/doctor/appointments"; // Redirect to appointment list page
     }
 
-    @GetMapping("/sendinvoice")
+    @GetMapping("/invoice")
     public String success(Model model, @RequestParam(name = "appointmentId") Long appointmentId) throws MessagingException {
 
 

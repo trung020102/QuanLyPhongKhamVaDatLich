@@ -35,7 +35,7 @@
         <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
             <!--body-->
             <div class="container">
-                <label class="col-sm-12 appoinment-search-label"> Time :</label>
+                <label style="margin-left: -30px" class="col-sm-12 appoinment-search-label">Ngày khám :</label>
 
                 <form action="/doctor/appointments" method="GET">
                     <div class="row appoinment-search">
@@ -61,12 +61,12 @@
                         <table class="table table-bordered">
                             <thead>
                             <tr>
-                                <th scope="col">Time</th>
-                                <th scope="col">No</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Gender</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">Ca Khám</th>
+                                <th scope="col">STT</th>
+                                <th scope="col">Tên</th>
+                                <th scope="col">Giới tính</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Hành động</th>
                             </tr>
                             </thead>
                             <tbody >
@@ -87,7 +87,7 @@
 
                                 <td  style="font-weight: bold;" th:if="${app.status != null}">
                                         <span class="hover-underline" data-toggle="modal" data-target="#appointmentStatusModal" th:data-appointment-id="${app.getId()}"  th:text="${app.getStatus().getName()}"
-                                              th:style="'color:' + (${app.getStatus().getName()} == 'Scheduled' ? '#F9AA33' : (${app.getStatus().getName()} == 'Completed' ? 'green' : (${app.getStatus().getName()} == 'Canceled' ? 'red' : 'black')))">
+                                              th:style="'color:' + (${app.getStatus().getName()} == 'Chưa khám' ? '#F9AA33' : (${app.getStatus().getName()} == 'Hoàn thành' ? 'green' : (${app.getStatus().getName()} == 'Hủy khám' ? 'red' : 'black')))">
 
                                        </span>
 
@@ -95,14 +95,14 @@
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h6 class="modal-title" STYLE="color: #0c84ff">Update Appointment Status</h6>
+                                                    <h6 class="modal-title" STYLE="color: #0c84ff">Cập nhật trạng thái</h6>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <form id="appointmentStatusForm">
-                                                        <label for="appointmentStatusSelect" class="appointment-status-label">Appointment Status:</label>
+                                                        <label for="appointmentStatusSelect" class="appointment-status-label">Trạng thái lịch hẹn:</label>
                                                         <select class="appointment-status-select" id="appointmentStatusSelect" name="statusId">
                                                             <!-- Example options populated by Thymeleaf -->
                                                             <option th:each="status : ${statusList}"
@@ -124,9 +124,10 @@
                                 </td>
                                 <td>
                                     <!-- Detail button -->
-                                    <button class="button-detail openModalBtn detailBtn" data-id="[[${app.getId()}]]">Detail</button>
+                                    <button class="button-detail openModalBtn detailBtn" data-id="[[${app.getId()}]]">Chi tiết</button>
                                     <!-- Send Invoice button -->
-                                    <button class="button-send openModalSendBtn" data-id="[[${app.getId()}]]">Send The Invoice <i class="fa fa-check-circle"></i></button>
+                                    <button class="button-send" data-toggle="modal" data-target="#sendModal" th:data-appointment-id="${app.getId()}">Gử̉i hóa đơn <i class="fa fa-check-circle"></i></button>
+
 
                                     <a class="addButton" th:href="'/doctor/physical_exam/'+${app.getId()}" th:data-status="${app.getStatus().getId()}"><button class="button-create " data-id="[[${app.getId()}]]" > <i class="fa fa-plus-circle"></i></button></a>
 
@@ -239,7 +240,7 @@
 
 
 <!--   modal send -->
-    <!-- The Modal -->
+    <!-- Modal -->
     <div id="sendModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content" style="width: 50%;top:-26%;">
@@ -248,24 +249,20 @@
             <div class="modal-content-body">
                 <hr>
                 <div class="input-row">
-
                     <div class="input-container">
                         <label for="gmail">Gửi qua email :</label>
-                        <input  class="form-control mail-input" type="email" id="gmail" name="gmail">
+                        <input class="form-control mail-input" type="email" id="gmail" name="gmail" readonly>
                     </div>
-
-
                 </div>
-
                 <!-- Button Send và Cancel -->
                 <div class="button-container">
-                    <button id="sendBtn">Send</button>
-                    <button id="cancelBtn">Cancel</button>
+                    <button id="sendBtn">Gửi</button>
+                    <button id="cancelBtn">Hủy</button>
                 </div>
             </div>
-
         </div>
     </div>
+
     <div class="panel-footer">
         <!-- Phân trang -->
         <nav aria-label="Page navigation">
