@@ -2,6 +2,8 @@ package com.quanlyphongkhamvadatlich.repository;
 
 
 import com.quanlyphongkhamvadatlich.entity.Appointment;
+import com.quanlyphongkhamvadatlich.entity.Patient;
+import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -72,5 +74,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     @Query("SELECT new com.quanlyphongkhamvadatlich.dto.client.AutoSchedulerEmailNotifierDTO(u.email, a.orderNumber, p.id, p.name, p.phone, a.appointmentDate, a.appointmentShift) FROM Appointment a JOIN a.patient p JOIN p.user u where a.appointmentDate = :appointmentDate AND a.status.id = :statusId")
     List<AutoSchedulerEmailNotifierDTO> findByAppointmentDateAndStatusId(@Param("appointmentDate") Date appointmentDate, @Param("statusId") int statusId);
+
+    @Query("SELECT a FROM Appointment a WHERE a.patient.id = :patientId")
+    Appointment findByPatientId(@Param("patientId") Long patientId);
 
 }
