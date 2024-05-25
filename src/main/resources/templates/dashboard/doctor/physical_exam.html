@@ -17,43 +17,43 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
-        <input type="hidden" th:value="${patient.getId()}" name="patientId" id="patientId">
+        <input type="hidden" th:value="${appointment.getId()}" name="appointmentId" id="appointmentId">
         <div class="row">
             <div class="col-sm-6" >
                 <!-- text input -->
                 <div class="form-group" style="width: 75%">
                     <label>Họ và tên:</label>
-                    <input type="text" th:value="${patient.getName()}" class="form-control" readonly="readonly">
+                    <input type="text" th:value="${appointment.getPatient().getName()}" class="form-control" readonly="readonly">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group" style="width: 75%">
                     <label>Địa chỉ:</label>
-                    <input type="text" th:value="${patient.getAddress()}" class="form-control" readonly="readonly">
+                    <input type="text" th:value="${appointment.getPatient().getAddress()}" class="form-control" readonly="readonly">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Ngày sinh:</label>
-                    <input class="form-control" th:value="${#dates.format(patient.getBirthday(), 'dd-MM-yyyy')}" style="width: 75%" readonly="readonly">
+                    <input class="form-control" th:value="${#dates.format(appointment.getPatient().getBirthday(), 'dd-MM-yyyy')}" style="width: 75%" readonly="readonly">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Giới tính</label>
-                    <input class="form-control" th:value="${patient.isGender() == true ? 'Nam' : 'Nữ'}" style="width: 75%" readonly="readonly">
+                    <input class="form-control" th:value="${appointment.getPatient().isGender() == true ? 'Nam' : 'Nữ'}" style="width: 75%" readonly="readonly">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group" style="width: 75%">
                     <label>Nghề nghiệp:</label>
-                    <input type="text" class="form-control" th:value="${patient.getCareer()}" readonly="readonly">
+                    <input type="text" class="form-control" th:value="${appointment.getPatient().getCareer()}" readonly="readonly">
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group" style="width: 75%">
                     <label>Mã CCCD:</label>
-                    <input type="text" class="form-control" th:value="${patient.getCitizenNumber()}" readonly="readonly">
+                    <input type="text" class="form-control" th:value="${appointment.getPatient().getCitizenNumber()}" readonly="readonly">
                 </div>
             </div>
         </div>
@@ -151,11 +151,10 @@
         $(document).ready(function () {
             function validateForm() {
                 var isValid = true;
-                var diagnosis = $("#diagnosis").val();
-                var note = $("#note").val();
+                var diagnosis = $("#diagnosis").val().trim();
+                var note = $("#note").val().trim();
                 var selectedMedicines = $('#selectedMedicinesBody tr').length > 0;
                 var selectedServices = $('#selectedServicesBody tr').length > 0;
-
 
                 if (!diagnosis) {
                     $("#diagnosis").addClass("is-invalid");
@@ -165,6 +164,7 @@
                     $("#diagnosis").removeClass("is-invalid");
                     $("#diagnosisError").hide();
                 }
+
                 if (!note) {
                     $("#note").addClass("is-invalid");
                     $("#noteError").show();
@@ -173,6 +173,7 @@
                     $("#note").removeClass("is-invalid");
                     $("#noteError").hide();
                 }
+
                 if (!selectedServices) {
                     $('#selectServices').addClass("is-invalid");
                     $("#serviceError").show();
@@ -181,6 +182,7 @@
                     $('#selectServices').removeClass("is-invalid");
                     $("#serviceError").hide();
                 }
+
                 if (!selectedMedicines) {
                     $('#selectMedicines').addClass("is-invalid");
                     $("#medicineError").show();
@@ -194,7 +196,7 @@
                 $('#selectedMedicinesBody tr').each(function () {
                     var quantity = $(this).find('td:eq(2) input').val();
                     var unit = $(this).find('td:eq(3) input').val();
-                    var dosage = $(this).find('td:eq(4) input').val();
+                    var dosage = $(this).find('td:eq(4) input').val().trim();
 
                     if (!quantity || quantity <= 0) {
                         $(this).find('td:eq(2) input').addClass('is-invalid');
@@ -213,6 +215,7 @@
 
                 return isValid;
             }
+
             function formatPrice() {
                 const priceElements = document.querySelectorAll('#format_price');
                 priceElements.forEach(element => {
@@ -282,14 +285,14 @@
                 if (!validateForm()) {
                     return;
                 }
-                var diagnosis = $("#diagnosis").val();
-                var note = $("#note").val();
+                var diagnosis = $("#diagnosis").val().trim();
+                var note = $("#note").val().trim();
                 var medicineDetails = [];
                 $('#selectedMedicinesBody tr').each(function () {
                     var medicineId = $(this).find('td:eq(0)').text();
                     var quantity = $(this).find('td:eq(2) input').val();
                     var unit = $(this).find('td:eq(3) select').val();
-                    var dosage = $(this).find('td:eq(4) input').val();
+                    var dosage = $(this).find('td:eq(4) input').val().trim();
                     var medicineDetail = {
                         "medicineId": medicineId,
                         "quantity": quantity,
@@ -319,8 +322,8 @@
 
                 console.log(JSON.stringify(jsonData));
 
-                var patientId = $("#patientId").val();
-                var url = 'http://localhost:8082/doctor/physical_exam/' + patientId;
+                var appointmentId = $("#appointmentId").val();
+                var url = 'http://localhost:8082/doctor/physical_exam/' + appointmentId;
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -379,5 +382,6 @@
 
     </script>
 </th:block>
+
 
 </html>

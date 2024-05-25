@@ -6,8 +6,10 @@ import com.quanlyphongkhamvadatlich.dto.dashboard.PrescriptionDetailDTO;
 import com.quanlyphongkhamvadatlich.entity.*;
 import com.quanlyphongkhamvadatlich.security.UserPrincipal;
 import com.quanlyphongkhamvadatlich.service.*;
+import com.quanlyphongkhamvadatlich.service.client.impl.AppointmentService;
 import com.quanlyphongkhamvadatlich.service.dashboard.MedicalServiceBusiness;
 import com.quanlyphongkhamvadatlich.service.dashboard.ServiceDetailBusiness;
+import com.quanlyphongkhamvadatlich.service.doctor.IAppointmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,18 +19,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/doctor/physical_exam")
 public class PatientRecordExamAPI {
 
     @Autowired
-    private PatientService patientService;
-
+    private AppointmentService appointmentService;
+    @Autowired
+    IAppointmentService iAppointmentService;
     @Autowired
     private MedicalServiceBusiness medicalServiceBusiness;
 
@@ -55,16 +55,18 @@ public class PatientRecordExamAPI {
         User user = userDetails.getUser();
         Doctor doctor = user.getDoctor();
 
-        Patient patient = patientService.getPatientById(Long.parseLong(id));
-        if (patient == null || doctor == null) {
+        Appointment appointment = appointmentService.getAppointmentById(Long.parseLong(id));
+        System.out.println(appointment.getId());
+        if (appointment ==  null|| doctor == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Invalid patient or doctor information."));
         }
 
         PatientRecord patientRecord = new PatientRecord();
-        patientRecord.setPatient(patient);
+        patientRecord.setPatient(appointment.getPatient());
         patientRecord.setDoctor(doctor);
         patientRecord.setDiagnosis(listPatientRecord.getDiagnosis());
         patientRecord.setNote(listPatientRecord.getNote());
+        patientRecord.setAppointment(appointment);
         PatientRecord savedPatientRecord = patientRecordService.save(patientRecord);
         BigDecimal totalFee = BigDecimal.ZERO;
         Prescription prescription = new Prescription();
@@ -96,6 +98,7 @@ public class PatientRecordExamAPI {
         }
         savedPatientRecord.setTotalFees(totalFee);
         patientRecordService.save(savedPatientRecord);
+        iAppointmentService.updateAppointmentStatus(appointment.getId(), Long.parseLong("3"));
 
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Patient record has been added successfully.");
