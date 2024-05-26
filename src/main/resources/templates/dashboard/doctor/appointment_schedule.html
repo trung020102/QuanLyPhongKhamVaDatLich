@@ -91,42 +91,68 @@
 
                                        </span>
 
-                                    <div id="appointmentStatusModal" class="modal fade" tabindex="-1" role="dialog">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h6 class="modal-title" STYLE="color: #0c84ff">Cập nhật trạng thái</h6>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form id="appointmentStatusForm">
-                                                        <label for="appointmentStatusSelect" class="appointment-status-label">Trạng thái lịch hẹn:</label>
-                                                        <select class="appointment-status-select" id="appointmentStatusSelect" name="statusId">
-                                                            <!-- Example options populated by Thymeleaf -->
-                                                            <option th:each="status : ${statusList}"
-                                                                    th:value="${status.getId()}"
-                                                                    th:selected="${status.getId()} == ${app.getStatus().getId()}"
-                                                                    th:text="${status.getName()}">
-                                                            </option>
-                                                        </select>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button  id="btn-submit" type="button" class="btn btn-primary" onclick="submitAppointmentStatusForm()">Save changes</button>
-                                                    <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    <div id="appointmentStatusModal" class="modal fade" tabindex="-1" role="dialog">-->
+<!--                                        <div class="modal-dialog" role="document">-->
+<!--                                            <div class="modal-content">-->
+<!--                                                <div class="modal-header">-->
+<!--                                                    <h6 class="modal-title" STYLE="color: #0c84ff">Cập nhật trạng thái</h6>-->
+<!--                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                                        <span aria-hidden="true">&times;</span>-->
+<!--                                                    </button>-->
+<!--                                                </div>-->
+<!--                                                <div class="modal-body">-->
+<!--                                                    <form id="appointmentStatusForm">-->
+<!--                                                        <label for="appointmentStatusSelect" class="appointment-status-label">Trạng thái lịch hẹn:</label>-->
+<!--                                                        <select class="appointment-status-select" id="appointmentStatusSelect" name="statusId">-->
+<!--                                                            &lt;!&ndash; Example options populated by Thymeleaf &ndash;&gt;-->
+<!--                                                            <option th:each="status : ${statusList}"-->
+<!--                                                                    th:value="${status.getId()}"-->
+<!--                                                                    th:selected="${status.getId()} == ${app.getStatus().getId()}"-->
+<!--                                                                    th:text="${status.getName()}">-->
+<!--                                                            </option>-->
+<!--                                                        </select>-->
+<!--                                                    </form>-->
+<!--                                                </div>-->
+<!--                                                <div class="modal-footer">-->
+<!--                                                    <button  id="btn-submit" type="button" class="btn btn-primary" onclick="submitAppointmentStatusForm()">Save changes</button>-->
+<!--                                                    <button  type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
 
                                 </td>
                                 <td>
                                     <!-- Detail button -->
                                     <button class="button-detail openModalBtn detailBtn" data-id="[[${app.getId()}]]">Chi tiết</button>
                                     <!-- Send Invoice button -->
-                                    <button class="button-send" data-toggle="modal" data-target="#sendModal" th:data-appointment-id="${app.getId()}">Gử̉i hóa đơn <i class="fa fa-check-circle"></i></button>
+<!--                                    <button  class="button-send" data-toggle="modal" data-target="#sendModal" th:data-appointment-id="${app.getId()}">Gử̉i hóa đơn <i class="fa fa-check-circle"></i></button>-->
+                                    <button th:if="${(!app.isSendedInvoice() and app.status.getName() == 'Hoàn thành') and app.status.getName() != 'Chưa khám' and app.status.getName() != 'Hủy khám' and app.status.getName() != 'Đang khám' }"
+                                            class="button-send"
+                                            data-toggle="modal"
+                                            data-target="#sendModal"
+                                            th:data-appointment-id="${app.getId()}">
+                                        Gử̉i hóa đơn <i style="color:#F9AA33" class="fa fa-exclamation-circle"></i>
+                                    </button>
+                                    <!-- Button for statuses 'Chưa khám', 'Hủy khám', and 'Đang khám' -->
+                                    <button th:if="${app.status.getName() == 'Chưa khám' or app.status.getName() == 'Hủy khám' or app.status.getName() == 'Đang khám'}"
+                                            class="button-send"
+                                            disabled>
+                                        Gửi hóa đơn <i class="fa fa-times-circle"></i>
+                                    </button>
+                                    <!-- Disabled button when invoice is already sent -->
+                                    <button th:if="${(app.status.getName() == 'Hoàn thành' and app.isSendedInvoice())and app.status.getName() != 'Chưa khám' and app.status.getName() != 'Hủy khám' and app.status.getName() != 'Đang khám'}"
+                                            class="button-send"
+                                            disabled>
+                                       Gửi hóa đơn  <i style="color:#19e146" class="fa fa-check-circle"></i>
+                                    </button>
+
+<!--                                    <button th:if="${app.status.getName() == 'Hoàn thành' or app.status.getName() == 'Chưa khám' or app.status.getName() == 'Đang khám' or app.status.getName() == 'Hủy khám' and !app.isSendedInvoice() }"-->
+<!--                                            class="button-send"-->
+<!--                                            disabled>-->
+<!--                                        Gửi hóa đơn  <i  class="fa fa-check-circle"></i>-->
+<!--                                    </button>-->
+
 
 
                                     <a class="addButton" th:href="'/doctor/physical_exam/'+${app.getId()}" th:data-status="${app.getStatus().getId()}"><button class="button-create " data-id="[[${app.getId()}]]" > <i class="fa fa-plus-circle"></i></button></a>
@@ -244,20 +270,22 @@
     <div id="sendModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content" style="width: 50%;top:-26%;">
-            <span class="send-close">&times;</span>
+
             <p class="modal-title">Gửi kết quả khám và hóa đơn.</p>
             <div class="modal-content-body">
                 <hr>
                 <div class="input-row">
                     <div class="input-container">
-                        <label for="gmail">Gửi qua email :</label>
-                        <input class="form-control mail-input" type="email" id="gmail" name="gmail" readonly>
+                        <label for="emaila">Gửi qua email :</label>
+                        <input id="emaila" class="form-control mail-input"  name="emaila" type="email"  readonly>
                     </div>
                 </div>
                 <!-- Button Send và Cancel -->
                 <div class="button-container">
-                    <button id="sendBtn">Gửi</button>
-                    <button id="cancelBtn">Hủy</button>
+
+
+                    <button type="button" id="sendBtn" onclick="sendInvoice(this)">Gửi</button>
+                    <button id="cancelBtn" data-dismiss="modal">Hủy</button>
                 </div>
             </div>
         </div>
