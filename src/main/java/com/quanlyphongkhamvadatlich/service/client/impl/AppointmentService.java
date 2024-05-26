@@ -3,7 +3,10 @@ package com.quanlyphongkhamvadatlich.service.client.impl;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
+import com.quanlyphongkhamvadatlich.entity.Appointment;
+import com.quanlyphongkhamvadatlich.entity.Patient;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -48,5 +51,8 @@ public class AppointmentService implements IAppointmentService {
         helper.setText(process, true);
 
         javaMailSender.send(message);
+    }
+    public Appointment getAppointmentById(Long id) {
+        return appointmentRepository.getAppointmentById(id);
     }
 }
