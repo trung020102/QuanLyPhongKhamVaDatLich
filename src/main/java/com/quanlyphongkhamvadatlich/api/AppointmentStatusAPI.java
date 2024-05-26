@@ -34,13 +34,6 @@ public class AppointmentStatusAPI {
 
 
         if (appointment.isPresent()) {
-            //cập nhật issendinvoice
-            Appointment existingAppointment = appointment.get();
-            // Update the isSendedInvoice field to true
-            existingAppointment.setSendedInvoice(true);
-            // Save the updated appointment
-            appointmentService.save(existingAppointment);
-
 
             String userEmail = appointment.get().getUser().getEmail();
             Map<String, String> response = new HashMap<>();
@@ -59,8 +52,15 @@ public class AppointmentStatusAPI {
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
 
-        // Lấy thông tin hồ sơ bệnh nhân từ database
-
+        if (appointment!=null) {
+            //cập nhật issendinvoice
+            Appointment existingAppointment = appointment;
+            // Update the isSendedInvoice field to true
+            existingAppointment.setSendedInvoice(true);
+            // Save the updated appointment
+            appointmentService.save(existingAppointment);
+            // Lấy thông tin hồ sơ bệnh nhân từ database
+        }
         PatientRecord patientRecord = appointmentService.findByPatientRecordId(appointment.getPatient().getId())
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
 
