@@ -40,6 +40,13 @@ public class PatientRecord extends BaseEntity {
     @OneToOne(mappedBy = "patientRecord")
     private Prescription prescription;
 
+    @OneToOne
+    @JoinColumn(name = "appointment_id")
+    private Appointment appointment;
+
     @Column(name = "total_fees")
     private BigDecimal totalFees;
+
+    @Column(name = "note")
+    private String note;
 }

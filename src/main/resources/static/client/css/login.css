@@ -33,3 +33,7 @@
 .input-error {
     border: 1px solid red;
 }
+.btn:hover{
+   background-color: #e12454;
+    color: #fff;
+}

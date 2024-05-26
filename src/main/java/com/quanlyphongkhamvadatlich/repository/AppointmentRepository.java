@@ -65,8 +65,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
     void updateAppointmentStatus(Long appointmentId, Long appointmentStatusId);
 
 
-    public Optional<Appointment> getAppointmentById(Long id);
-
     public List<Appointment> findByAppointmentDateAndAppointmentShift(Date appointmentDate, String appointmentShift);
 
     @Query(value = "SELECT new com.quanlyphongkhamvadatlich.dto.client.DisableAppointmentDTO(a.appointmentDate) FROM Appointment a GROUP BY a.appointmentDate HAVING COUNT(a.id) >= 60")
@@ -77,5 +75,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long> {
 
     @Query("SELECT a FROM Appointment a WHERE a.patient.id = :patientId")
     Appointment findByPatientId(@Param("patientId") Long patientId);
+
+    Appointment getAppointmentById(Long id);
 
 }
