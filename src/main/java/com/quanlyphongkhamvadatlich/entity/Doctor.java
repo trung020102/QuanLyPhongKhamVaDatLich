@@ -17,7 +17,10 @@ public class Doctor extends BaseEntity {
     private Long id;
 
     @Column(name = "doctor_name")
-    private String username;
+    private String doctor_name;
+
+    @Column(name = "avatar")
+    private String avatar;
 
     @Column(name = "specialty")
     private String specialty;

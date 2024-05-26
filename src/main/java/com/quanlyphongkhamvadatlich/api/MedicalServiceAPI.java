@@ -4,6 +4,7 @@ import com.quanlyphongkhamvadatlich.dto.dashboard.MedicalServiceParam;
 import com.quanlyphongkhamvadatlich.service.dashboard.MedicalServiceBusiness;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/medical-service")
 @RequiredArgsConstructor
 public class MedicalServiceAPI {
-    private final MedicalServiceBusiness medicalServiceBusiness;
+    private MedicalServiceBusiness medicalServiceBusiness;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<?> createService(@Valid @RequestBody MedicalServiceParam serviceParam) {
         medicalServiceBusiness.createMedicalService(serviceParam);
         return ResponseEntity.ok().build();
@@ -21,7 +22,12 @@ public class MedicalServiceAPI {
 
     @GetMapping
     public ResponseEntity<?> getAllServices() {
-        return ResponseEntity.ok(medicalServiceBusiness.getAll());
+        try {
+            return ResponseEntity.ok(medicalServiceBusiness.getAll());
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
