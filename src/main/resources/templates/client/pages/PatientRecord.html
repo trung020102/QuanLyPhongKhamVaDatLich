@@ -7,6 +7,7 @@
 <th:block layout:fragment="additional-link-at-head">
     <link rel="stylesheet" href="/client/css/record.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </th:block>
 <th:block layout:fragment="main-content">
     <section class="section">
@@ -80,8 +81,8 @@
                                 Bạn chưa có lịch chưa khám nào.
                             </div>
                         </div>
-                        <div class="row" th:unless="${#lists.isEmpty(appointments)}">
-                            <div class="col-md-4 mb-4" th:each="appointment : ${appointments}">
+                        <div id="unexamined-schedules" class="row" th:unless="${#lists.isEmpty(appointments)}">
+                            <div th:id="'schedule_not_finish_' + ${appointment.getId()}" class="col-md-4 mb-4" th:each="appointment : ${appointments}">
                                 <div class="patient_appointment_item d-flex">
                                     <div class="appointment_number d-flex flex-column justify-content-center align-items-center">
                                         <span class="small">Số thứ tự</span>
@@ -90,15 +91,18 @@
                                     </div>
 
                                     <div class="appointment_line"></div>
-                                    <div class="appointment_info d-flex justify-content-center flex-column">
+                                    <div class="appointment_info d-flex justify-content-center flex-column" style="position: relative;">
                                         <div>
                                             <span class="ml-2" style="width: 100px; display: inline-block">Ngày khám: </span>
                                             <span class="font-weight-bold" th:text="${#dates.format(appointment.appointmentDate, 'dd-MM-yyyy')}">23-04-2002</span>
                                         </div>
-                                        <div>
+                                        <div >
                                                 <span class="ml-2"
                                                       style="width: 100px; display: inline-block">Ca khám: </span>
                                             <span class="font-weight-bold" th:text="${appointment.appointmentShift}"></span>
+                                            <div th:data-id="${appointment.getId()}" class="area-cancel" style="position: absolute; top: -10px; right: -5px;">
+                                                <i class="fa-solid fa-calendar-xmark" style="font-size: 25px;"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -243,6 +247,38 @@
                             </div>
                         </div>
                     </div>
+
+                    <div th:unless="${#lists.isEmpty(listCancelAppointment)}">
+                        <div class="patient_appointment">
+                            <span class="badge badge-pill badge-info mt-4 mb-4"
+                                  style="background-color: #f2408d; color: white">Lịch sử hủy lịch khám</span>
+                       
+                        <div id="unexamined-schedules" class="row" th:unless="${#lists.isEmpty(listCancelAppointment)}">
+                            <div th:id="'schedule_not_finish_' + ${appointment.getId()}" class="col-md-4 mb-4" th:each="appointment : ${listCancelAppointment}">
+                                <div class="patient_appointment_item d-flex">
+                                    <div class="appointment_number d-flex flex-column justify-content-center align-items-center">
+                                        <span class="small">Số thứ tự</span>
+                                        <span class="font-weight-bold"
+                                              style="color: #11d49a; font-size: 3rem" th:text="${appointment.getOrderNumber()}"></span>
+                                    </div>
+    
+                                    <div class="appointment_line"></div>
+                                    <div class="appointment_info d-flex justify-content-center flex-column" style="position: relative;">
+                                        <div>
+                                            <span class="ml-2" style="width: 100px; display: inline-block">Ngày khám: </span>
+                                            <span class="font-weight-bold" th:text="${#dates.format(appointment.appointmentDate, 'dd-MM-yyyy')}">23-04-2002</span>
+                                        </div>
+                                        <div >
+                                                <span class="ml-2"
+                                                      style="width: 100px; display: inline-block">Ca khám: </span>
+                                            <span class="font-weight-bold" th:text="${appointment.appointmentShift}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -296,5 +332,5 @@
             element.textContent = formattedNumber + " VND";
         });
     </script>
-
+    <script src="/client/js/cancel-booking.js"></script>
 </th:block>

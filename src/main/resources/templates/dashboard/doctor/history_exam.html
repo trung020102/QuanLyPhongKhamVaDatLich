@@ -6,7 +6,10 @@
 <head>
 
     <link rel="stylesheet" href="/dashboard/css/history_exam.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <title>history_exam</title>>
 </head>
 <th:block layout:fragment="content-header">
@@ -22,43 +25,21 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
-    <form>
-        <p style="font-size:30px; color: #0c84ff " >Bộ lọc  <i class="fa fa-filter"  aria-hidden="true"></i></p>
-        <div class="row">
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class=" form-group">
-                    <label>Từ ngày:</label>
-                    <input class="form-control" type="date" style="width: 70%">
-                </div>
-
+    <form th:action="@{/doctor/history_exam}" method="get">
+        <div class="row mb-3">
+            <div class="col-sm-2">
+                <span class="font-weight-bold">Chọn khoảng thời gian: </span>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" th:value="${searchDate}" class="form-control" id="datarange" name="dataDate">
             </div>
 
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class=" form-group">
-                    <label>Từ ngày:</label>
-                    <input class="form-control" type="date" style="width: 70%">
-                </div>
-
+            <div class="col-sm-6 d-flex align-items-center">
+                <button class="button-app">Tìm kiếm</button>
             </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-sm-3">
-                <!-- text input -->
-                <div class=" form-group">
-                    <button class="button-app">Ứng dụng </button>
-                    <button class="button-refresh">Cài lại </button>
-                </div>
-
-            </div>
-
-
-
         </div>
     </form>
+
     <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
         <!--body-->
         <div class="row">
@@ -66,104 +47,84 @@
                 <table id="example1"
                        class="table table-bordered table-hover dataTable dtr-inline table-striped"
                        aria-describedby="example2_info">
-                    <thead>
-                    <tr>
-                        <th class="sorting"
-                            aria-label="Rendering engine: activate to sort column descending">
-                            STT
-                        </th>
-                        <th class="sorting">Thời gian</th>
-                        <th class="sorting">Lý do</th>
-                        <th class="sorting">Bác sĩ khám bệnh</th>
-                        <th class="sorting">Đơn thuốc</th>
-                        <th class="sorting">Lời dặn bác sĩ</th>
-                        <th class="sorting">Hóa đơn</th>
+                    <div th:if="${#lists.isEmpty(historyAppointment)}">
 
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="odd">
-                        <td class="dtr-control sorting_1" tabindex="0">1</td>
-                        <td>13:00-15:00</td>
-                        <td>Đau đầu</td>
-                        <td>Trần Văn Hiếu</td>
-                        <td>
-                            <div class="prescription">
-                                <p>1. paracetamon /2 viên /2 buổi</p>
-                                <p>2. vitamin c/1 viên/sáng</p>
-                                <p>3. vitamin b6/2 viên/2 buổi</p>
-                                <p>4. paracetamon /2 viên /2 buổi</p>
-                                <p>5. vitamin c/1 viên/sáng</p>
-                                <p>6. vitamin b6/2 viên/2 buổi</p>
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            Không có lịch sử khám!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div th:unless="${#lists.isEmpty(historyAppointment)}">
+                        <thead>
+                        <tr>
+                            <th class="sorting text-center"
+                                aria-label="Rendering engine: activate to sort column descending">
+                                STT
+                            </th>
+                            <th class="sorting text-center">Ngày khám</th>
+                            <th class="sorting text-center">Ca khám</th>
+                            <th class="sorting text-center">Số khám</th>
+                            <th class="sorting text-center">Tên bác sĩ</th>
+                            <th class="sorting text-center">Chẩn đoán</th>
+                            <th class="sorting text-center">Trạng thái</th>
+                            <th class="sorting text-center">Chi tiết phiếu khám</th>
 
-                            </div>
+                        </tr>
+                        </thead>
 
-                        </td>
-                        <td>Uống thuốc đúng giờ</td>
-                        <td><a style="color: #0c84ff">Xem</a></td>
-                    </tr>
+                        <tbody>
+                        <div th:each="item, iterStat : ${historyAppointment}">
+                            <input type="hidden" th:value="${item.patientRecordId}">
+                            <tr class="odd">
+                                <td class="dtr-control sorting_1 text-center align-middle"
+                                    th:text="${iterStat.index + 1}"></td>
+                                <td class="text-center align-middle"
+                                    th:text="${#dates.format(item.appointmentDate, 'dd/MM/yyyy')}"></td>
+                                <td class="text-center align-middle" th:text="${item.appointmentShift}"></td>
+                                <td class="text-center align-middle" th:text="${item.orderNumber}"></td>
+                                <td class="text-center align-middle" th:text="${item.doctorName}"></td>
+                                <td>
+                                    <label>
+                                            <textarea th:text="${item.diagnosis}" rows="4" cols="10"
+                                                      class="form-control"
+                                                      readonly
+                                                      style="resize: none; padding: 10px;font-family: Arial, sans-serif; background-color: white;margin: 0">
+                                                Bệnh ho lâu năm, cần thuốc
+                                            </textarea>
+                                    </label>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <span class="badge badge-success" th:if="${item.statusId == 3}">Hoàn thành</span>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <a class="see-detail" data-toggle="modal" data-show="true"
+                                           th:attr="data-target='#modal'+${item.patientRecordId}" th:data-patient-record-id="${item.patientRecordId}">
+                                            <i class="fa-solid fa-eye" style="color: white"></i>
+                                        </a>
+                                    </div>
+                                        <!-- =======================================================     -->
+                                    <div class="modal fade" th:id="${'modal'+item.patientRecordId}" tabindex="-1" role="dialog"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Chi tiết phiếu khám</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div id="patientRecordDetails"></div>
+                                </td>
+                            </tr>
 
-                    <tr class="odd">
-                        <td class="dtr-control sorting_1" tabindex="0">1</td>
-                        <td>15:00-16:00</td>
-                        <td>Gãy tay</td>
-                        <td>Trần Văn A</td>
-                        <td>
-                            <div class="prescription">
-                                <p>1. paracetamon /2 viên /2 buổi</p>
-                                <p>2. vitamin c/1 viên/sáng</p>
-                                <p>3. vitamin b6/2 viên/2 buổi</p>
-                                <p>4. paracetamon /2 viên /2 buổi</p>
-                                <p>5. vitamin c/1 viên/sáng</p>
-                                <p>6. vitamin b6/2 viên/2 buổi</p>
+                        </div>
 
-                            </div>
-
-                        </td>
-                        <td>Uống thuốc đúng giờ</td>
-                        <td><a style="color: #0c84ff">Xem</a></td>
-                    </tr>
-                    <tr class="odd">
-                        <td class="dtr-control sorting_1" tabindex="0">1</td>
-                        <td>16:00-17:00</td>
-                        <td>Đau đầu</td>
-                        <td>Trần Văn B</td>
-                        <td>
-                            <div class="prescription">
-                                <p>1. paracetamon /2 viên /2 buổi</p>
-                                <p>2. vitamin c/1 viên/sáng</p>
-                                <p>3. vitamin b6/2 viên/2 buổi</p>
-                                <p>4. paracetamon /2 viên /2 buổi</p>
-                                <p>5. vitamin c/1 viên/sáng</p>
-                                <p>6. vitamin b6/2 viên/2 buổi</p>
-
-                            </div>
-
-                        </td>
-                        <td>Uống thuốc đúng giờ</td>
-                        <td><a style="color: #0c84ff">Xem</a></td>
-                    </tr>
-                    <tr class="odd">
-                        <td class="dtr-control sorting_1" tabindex="0">1</td>
-                        <td>9:00-12:00</td>
-                        <td>Đau đầu</td>
-                        <td>Trần Văn C</td>
-                        <td>
-                            <div class="prescription">
-                                <p>1. paracetamon /2 viên /2 buổi</p>
-                                <p>2. vitamin c/1 viên/sáng</p>
-                                <p>3. vitamin b6/2 viên/2 buổi</p>
-                                <p>4. paracetamon /2 viên /2 buổi</p>
-                                <p>5. vitamin c/1 viên/sáng</p>
-                                <p>6. vitamin b6/2 viên/2 buổi</p>
-                            </div>
-
-                        </td>
-                        <td>Uống thuốc đúng giờ</td>
-                        <td><a style="color: #0c84ff">Xem</a></td>
-                    </tr>
-
-                    </tbody>
+                        </tbody>
+                    </div>
                 </table>
             </div>
 
@@ -171,8 +132,109 @@
     </div>
 </th:block>
 
-<th:block layout:fragment="document-script">
+<th:block layout:fragment="service-script">
     <script src="/js/document.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var datePicker = $('#datarange').daterangepicker({
+                alwaysShowCalendars: true,
+                locale: {
+                    format: 'DD/MM/YYYY',
+                },
+            });
+
+            $('.button-refresh').click(function () {
+                datePicker.data('daterangepicker').setStartDate(startDate);
+                datePicker.data('daterangepicker').setEndDate(endDate);
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.see-detail').click(function() {
+                var patientRecordId = $(this).data('patient-record-id');
+                console.log("Patient Record ID:", patientRecordId); // Kiểm tra ID được lấy
+
+                $.ajax({
+                    url: '/doctor/getPatientRecord', // Đường dẫn tới endpoint của bạn
+                    method: 'GET',
+                    dataType: "json",
+                    data: { id: patientRecordId },
+                    success: function(response) {
+                        console.log("Success:", response);
+                        var appointment = response.appointment;
+                        console.log("appoint:", appointment);
+                        var doctor = response.doctor;
+                        console.log("doctor:", doctor);
+
+                        var service = response.serviceDetails;
+                        console.log("doctor:", service);
+                        var htmlContent = '<div class="record_content p-3" style="display: block">';
+
+                        // Thông tin bác sĩ
+                        htmlContent += '<div class="doctor">';
+                            htmlContent += '<p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%; display: table-cell;">1. Thông tin bác sĩ</p>';
+                        htmlContent += '<div class="table-responsive"><table class="table table-bordered mt-3">';
+                        htmlContent += '<tr><td>Tên bác sĩ</td><td>' + doctor.username + '</td></tr>';
+                        htmlContent += '<tr><td>Chuyên khoa</td><td>' + doctor.specialty + '</td></tr>';
+                        htmlContent += '</table></div></div>';
+
+                        // Chẩn đoán
+                        htmlContent += '<div class="position-relative"><p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%; display: table-cell;">2. Chẩn đoán</p>';
+                        htmlContent += '<div class="form-group mt-3"><textarea class="form-control mt-3" rows="3" readonly>' + response.diagnosis + '</textarea></div></div>';
+
+                        // Ghi chú
+                        htmlContent += '<div class="position-relative"><p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%; display: table-cell;">3. Ghi chú</p>';
+                        htmlContent += '<div class="form-group mt-3"><textarea class="form-control mt-3" rows="3" readonly>' + response.note + '</textarea></div></div>';
+
+                        // Dịch vụ khám
+                        htmlContent += '<div class="position-relative"><p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%; display: table-cell;">4. Dịch vụ khám</p>';
+                        htmlContent += '<div class="table-responsive"><table class="table mt-3"><thead class="thead-light">';
+                        htmlContent += '<tr><th scope="col">STT</th><th scope="col">Mã dịch vụ</th><th scope="col">Dịch vụ</th><th scope="col">Giá</th></tr></thead><tbody>';
+                        // if (response.serviceDetails.length > 0) {
+                        //     response.serviceDetails.forEach(function(service, index) {
+                        //         htmlContent += '<tr><th scope="row">' + (index + 1) + '</th><td>' + service.medicalService.id + '</td><td>' + service.medicalService.serviceName + '</td><td>' + service.medicalService.price + '</td></tr>';
+                        //     });
+                        // } else {
+                        //     // Nếu mảng serviceDetails rỗng, hiển thị thông báo
+                        //     htmlContent += '<tr><td colspan="4">Chưa có dịch vụ khám</td></tr>';
+                        // }
+                        htmlContent += '</tbody></table></div></div>';
+
+
+                        htmlContent += '<div><p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%;display: table-cell;">5. Toa thuốc</p>';
+                        htmlContent += '<div class="table-responsive"><table class="table mt-3"><thead class="thead-light">';
+                        htmlContent += '<tr><th scope="col">STT</th><th scope="col">Tên thuốc</th><th scope="col">Đơn vị tính</th><th scope="col">Số lượng</th><th scope="col">Cách dùng</th></tr></thead><tbody>';
+                        if (response.prescription !== null && Array.isArray(response.prescription) && response.prescription.length > 0) {
+                            response.prescription.forEach(function(prescription, index) {
+                                htmlContent += '<tr><th scope="row">' + (index + 1) + '</th><td>' + prescription.name + '</td><td>' + prescription.unit + '</td><td>' + prescription.quantity + '</td><td>' + prescription.usage + '</td></tr>';
+                            });
+                        } else {
+                            // Nếu mảng prescriptions là rỗng hoặc null, hoặc không phải là mảng, hiển thị thông báo
+                            htmlContent += '<tr><td colspan="5">Không kê đơn thuốc</td></tr>';
+                        }
+                        htmlContent += '</tbody></table></div></div>';
+
+                        htmlContent += '</div>'; // Close record_content
+
+                        $('#patientRecordDetails').html(htmlContent);
+
+                    },
+                    error: function(error) {
+                        console.error('Lỗi khi lấy thông tin bệnh nhân:', error);
+                        $('#patientRecordDetails').html('<p>Lỗi khi lấy thông tin bệnh nhân</p>');
+                    }
+                });
+
+                // Hiển thị modal (modal sẽ được tự động hiển thị do có data-toggle="modal" và data-target="#patientRecordModal")
+                $('#patientRecordModal').modal('show');
+            });
+        });
+
+    </script>
 </th:block>
 </html>

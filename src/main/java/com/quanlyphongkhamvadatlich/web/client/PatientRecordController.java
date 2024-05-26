@@ -3,6 +3,7 @@ package com.quanlyphongkhamvadatlich.web.client;
 import com.quanlyphongkhamvadatlich.entity.Appointment;
 import com.quanlyphongkhamvadatlich.entity.Patient;
 import com.quanlyphongkhamvadatlich.entity.PatientRecord;
+import com.quanlyphongkhamvadatlich.repository.AppointmentRepository;
 import com.quanlyphongkhamvadatlich.repository.PatientRecordRepository;
 import com.quanlyphongkhamvadatlich.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class PatientRecordController {
     private PatientService patientService;
     @Autowired
     private PatientRecordRepository patientRecordRepository;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
+
     @GetMapping("/record/{id}")
     public String record(Model model, @PathVariable(value = "id") Long id){
         List<Patient> patient= patientService.getPatientByUserId(id);
@@ -42,6 +46,8 @@ public class PatientRecordController {
                     .collect(Collectors.toList());
             LocalDate startDate;
             LocalDate endDate;
+
+            List<Appointment> listCancelAppointment = appointmentRepository.findByStatusIdAndPatientId(4L, id);
 
             if (dateRange == null || dateRange.isEmpty()) {
                 endDate = LocalDate.now();
@@ -66,6 +72,7 @@ public class PatientRecordController {
             model.addAttribute("patient", patient);
             model.addAttribute("appointments", appointments);
             model.addAttribute("value", values);
+            model.addAttribute("listCancelAppointment", listCancelAppointment);
 
 
 

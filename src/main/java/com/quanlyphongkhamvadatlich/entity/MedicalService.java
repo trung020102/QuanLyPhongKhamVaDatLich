@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 @Table(name="medical_services")
 public class MedicalService extends BaseEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="medical_service_id")

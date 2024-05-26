@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-import java.util.List;
 
 @Setter
 @Getter
@@ -15,11 +14,8 @@ import java.util.List;
 @Builder
 @Table(name = "appointments")
 public class Appointment extends BaseEntity {
-
-
     @Column(name = "appointment_date")
     private Date appointmentDate;
-
 
     @Id
     @Column(name = "appointment_id")
@@ -34,12 +30,6 @@ public class Appointment extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-
-    // Mối quan hệ một-nhiều với entity EmailAttachment
-    @OneToMany(mappedBy = "appointment", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EmailAttachment> emailAttachments;
-
 
     @Column(name = "appointment_shift")
     private String appointmentShift;
