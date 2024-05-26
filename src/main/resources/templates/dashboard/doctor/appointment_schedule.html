@@ -126,7 +126,28 @@
                                     <!-- Detail button -->
                                     <button class="button-detail openModalBtn detailBtn" data-id="[[${app.getId()}]]">Chi tiết</button>
                                     <!-- Send Invoice button -->
-                                    <button class="button-send" data-toggle="modal" data-target="#sendModal" th:data-appointment-id="${app.getId()}">Gử̉i hóa đơn <i class="fa fa-check-circle"></i></button>
+<!--                                    <button  class="button-send" data-toggle="modal" data-target="#sendModal" th:data-appointment-id="${app.getId()}">Gử̉i hóa đơn <i class="fa fa-check-circle"></i></button>-->
+                                    <button th:if="${  !app.isSendedInvoice()}"
+                                            class="button-send"
+                                            data-toggle="modal"
+                                            data-target="#sendModal"
+                                            th:data-appointment-id="${app.getId()}">
+                                        Gử̉i hóa đơn <i style="color:#F9AA33" class="fa fa-exclamation-circle"></i>
+                                    </button>
+
+                                    <!-- Disabled button when invoice is already sent -->
+                                    <button th:if="${app.status.getName() == 'Hoàn thành' and app.isSendedInvoice()}"
+                                            class="button-send"
+                                            disabled>
+                                       Gửi hóa đơn  <i  class="fa fa-check-circle"></i>
+                                    </button>
+
+<!--                                    <button th:if="${app.status.getName() == 'Hoàn thành' or app.status.getName() == 'Chưa khám' or app.status.getName() == 'Đang khám' or app.status.getName() == 'Hủy khám' and !app.isSendedInvoice() }"-->
+<!--                                            class="button-send"-->
+<!--                                            disabled>-->
+<!--                                        Gửi hóa đơn  <i  class="fa fa-check-circle"></i>-->
+<!--                                    </button>-->
+
 
 
                                     <button class="button-create" data-id="[[${app.getId()}]]"> <i class="fa fa-plus-circle"></i></button>
@@ -250,14 +271,14 @@
     <div id="sendModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content" style="width: 50%;top:-26%;">
-            <span class="send-close">&times;</span>
+
             <p class="modal-title">Gửi kết quả khám và hóa đơn.</p>
             <div class="modal-content-body">
                 <hr>
                 <div class="input-row">
                     <div class="input-container">
-                        <label for="gmail">Gửi qua email :</label>
-                        <input class="form-control mail-input" type="email" id="gmail" name="gmail" readonly>
+                        <label for="emaila">Gửi qua email :</label>
+                        <input id="emaila" class="form-control mail-input"  name="emaila" type="email"  readonly>
                     </div>
                 </div>
                 <!-- Button Send và Cancel -->

@@ -36,4 +36,6 @@ public interface IAppointmentService {
 
     void appointmentSendInvoice(SendInvoiceEmailNotifierDTO notifierDTO) throws MessagingException;
      SendInvoiceEmailNotifierDTO createInvoiceEmailNotifier(Long patientId);
+
+    void save(Appointment existingAppointment);
 }

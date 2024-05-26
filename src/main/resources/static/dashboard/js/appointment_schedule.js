@@ -21,7 +21,7 @@ function openModal() {
     // Gán sự kiện click cho nút đóng modal
     closeBtn.addEventListener('click', function() {
         // Ẩn modal khi nút đóng được click
-        closeModal();
+        closeMyModal();
     });
 
 }
@@ -32,7 +32,7 @@ var okButton = document.getElementById("okBtn");
 // Thêm sự kiện click cho nút OK
 okButton.addEventListener("click", function() {
     // Đóng modal bằng cách thêm hoặc loại bỏ class "modal-open" hoặc sử dụng các phương thức khác để điều khiển modal
-    closeModal();
+    closeMyModal();
 });
 
 
@@ -51,7 +51,7 @@ var closeBtn = document.querySelector('.close');
 
 
 // Hàm ẩn modal
-function closeModal() {
+function closeMyModal() {
     // Lấy phần tử modal
     var modal = document.getElementById("myModal");
 
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Close the modal when the close button is clicked
     document.querySelector(".close").addEventListener("click", function() {
-        document.getElementById("sendModalModal").style.display = "none";
+        document.getElementById("sendModal").style.display = "none";
     });
 
     // Close the modal when the user clicks anywhere outside of it
@@ -288,6 +288,10 @@ $(document).ready(function() {
         const appointmentId = $(this).attr("data-appointment-id");
         // Set the appointment ID in a data attribute of the submit button
         document.getElementById('btn-submit').setAttribute('data-id', appointmentId);
+        var appointmentRow = this.closest("tr");
+
+
+
         // Show the modal
         $('#appointmentStatusModal').modal('show');
         //alert('appID: '+ appointmentId)
@@ -363,54 +367,69 @@ function updateAppointmentColor(appointmentId, statusId) {
 // Function to open modal and set appId
 $(document).ready(function() {
     // Attach click event listener to elements with class 'button-send'
-    $('.button-send').on('click', function() {
+    $('.button-send').on('click', function () {
         // Get the appointment ID from the clicked element
         const appointmentId = $(this).data("appointment-id")
 
         // Set the appointment ID in a data attribute of the submit button
         document.getElementById('sendBtn').setAttribute('data-id', appointmentId);
-        // Show the modal
-        $('#sendModal').show();  // Thay thế .modal('show') bằng .show()
+
+        // Call the API to get the user email based on the appointment ID
+        $.ajax({
+            type: 'GET',
+            url: '/doctor/appointments/email/' + appointmentId,
+            success: function (response) {
+                // Assuming the response contains the user's email address in the 'email' field
+                const userEmail = response.email;
+
+                // Set the fetched email address in the readonly input field
+                $('#emaila').val(userEmail);
+
+                // Show the modal
+                $('#sendModal').show();
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching user details:', status, error);
+            }
+        });
     });
 });
 
-function sendInvoice(button) {
-    // Lấy appointmentId từ data-id của button
-    var appointmentId = button.getAttribute("data-id");
 
-    // Kiểm tra nếu có appointmentId
-    if (appointmentId) {
-        // Gọi đến đoạn mã JavaScript để gửi yêu cầu đến server
-        fetch(`/doctor/appointments/invoice?appointmentId=${appointmentId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to send invoice');
+    function sendInvoice(button) {
+        // Lấy appointmentId từ data-id của button
+        var appointmentId = button.getAttribute("data-id");
+
+        // Kiểm tra nếu có appointmentId
+        if (appointmentId) {
+            // Gọi đến đoạn mã JavaScript để gửi yêu cầu đến server
+            fetch(`/doctor/appointments/invoice?appointmentId=${appointmentId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-                // Không cần xử lý phản hồi JSON, chỉ cần kiểm tra trạng thái
-                console.log('Invoice sent successfully');
-                // Thực hiện các hành động cần thiết sau khi gửi hoá đơn thành công
-                // Redirect lại trang để cập nhật thay đổi
-                // window.location.href = "/doctor/appointments/page/";
-                window.location.reload()
             })
-            .catch(error => {
-                console.error('Error:', error);
-                // Xử lý lỗi nếu có
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to send invoice');
+                    }
+                    // Không cần xử lý phản hồi JSON, chỉ cần kiểm tra trạng thái
+                    console.log('Invoice sent successfully');
+                    // Thực hiện các hành động cần thiết sau khi gửi hoá đơn thành công
+                    // Redirect lại trang để cập nhật thay đổi
+                    // window.location.href = "/doctor/appointments/page/";
+                    window.location.reload()
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Xử lý lỗi nếu có
+                });
+        }
     }
-}
 
 // Hàm để đóng modal
-function closeModal() {
-    $('#sendModal').hide();  // Thay thế .modal('hide') bằng .hide()
-}
+    function closeModal() {
+        $('#sendModal').hide();  // Thay thế .modal('hide') bằng .hide()
+    }
 
 // Đóng modal khi nhấn vào biểu tượng đóng
-document.querySelector(".close").addEventListener("click", function() {
-    closeModal();
-});

@@ -135,12 +135,6 @@ public class AppointmentAPI {
         return "dashboard/doctor/appointment_schedule";
     }
 
-    @RequestMapping("/{id}")
-    @ResponseBody
-    public Optional<Appointment> getAppointmentById(@PathVariable Long id){
-
-        return appointmentService.findById(id);
-    }
 
 
 

@@ -146,6 +146,11 @@ public class AppointmentServiceImpl implements IAppointmentService {
         return dto;
     }
 
+    @Override
+    public void save(Appointment existingAppointment) {
+        appointmentRepository.save(existingAppointment);
+    }
+
 
     @Override
     public void appointmentSendInvoice(SendInvoiceEmailNotifierDTO notifierDTO) throws MessagingException{
