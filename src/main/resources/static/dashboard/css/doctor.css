@@ -60,22 +60,6 @@
     position: relative;
 }
 
-.openDoctorModalBtn {
-    background-color: rgba(60, 179, 113, 1);
-    border-radius: 10px;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    padding: 10px 15px;
-    margin-bottom: 20px;
-}
-
-.openDoctorModalBtn:hover {
-    background-color: rgba(60, 149, 113, 1);
-}
-
 .doctorEditClose {
     color: #aaa;
     position: absolute; /* Đặt vị trí tuyệt đối */
@@ -98,58 +82,6 @@
     margin-right: 80px;
 }
 
-#avatar {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin-left: 40%;
-}
+.modal-footer {
 
-#changeAvatar {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin-left: 40%;
-}
-
-#upload_label {
-    position: flex;
-    background: rgba(23, 149, 232, 1);
-    display: block;
-    width: 200px;
-    color: #fff;
-    padding: 12px;
-    margin: 10px 40%;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-
-#upload_label:hover {
-    background: rgba(120, 147, 239, 1);
-}
-
-#upload_image {
-    display: none;
-}
-
-#change_upload_label {
-    position: flex;
-    background: rgba(23, 149, 232, 1);
-    display: block;
-    width: 200px;
-    color: #fff;
-    padding: 12px;
-    margin: 10px 40%;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-
-#change_upload_label:hover {
-    background: rgba(120, 147, 239, 1);
-}
-
-#change_upload_image {
-    display: none;
 }
