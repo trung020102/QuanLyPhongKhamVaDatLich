@@ -1,10 +1,6 @@
 package com.quanlyphongkhamvadatlich.repository;
 
 import com.quanlyphongkhamvadatlich.entity.Appointment;
-import com.quanlyphongkhamvadatlich.entity.User;
-
-import com.quanlyphongkhamvadatlich.entity.Patient;
-import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,11 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.quanlyphongkhamvadatlich.dto.client.AutoSchedulerEmailNotifierDTO;
 import com.quanlyphongkhamvadatlich.dto.client.DisableAppointmentDTO;
-import com.quanlyphongkhamvadatlich.entity.Appointment;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
@@ -63,8 +55,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
         @Query("UPDATE Appointment a SET a.status.id = :appointmentStatusId WHERE a.id = :appointmentId")
         void updateAppointmentStatus(Long appointmentId, Long appointmentStatusId);
 
-        public Optional<Appointment> getAppointmentById(Long id);
-
         public List<Appointment> findByAppointmentDateAndAppointmentShift(Date appointmentDate,
                         String appointmentShift);
 
@@ -75,8 +65,13 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
         List<AutoSchedulerEmailNotifierDTO> findByAppointmentDateAndStatusId(
                         @Param("appointmentDate") Date appointmentDate, @Param("statusId") int statusId);
 
-        Optional<Appointment> findByIdAndUserId(Long appointmentID, Long userID);
-  
         @Query("SELECT a FROM Appointment a WHERE a.patient.id = :patientId")
         Appointment findByPatientId(@Param("patientId") Long patientId);
+
+        Appointment getAppointmentById(Long id);
+
+        Optional<Appointment> findByIdAndUserId(Long appointmentID, Long userID);
+
+        @Query("SELECT a FROM Appointment a WHERE a.patient.id = :patientId and a.status.id = :statusId")
+        List<Appointment> findByStatusIdAndPatientId(@Param("statusId") Long statusId, @Param("patientId") Long patientId);
 }

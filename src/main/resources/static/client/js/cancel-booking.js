@@ -45,15 +45,9 @@ function cancelBooking(appointmentID) {
         Swal.fire({
           title: "HỦY LỊCH KHÁM THÀNH CÔNG!",
           icon: "success",
+        }).then(() => {
+          window.location.reload()
         });
-
-        if (!unexaminedSchedules.html().trim()) {
-          unexaminedSchedules
-            .parent()
-            .append(
-              '<div class="alert alert-danger" role="alert" style="text-align: center;">Bạn chưa có lịch chưa khám nào.</div>'
-            );
-        }
       }
     });
 }

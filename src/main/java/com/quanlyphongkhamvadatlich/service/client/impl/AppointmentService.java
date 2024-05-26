@@ -5,7 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import com.quanlyphongkhamvadatlich.entity.Appointment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -14,7 +17,6 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import com.quanlyphongkhamvadatlich.dto.client.ApiResponse;
 import com.quanlyphongkhamvadatlich.dto.client.AutoSchedulerEmailNotifierDTO;
-import com.quanlyphongkhamvadatlich.entity.Appointment;
 import com.quanlyphongkhamvadatlich.repository.AppointmentRepository;
 import com.quanlyphongkhamvadatlich.repository.StatusRepository;
 import com.quanlyphongkhamvadatlich.security.UserPrincipal;
@@ -70,5 +72,9 @@ public class AppointmentService implements IAppointmentService {
         appointmentRepository.save(appointmentUpdate);
 
         return new ApiResponse<Appointment>("Hủy đặt khám thành công", appointmentUpdate, HttpStatus.OK);
+    }
+    
+    public Appointment getAppointmentById(Long id) {
+        return appointmentRepository.getAppointmentById(id);
     }
 }

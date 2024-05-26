@@ -129,13 +129,7 @@
                                     <button class="button-send" data-toggle="modal" data-target="#sendModal" th:data-appointment-id="${app.getId()}">Gử̉i hóa đơn <i class="fa fa-check-circle"></i></button>
 
 
-                                    <button class="button-create" data-id="[[${app.getId()}]]"> <i class="fa fa-plus-circle"></i></button>
-                                    <!-- Delete button -->
-<!--                                    <a-->
-<!--                                            onclick="return confirm('Are you sure you want to delete this Appointment ?')"-->
-<!--                                            th:href="'/doctor/appointments/delete/' + ${app.getId()}">-->
-<!--                                        <i class="fa fa-trash"></i>-->
-<!--                                    </a>-->
+                                    <a class="addButton" th:href="'/doctor/physical_exam/'+${app.getId()}" th:data-status="${app.getStatus().getId()}"><button class="button-create " data-id="[[${app.getId()}]]" > <i class="fa fa-plus-circle"></i></button></a>
 
 
 
@@ -305,5 +299,30 @@
 <th:block layout:fragment="service-script">
 
     <script src="/dashboard/js/appointment_schedule.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".addButton").each(function() {
+                var status = $(this).data("status");
+                if (status === 3 || status === 2) {
+                    $(this).addClass("disabled-button");
+                    $(this).prop("disabled", true);
+                }
+            });
+
+            $(".addButton").click(function (event){
+                var status = $(this).data("status");
+                if(status === 3){
+                    alert("Bệnh án này đã hoàn thành!");
+                }
+                if(status === 2){
+                    alert("Bệnh nhân này đang khám!");
+                }
+                if (status === 3 || status === 2) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
 </th:block>
 </html>
