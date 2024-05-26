@@ -113,3 +113,14 @@ button {
 
     margin-left: 8px;
 }
+
+.see-detail {
+    width: 45px;
+    height: 40px;
+    background-color: #0c84ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    cursor: pointer;
+}
