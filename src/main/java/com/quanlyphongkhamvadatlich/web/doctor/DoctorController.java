@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 @Controller
-@RequestMapping("doctor")
+@RequestMapping("/doctor")
 public class DoctorController {
 
     @Autowired
@@ -40,7 +40,7 @@ public class DoctorController {
     @GetMapping("/login")
     public String toLoginDoctor(@AuthenticationPrincipal UserPrincipal principal) {
         if (principal != null)
-            return "redirect:/doctor/physical_exam";
+            return "redirect:/doctor/appointments";
 
         return "dashboard/doctor/login";
     }
@@ -104,10 +104,7 @@ public class DoctorController {
         return "dashboard/doctor/history_exam";
     }
 
-    @GetMapping("/physical_exam")
-    public ModelAndView toPhysicalExam(){
-        return new ModelAndView("dashboard/doctor/physical_exam");
-    }
+
     @GetMapping("/appointment_schedule")
     public ModelAndView appointmentSchedule() {
         return new ModelAndView("dashboard/doctor/appointment_schedule");

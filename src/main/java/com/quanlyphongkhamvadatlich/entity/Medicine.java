@@ -1,13 +1,15 @@
 package com.quanlyphongkhamvadatlich.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Entity
-@Table(name = "medicines")
-@Getter
 @Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Builder
+@Table(name = "medicines")
 public class Medicine extends BaseEntity{
     @Id
     @Column(name = "medicine_id")

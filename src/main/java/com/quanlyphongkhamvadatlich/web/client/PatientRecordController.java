@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.swing.text.DateFormatter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.time.*;
@@ -29,14 +27,14 @@ public class PatientRecordController {
     @Autowired
     private PatientRecordRepository patientRecordRepository;
     @GetMapping("/record/{id}")
-    public String record(Model model, @PathVariable Long id){
+    public String record(Model model, @PathVariable(value = "id") Long id){
         List<Patient> patient= patientService.getPatientByUserId(id);
         model.addAttribute("patient", patient);
         return "client/pages/record";
     }
 
     @GetMapping("/record/PatientRecord/{id}")
-    public String PatientRecord(@PathVariable Long id, Model model, @RequestParam(name = "dateranges", required = false) String dateRange) {
+    public String PatientRecord(@PathVariable(value = "id") Long id, Model model, @RequestParam(name = "dateranges", required = false) String dateRange) {
         Patient patient = patientService.getPatientById(id);
         if(patient != null){
             List<Appointment> appointments = patient.getAppointments().stream()

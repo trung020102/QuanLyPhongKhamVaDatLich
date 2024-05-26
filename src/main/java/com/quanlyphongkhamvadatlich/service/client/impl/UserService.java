@@ -140,7 +140,7 @@ UserService implements IUserService {
         } else {
             userInfor = customer.get();
         }
-        
+
         // update common user info
         user.setEmail(request.getEmail());
         user.setUsername(request.getFullName());

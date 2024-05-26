@@ -5,8 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,6 +38,7 @@ public class DoctorSecurity {
     @Order(2)
     public SecurityFilterChain securityFilterChainForDoctor(HttpSecurity http) throws Exception {
         http.securityMatcher("/doctor/**");
+        http.csrf(AbstractHttpConfigurer::disable);
         http.authenticationProvider(authenticationProviderForDoctor());
         http
                 .authorizeHttpRequests(
@@ -46,7 +49,7 @@ public class DoctorSecurity {
                 .formLogin(form -> form.loginPage("/doctor/login").permitAll()
                         .usernameParameter("username")
                         .passwordParameter("password")
-                         .defaultSuccessUrl("/doctor/physical_exam", true)
+                        .defaultSuccessUrl("/doctor/appointments", true)
                         .loginProcessingUrl("/doctor/login")
                 )
                 .logout(logout -> logout
