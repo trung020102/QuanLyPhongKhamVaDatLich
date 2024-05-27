@@ -49,21 +49,23 @@ public class AuthenticationController {
     public String save(@ModelAttribute("user") @Valid RegistrationRequest request,
             BindingResult bindingResult,
             HttpServletRequest servletRequest) {
-        
-        if(request.getEmail() != null) {
-            if(userService.findByEmail(request.getEmail()).isPresent()) {
-                bindingResult.rejectValue("email", "error.email", "Email đã được đăng ký trong hệ thống.");
-            }
-        }
-
-        if(request.getPassword() != null && request.getRePassword() != null) {
-            if(!request.getPassword().equals(request.getRePassword())) {
-                bindingResult.rejectValue("rePassword", "error.rePassword", "Mật khẩu không trùng khớp.");
-            }
-        }
 
         if (bindingResult.hasErrors()) {
             return "client/pages/register";
+        }
+
+        if (request.getEmail() != null) {
+            if (userService.findByEmail(request.getEmail()).isPresent()) {
+                bindingResult.rejectValue("email", "error.email", "Email đã được đăng ký trong hệ thống.");
+                return "client/pages/register";
+            }
+        }
+
+        if (request.getPassword() != null && request.getRePassword() != null) {
+            if (!request.getPassword().equals(request.getRePassword())) {
+                bindingResult.rejectValue("rePassword", "error.rePassword", "Mật khẩu không trùng khớp.");
+                return "client/pages/register";
+            }
         }
 
         User user = userService.registerUser(request);

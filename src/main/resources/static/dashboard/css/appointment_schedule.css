@@ -320,3 +320,18 @@ label {
     pointer-events: none;
     opacity: 0.6;
 }
+
+.disabled-button-send  {
+    background-color: #ccc; /* Gray background */
+    color: #666;           /* Gray text */
+    cursor: not-allowed;   /* Change cursor to not-allowed */
+    opacity: 0.8;          /* Slightly transparent */
+}
+
+.disabled-button-send i {
+    /*color: #999;          !* Gray icon color *!*/
+}
+
+.disabled-button-send:hover {
+    background-color: #ccc; /* Ensure background doesn't change on hover */
+}
