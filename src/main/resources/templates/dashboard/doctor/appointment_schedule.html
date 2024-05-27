@@ -127,7 +127,7 @@
                                     <button class="button-detail openModalBtn detailBtn" data-id="[[${app.getId()}]]">Chi tiết</button>
                                     <!-- Send Invoice button -->
 <!--                                    <button  class="button-send" data-toggle="modal" data-target="#sendModal" th:data-appointment-id="${app.getId()}">Gử̉i hóa đơn <i class="fa fa-check-circle"></i></button>-->
-                                    <button th:if="${(!app.isSendedInvoice() and app.status.getName() == 'Hoàn thành') and app.status.getName() != 'Chưa khám' and app.status.getName() != 'Hủy khám' and app.status.getName() != 'Đang khám' }"
+                                    <button th:if="${(!app.isSendedInvoice() and app.status.getId() == 3) and app.status.getId() != 1 and app.status.getId() != 4 and app.status.getId() != 2 }"
                                             class="button-send"
                                             data-toggle="modal"
                                             data-target="#sendModal"
@@ -135,16 +135,16 @@
                                         Gử̉i hóa đơn <i style="color:#F9AA33" class="fa fa-exclamation-circle"></i>
                                     </button>
                                     <!-- Button for statuses 'Chưa khám', 'Hủy khám', and 'Đang khám' -->
-                                    <button th:if="${app.status.getName() == 'Chưa khám' or app.status.getName() == 'Hủy khám' or app.status.getName() == 'Đang khám'}"
+                                    <button th:if="${app.status.getId() == 1 or app.status.getId() == 4 or app.status.getId() == 2}"
                                             class="button-send disabled-button-send"
                                             disabled>
                                         Gửi hóa đơn <i class="fa fa-times-circle"></i>
                                     </button>
                                     <!-- Disabled button when invoice is already sent -->
-                                    <button  th:if="${(app.status.getName() == 'Hoàn thành' and app.isSendedInvoice())and app.status.getName() != 'Chưa khám' and app.status.getName() != 'Hủy khám' and app.status.getName() != 'Đang khám'}"
-                                            class="button-send disabled-button-send"
-                                            disabled>
-                                       Gửi hóa đơn  <i style="color:#19e146" class="fa fa-check-circle"></i>
+                                    <button  th:if="${(app.status.getId() == 3 and app.isSendedInvoice())and app.status.getId() != 1 and app.status.getId() != 4 and app.status.getId() != 2}"
+                                             class="button-send disabled-button-send"
+                                             disabled>
+                                        Gửi hóa đơn  <i style="color:#19e146" class="fa fa-check-circle"></i>
                                     </button>
 
 <!--                                    <button th:if="${app.status.getName() == 'Hoàn thành' or app.status.getName() == 'Chưa khám' or app.status.getName() == 'Đang khám' or app.status.getName() == 'Hủy khám' and !app.isSendedInvoice() }"-->
