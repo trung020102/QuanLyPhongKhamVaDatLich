@@ -114,6 +114,7 @@ button {
     margin-left: 8px;
 }
 
+<<<<<<< Updated upstream
 .is-invalid {
     border-color: #dc3545;
 }
@@ -130,5 +131,15 @@ button {
     justify-content: center;
     align-items: center;
     border-radius: 4px;
+=======
+.see-detail {
+    width: 45px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+>>>>>>> Stashed changes
     cursor: pointer;
 }

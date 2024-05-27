@@ -100,28 +100,27 @@
                                 </td>
                                 <td class="text-center align-middle">
                                     <div class="d-flex justify-content-center align-items-center">
-                                        <a class="see-detail" data-toggle="modal" data-show="true"
-                                           th:attr="data-target='#modal'+${item.patientRecordId}" th:data-patient-record-id="${item.patientRecordId}">
+                                        <a th:href="@{/doctor/history_exam/patientRecord/{patientRecordId}(patientRecordId=${item.patientRecordId})}" class="see-detail">
                                             <i class="fa-solid fa-eye" style="color: white"></i>
                                         </a>
                                     </div>
                                         <!-- =======================================================     -->
-                                    <div class="modal fade" th:id="${'modal'+item.patientRecordId}" tabindex="-1" role="dialog"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Chi tiết phiếu khám</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div id="patientRecordDetails"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+<!--                                    <div class="modal fade" th:id="${'modal'+item.patientRecordId}" tabindex="-1" role="dialog"-->
+<!--                                         aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--                                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">-->
+<!--                                            <div class="modal-content">-->
+<!--                                                <div class="modal-header">-->
+<!--                                                    <h5 class="modal-title" id="exampleModalLabel">Chi tiết phiếu khám</h5>-->
+<!--                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                                                        <span aria-hidden="true">&times;</span>-->
+<!--                                                    </button>-->
+<!--                                                </div>-->
+<!--                                                <div class="modal-body">-->
+<!--                                                    <div id="patientRecordDetails"></div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                 </td>
                             </tr>
 
@@ -137,7 +136,7 @@
 </th:block>
 
 <th:block layout:fragment="service-script">
-    <script src="/js/document.js"></script>
+<!--    <script src="/js/document.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -157,88 +156,5 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function() {
-            $('.see-detail').click(function() {
-                var patientRecordId = $(this).data('patient-record-id');
-                console.log("Patient Record ID:", patientRecordId); // Kiểm tra ID được lấy
-
-                $.ajax({
-                    url: '/doctor/getPatientRecord', // Đường dẫn tới endpoint của bạn
-                    method: 'GET',
-                    dataType: "json",
-                    data: { id: patientRecordId },
-                    success: function(response) {
-                        console.log("Success:", response);
-                        var appointment = response.appointment;
-                        console.log("appoint:", appointment);
-                        var doctor = response.doctor;
-                        console.log("doctor:", doctor);
-
-                        var service = response.serviceDetails;
-                        console.log("doctor:", service);
-                        var htmlContent = '<div class="record_content p-3" style="display: block">';
-
-                        // Thông tin bác sĩ
-                        htmlContent += '<div class="doctor">';
-                            htmlContent += '<p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%; display: table-cell;">1. Thông tin bác sĩ</p>';
-                        htmlContent += '<div class="table-responsive"><table class="table table-bordered mt-3">';
-                        htmlContent += '<tr><td>Tên bác sĩ</td><td>' + doctor.username + '</td></tr>';
-                        htmlContent += '<tr><td>Chuyên khoa</td><td>' + doctor.specialty + '</td></tr>';
-                        htmlContent += '</table></div></div>';
-
-                        // Chẩn đoán
-                        htmlContent += '<div class="position-relative"><p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%; display: table-cell;">2. Chẩn đoán</p>';
-                        htmlContent += '<div class="form-group mt-3"><textarea class="form-control mt-3" rows="3" readonly>' + response.diagnosis + '</textarea></div></div>';
-
-                        // Ghi chú
-                        htmlContent += '<div class="position-relative"><p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%; display: table-cell;">3. Ghi chú</p>';
-                        htmlContent += '<div class="form-group mt-3"><textarea class="form-control mt-3" rows="3" readonly>' + response.note + '</textarea></div></div>';
-
-                        // Dịch vụ khám
-                        htmlContent += '<div class="position-relative"><p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%; display: table-cell;">4. Dịch vụ khám</p>';
-                        htmlContent += '<div class="table-responsive"><table class="table mt-3"><thead class="thead-light">';
-                        htmlContent += '<tr><th scope="col">STT</th><th scope="col">Mã dịch vụ</th><th scope="col">Dịch vụ</th><th scope="col">Giá</th></tr></thead><tbody>';
-                        // if (response.serviceDetails.length > 0) {
-                        //     response.serviceDetails.forEach(function(service, index) {
-                        //         htmlContent += '<tr><th scope="row">' + (index + 1) + '</th><td>' + service.medicalService.id + '</td><td>' + service.medicalService.serviceName + '</td><td>' + service.medicalService.price + '</td></tr>';
-                        //     });
-                        // } else {
-                        //     // Nếu mảng serviceDetails rỗng, hiển thị thông báo
-                        //     htmlContent += '<tr><td colspan="4">Chưa có dịch vụ khám</td></tr>';
-                        // }
-                        htmlContent += '</tbody></table></div></div>';
-
-
-                        htmlContent += '<div><p class="badge badge-dark w-auto m-1 p-2" style="font-size: 100%;display: table-cell;">5. Toa thuốc</p>';
-                        htmlContent += '<div class="table-responsive"><table class="table mt-3"><thead class="thead-light">';
-                        htmlContent += '<tr><th scope="col">STT</th><th scope="col">Tên thuốc</th><th scope="col">Đơn vị tính</th><th scope="col">Số lượng</th><th scope="col">Cách dùng</th></tr></thead><tbody>';
-                        if (response.prescription !== null && Array.isArray(response.prescription) && response.prescription.length > 0) {
-                            response.prescription.forEach(function(prescription, index) {
-                                htmlContent += '<tr><th scope="row">' + (index + 1) + '</th><td>' + prescription.name + '</td><td>' + prescription.unit + '</td><td>' + prescription.quantity + '</td><td>' + prescription.usage + '</td></tr>';
-                            });
-                        } else {
-                            // Nếu mảng prescriptions là rỗng hoặc null, hoặc không phải là mảng, hiển thị thông báo
-                            htmlContent += '<tr><td colspan="5">Không kê đơn thuốc</td></tr>';
-                        }
-                        htmlContent += '</tbody></table></div></div>';
-
-                        htmlContent += '</div>'; // Close record_content
-
-                        $('#patientRecordDetails').html(htmlContent);
-
-                    },
-                    error: function(error) {
-                        console.error('Lỗi khi lấy thông tin bệnh nhân:', error);
-                        $('#patientRecordDetails').html('<p>Lỗi khi lấy thông tin bệnh nhân</p>');
-                    }
-                });
-
-                // Hiển thị modal (modal sẽ được tự động hiển thị do có data-toggle="modal" và data-target="#patientRecordModal")
-                $('#patientRecordModal').modal('show');
-            });
-        });
-
-    </script>
 </th:block>
 </html>
