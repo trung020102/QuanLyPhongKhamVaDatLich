@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class DoctorServiceResult {
     private Long id;
-    private String doctor_name;
+    private String username;
     private String specialty;
     private String diploma;
     private String workplace;

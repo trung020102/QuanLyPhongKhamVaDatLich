@@ -10,7 +10,7 @@ import lombok.Setter;
 public class DoctorServiceParam {
     @NotNull
     @Size(max = 255)
-    private String doctor_name;
+    private String username;
     @NotNull
     @Size(max = 255)
     private String specialty;
