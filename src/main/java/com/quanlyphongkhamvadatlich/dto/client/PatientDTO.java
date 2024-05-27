@@ -19,7 +19,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class PatientDTO {
-    @Id
+
     private  Long patientId;
     public PatientDTO(Long patientId){
         this.patientId = patientId;
@@ -29,7 +29,7 @@ public class PatientDTO {
     private String name;
 
     @NotBlank(message = "Số điện thoại không được để trống")
-//    @Size(min = 10, max = 10, message = "Số điện thoại phải có 10 chữ số")
+    @Size(min = 10, max = 10, message = "Số điện thoại phải có 10 chữ số")
     private String phone;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -40,6 +40,7 @@ public class PatientDTO {
     @NotBlank(message = "Địa chỉ không được để trống")
     private String address;
 
+    @Size(min = 9, max = 12, message = "Số CMND/CCCD phải có độ dài từ 9 đến 12 chữ số")
     @NotBlank(message = "Số CMND/CCCD không được để trống")
     private String citizen_number;
 

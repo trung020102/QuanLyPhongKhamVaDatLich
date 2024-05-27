@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 @Controller
-@RequestMapping("doctor")
+@RequestMapping("/doctor")
 public class DoctorController {
 
     @GetMapping("/login")
     public String toLoginDoctor(@AuthenticationPrincipal UserPrincipal principal) {
         if (principal != null)
-            return "redirect:/doctor/physical_exam";
+            return "redirect:/doctor/appointments";
 
         return "dashboard/doctor/login";
     }
@@ -48,10 +48,7 @@ public class DoctorController {
         return new ModelAndView("dashboard/doctor/history_exam");
     }
 
-    @GetMapping("/physical_exam")
-    public ModelAndView toPhysicalExam(){
-        return new ModelAndView("dashboard/doctor/physical_exam");
-    }
+
     @GetMapping("/appointment_schedule")
     public ModelAndView appointmentSchedule() {
         return new ModelAndView("dashboard/doctor/appointment_schedule");

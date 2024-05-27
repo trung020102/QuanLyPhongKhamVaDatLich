@@ -18,7 +18,7 @@
                 </div>
                 <div class="form_content">
 
-                    <div class="form_content-ask">Bạn đã đặt khám khám ở phòng khám WeMed &#63;</div>
+                    <div class="form_content-ask">Bạn đã đặt khám khám ở phòng khám Novena &#63;</div>
                     <!-- Tab links -->
                     <div class="tab_form">
                         <a class="tablinks text-uppercase showLine" onclick="openForm(event, 'hasRecord')">
@@ -37,10 +37,11 @@
                         <p class="text-uppercase heading">Vui lòng nhập mã số bệnh nhân</p>
 
                         <form  th:object="${patient}" th:action="@{/client/booking/oldpatient}" method="post">
-                            <input th:classappend="${error} ? 'is-invalid' : ''" class="form_input form-control" type="text" name="patient_id" value="" placeholder="Nhập mã số bệnh nhân" required pattern="[1-9]">
+                            <input th:classappend="${error} ? 'is-invalid' : ''" class="form_input form-control" type="text" name="patient_id" value="" placeholder="Nhập mã số bệnh nhân" required pattern="[1-9][0-9]*">
                             <div th:if="${error}">
                                 <p th:text="${error}" style="color:red"></p>
                             </div>
+
                             <button class="form-btn text-uppercase" type="submit">Xác nhận</button>
                         </form>
                     </div>
@@ -61,7 +62,7 @@
                                     <div class="form-group text-left">
                                         <label>Số điện thoại <sup style="color: red;">*</sup></label>
                                         <input type="text" th:errorclass="is-invalid" th:field="*{phone}" name="phone" value="" class="form-control rounded" placeholder="Nhập số điện thoại">
-                                        <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{phone}"></div>
+                                        <div style="color: red" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
                                     </div>
 
                                     <div class="form-group text-left" style="margin-bottom: 34px;">
@@ -83,28 +84,29 @@
                                     </div>
                                     <div class="form-group text-left">
                                         <label>Ngày sinh</label>
-                                        <input type="date" id="dateControl" name="date_of_birth" th:field="*{birthday}" value="" class="form-control rounded">
+                                        <input th:errorclass="is-invalid" type="date" id="dateControl" th:field="*{birthday}" name="birthday" value="" class="form-control rounded">
+                                        <div style="color: red" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></div>
                                     </div>
 
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group text-left">
                                         <label>Địa chỉ <sup style="color: red;">*</sup></label>
-                                        <input type="text" th:errorclass="is-invalid" th:field="*{address}" name="address" value="" class="form-control rounded" placeholder="Nhập địa chỉ nhà">
+                                        <input type="text" th:errorclass="is-invalid" th:field="*{address}" value="" class="form-control rounded" placeholder="Nhập địa chỉ nhà">
                                         <div style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
                                     </div>
                                     <div class="form-group text-left">
                                         <label>Nghề nghiệp</label>
-                                        <input type="text" th:field="*{career}" name="career" value="" class="form-control rounded" placeholder="Nhập nghề nghiệp">
+                                        <input type="text" th:field="*{career}" value="" class="form-control rounded" placeholder="Nhập nghề nghiệp">
                                     </div>
                                     <div class="form-group text-left">
                                         <label>Số CMND/CCCD <sup style="color: red;">*</sup></label>
-                                        <input type="text" th:errorclass="is-invalid" th:field="*{citizen_number}" name="citizen_number" value="" class="form-control rounded" placeholder="Nhập số CMND hoặc số CCCD">
+                                        <input type="text" th:errorclass="is-invalid" th:field="*{citizen_number}" value="" class="form-control rounded" placeholder="Nhập số CMND hoặc số CCCD">
                                         <div style="color: red" th:if="${#fields.hasErrors('citizen_number')}" th:errors="*{citizen_number}"></div>
                                     </div>
                                     <div class="form-group text-left">
                                         <label>Số bảo hiểm y tế</label>
-                                        <input type="text" th:field="*{insurance_number}" name="insurance_number" value="" class="form-control rounded" placeholder="Nhập số bảo hiểm y tế">
+                                        <input type="text" th:field="*{insurance_number}" value="" class="form-control rounded" placeholder="Nhập số bảo hiểm y tế">
                                     </div>
                                 </div>
                             </div>
@@ -167,18 +169,17 @@
                 $(".tab_form-line").show();
             });
         });
+
         $(document).ready(function () {
             var currentDate = new Date();
-            var currentYear = currentDate.getFullYear() - 16; // Trừ 16 năm
-            var maxDate = currentYear + "-" + ("0" + (currentDate.getMonth() + 1)).slice(-2) + "-" + ("0" + currentDate.getDate()).slice(-2);
+            var year = currentDate.getFullYear();
+            var month = ("0" + (currentDate.getMonth() + 1)).slice(-2); // Months are zero-based
+            var day = ("0" + currentDate.getDate()).slice(-2);
 
-            $("#dateControl").attr("max", maxDate);
-
-            $("#dateControl").val(maxDate);
+            var formattedDate = year + "-" + month + "-" + day;
+            $("#dateControl").val(formattedDate);
         });
-        function showErrorMessage() {
-            document.getElementById("error-message").style.display = "block";
-        }
+
     </script>
 
     <script th:inline="javascript">
@@ -206,10 +207,10 @@
                     }
                 }, 1000);
             }
-            history.pushState(null, null, window.location.href);
-            window.onpopstate = function () {
-                history.go(1);
-            };
+            // history.pushState(null, null, window.location.href);
+            // window.onpopstate = function () {
+            //     history.go(1);
+            // };
 
         });
     </script>

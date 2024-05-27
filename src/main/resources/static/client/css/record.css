@@ -7,6 +7,12 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
 }
+.font-size{
+    font-size: 20px;
+}
+textarea[readonly] {
+    cursor: pointer;
+}
 
 .form_heading-text {
     font-size: 2rem;
@@ -122,4 +128,16 @@
 
 a:hover {
     text-decoration: none !important;
+}
+
+.fa-calendar-xmark {
+    color: #fe2d2d;
+}
+
+.fa-calendar-xmark:hover {
+    color: #da0a0a;
+}
+
+.area-cancel:hover {
+    cursor: pointer;
 }

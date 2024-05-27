@@ -23,7 +23,7 @@ public class AutoSchedulerEmailNotifier {
 
     private final AppointmentService appointmentService;
 
-    @Scheduled(cron = "30 8 * * * 1-5", zone = "Asia/Ho_Chi_Minh")
+    @Scheduled(cron = "1 30 8 * * 1-5", zone = "Asia/Ho_Chi_Minh")
     public void run() throws MessagingException, ParseException {
         // find the next day
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

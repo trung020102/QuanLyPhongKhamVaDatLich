@@ -110,16 +110,6 @@
                     </th:block>
                     <th:block sec:authorize="hasAuthority('DOCTOR')">
                         <li>
-                            <a class="dropdown-item" href="#"
-                            >Thông tin cá nhân</a
-                            >
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#"
-                            >Cài đặt</a
-                            >
-                        </li>
-                        <li>
                             <a class="dropdown-item" href="/doctor/logout">Đăng xuất</a>
                         </li>
                     </th:block>
@@ -193,6 +183,6 @@
 
 <th:block th:replace="~{dashboard/layout/script :: page-script}"></th:block>
 <th:block layout:fragment="service-script"></th:block>
-
+<th:block layout:fragment="doctor-script"></th:block>
 </body>
 </html>
