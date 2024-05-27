@@ -23,9 +23,40 @@
 </th:block>
 
 <th:block layout:fragment="content-body">
+
+    <button class="btn btn-success openDoctorRegister" style="margin-bottom: 10px">
+        Thêm tài khoản bác sĩ
+    </button>
+
+    <div id="example3_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <!--body-->
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="example2"
+                       class="table table-bordered table-hover dataTable dtr-inline"
+                       aria-describedby="example2_info">
+                    <thead>
+                    <tr>
+                        <th class="sorting"
+                            aria-label="Rendering engine: activate to sort column descending">
+                            STT
+                        </th>
+                        <th class="sorting">Email</th>
+                        <th class="sorting">Mật khẩu</th>
+                        <th class="sorting">Operation</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <!-- Add doctor modal button-->
     <button class="btn btn-success openDoctorModalBtn" style="margin-bottom: 10px">
-        Thêm bác sĩ
+        Thêm thông tin bác sĩ
     </button>
 
     <!-- Add doctor modal -->

@@ -52,7 +52,7 @@ $(document).ready(function() {
             type: "GET",
             url: "http://localhost:8082/api/doctors/get/" + id,
             success: function(data) {
-                $('#doctor_name_edit').val(data.doctor_name);
+                $('#doctor_name_edit').val(data.username);
                 $('#doctor_specialty_edit').val(data.specialty);
                 $('#doctor_workplace_edit').val(data.workplace);
                 $('#doctor_diploma_edit').val(data.diploma);
@@ -119,7 +119,7 @@ $(document).ready(function() {
         }
 
         var jsonVar = {
-            doctor_name: name,
+            username: name,
             specialty: specialty,
             diploma: diploma,
             workplace: workplace,
@@ -151,7 +151,7 @@ $(document).ready(function() {
         var introduction = $("#doctor_introduction_edit").val();
 
         var jsonVar = {
-            doctor_name: name,
+            username: name,
             specialty: specialty,
             diploma: diploma,
             workplace: workplace,
@@ -191,7 +191,7 @@ $(document).ready(function() {
                     $("tbody").append("<tr>" +
                         "<td>" + (parseInt(i) + 1) + "</td>" +
                         "<td class='doctor-id' style='display:none;'>" + doctor[i].id + "</td>" +
-                        "<td>" + doctor[i].doctor_name + "</td>" +
+                        "<td>" + doctor[i].username + "</td>" +
                         "<td>" + doctor[i].specialty + "</td>" +
                         "<td>" + doctor[i].diploma + "</td>" +
                         "<td>" + doctor[i].workplace + "</td>" +

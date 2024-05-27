@@ -41,7 +41,7 @@ public class DoctorCRUDService{
     //Update operation
     public void updateDoctor(Long id, DoctorServiceParam doctorServiceParam) {
         Doctor doctor = doctorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Doctor not found"));
-        doctor.setDoctor_name(doctorServiceParam.getDoctor_name());
+        doctor.setUsername(doctorServiceParam.getUsername());
         doctor.setSpecialty(doctorServiceParam.getSpecialty());
         doctor.setDiploma(doctorServiceParam.getDiploma());
         doctor.setWorkplace(doctorServiceParam.getWorkplace());
