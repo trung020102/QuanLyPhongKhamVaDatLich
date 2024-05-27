@@ -87,7 +87,7 @@
 
                                 <td  style="font-weight: bold;" th:if="${app.status != null}">
                                         <span class="hover-underline" data-toggle="modal" data-target="#appointmentStatusModal" th:data-appointment-id="${app.getId()}"  th:text="${app.getStatus().getName()}"
-                                              th:style="'color:' + (${app.getStatus().getName()} == 'Chưa khám' ? '#F9AA33' : (${app.getStatus().getName()} == 'Hoàn thành' ? 'green' : (${app.getStatus().getName()} == 'Hủy khám' ? 'red' : 'black')))">
+                                              th:style="'color:' + (${app.getStatus().getId()} == 1 ? '#F9AA33' : (${app.getStatus().getId()} == 3 ? 'green' : (${app.getStatus().getId()} == 4 ? 'red' : 'black')))">
 
                                        </span>
 
