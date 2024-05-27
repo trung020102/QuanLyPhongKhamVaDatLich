@@ -199,8 +199,8 @@ $(document).ready(function() {
                 assignDataToTable();
             },
             error: function(err) {
-                console.log(err);
-                alert("Error: " + err.responseText);
+
+                FormHandler.handleServerValidationError($('#doctorEditModal'), err)
             }
         });
     });
