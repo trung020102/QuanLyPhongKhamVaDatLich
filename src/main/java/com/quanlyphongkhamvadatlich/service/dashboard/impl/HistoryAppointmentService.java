@@ -26,11 +26,4 @@ public class HistoryAppointmentService implements IHistoryAppointment {
         return historyAppointmentRepository.getPatientRecordById(id);
     }
 
-//    @Override
-//    public List<PatientRecord> getPatientRecordByDates(Date startDate, Date endDate) {
-//        return historyAppointmentRepository.getPatientRecordByDates(startDate, endDate);
-//    }
-
-
-
 }
