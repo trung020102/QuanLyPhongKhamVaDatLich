@@ -7,13 +7,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DoctorResister {
+    @NotBlank(message = "Email không được bỏ trống")
+    private String email;
+    @NotBlank(message = "Mật khẩu không được bỏ trống")
+    private String password;
     @NotBlank(message = "Họ và tên không được bỏ trống")
     private String username;
-    @NotBlank(message = "Chuyên môn không đuộc bỏ trống")
+    @NotBlank(message = "Chuyên ngành không đuộc bỏ trống")
     private String specialty;
-    @NotBlank(message = "Bằng cấp không được bỏ trống")
-    private String diploma;
-    @NotBlank(message = "Nơi công tác không được bỏ trống")
-    private String workplace;
-    private String introduction;
+
 }

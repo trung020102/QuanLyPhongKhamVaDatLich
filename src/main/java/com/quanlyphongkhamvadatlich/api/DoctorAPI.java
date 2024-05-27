@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DoctorAPI {
     private final DoctorService doctorService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<?> createDoctor(@Valid @RequestBody DoctorResister doctorResister) {
         doctorService.createDoctor(doctorResister);
         return ResponseEntity.ok().build();

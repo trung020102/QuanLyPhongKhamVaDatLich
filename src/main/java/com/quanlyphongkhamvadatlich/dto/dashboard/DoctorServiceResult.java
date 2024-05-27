@@ -12,4 +12,5 @@ public class DoctorServiceResult {
     private String diploma;
     private String workplace;
     private String introduction;
+    private String email;
 }

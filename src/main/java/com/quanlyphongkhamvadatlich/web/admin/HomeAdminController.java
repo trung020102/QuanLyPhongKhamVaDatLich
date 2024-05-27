@@ -59,11 +59,11 @@ public class HomeAdminController {
     }
     @GetMapping("/patient")
     public ModelAndView toPatient(@RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "key", defaultValue = "") String key, Model model) {
-        Pageable pageable = PageRequest.of(page -1, 5);
+        Pageable pageable = PageRequest.of(page - 1, 5);
 
         Page<Patient> listPatient = null;
 
-        if(key == null || key.isBlank()) {
+        if (key == null || key.isBlank()) {
             listPatient = patientRepository.findAll(pageable);
         } else {
             listPatient = patientRepository.search(key, pageable);

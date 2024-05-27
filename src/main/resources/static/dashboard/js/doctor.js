@@ -1,3 +1,5 @@
+import {FormHandler} from "./form.js";
+
 $(document).ready(function() {
     assignDataToTable();
 
@@ -19,6 +21,30 @@ $(document).ready(function() {
         var doctorModal = document.getElementById("doctorModal");
         doctorModal.style.display = "none";
     }
+
+    $('#create_Doctor_Btn').on('click', function () {
+        const doctorRegister = {
+            email: $('#email').val().trim(),
+            password: $('#password').val().trim(),
+            username: $('#doctor_name').val().trim(),
+            specialty: $('#specialty').val().trim(),
+        }
+
+        $.ajax({
+            type: "POST",
+            data: JSON.stringify(doctorRegister),
+            contentType: "application/json",
+            url: "/api/doctor",
+            success: function(data) {
+                alert("Tạo bác sĩ thành công")
+                window.location.reload();
+                FormHandler.clearAllInputs($('#doctorModal'))
+            },
+            error: function(err) {
+                FormHandler.handleServerValidationError($('#doctorModal'), err)
+            }
+        });
+    })
 
     $('.button-container').on('click', '#cancelBtn', function() {
         closeDoctorModal();
@@ -106,41 +132,41 @@ $(document).ready(function() {
         confirmDeleteModal.style.display = "none";
     }
 
-    $('#create_Doctor_Btn').on('click', function() {
-        var name = $("#doctor_name").val();
-        var specialty = $("#doctor_specialty").val();
-        var workplace = $("#doctor_workplace").val();
-        var diploma = $("#doctor_diploma").val();
-        var introduction = $("#doctor_introduction").val();
-
-        if (!name || !specialty || !diploma || !workplace || !introduction) {
-            alert("All fields are required.");
-            return;
-        }
-
-        var jsonVar = {
-            username: name,
-            specialty: specialty,
-            diploma: diploma,
-            workplace: workplace,
-            introduction: introduction
-        };
-
-        $.ajax({
-            type: "POST",
-            data: JSON.stringify(jsonVar),
-            contentType: "application/json",
-            url: "http://localhost:8082/api/doctors/create",
-            success: function(data) {
-                closeDoctorModal();
-                assignDataToTable();
-            },
-            error: function(err) {
-                console.log(err);
-                alert("Error: " + err.responseText);
-            }
-        });
-    });
+    // $('#create_Doctor_Btn').on('click', function() {
+    //     var name = $("#doctor_name").val();
+    //     var specialty = $("#doctor_specialty").val();
+    //     var workplace = $("#doctor_workplace").val();
+    //     var diploma = $("#doctor_diploma").val();
+    //     var introduction = $("#doctor_introduction").val();
+    //
+    //     if (!name || !specialty || !diploma || !workplace || !introduction) {
+    //         alert("All fields are required.");
+    //         return;
+    //     }
+    //
+    //     var jsonVar = {
+    //         username: name,
+    //         specialty: specialty,
+    //         diploma: diploma,
+    //         workplace: workplace,
+    //         introduction: introduction
+    //     };
+    //
+    //     $.ajax({
+    //         type: "POST",
+    //         data: JSON.stringify(jsonVar),
+    //         contentType: "application/json",
+    //         url: "http://localhost:8082/api/doctors/create",
+    //         success: function(data) {
+    //             closeDoctorModal();
+    //             assignDataToTable();
+    //         },
+    //         error: function(err) {
+    //             console.log(err);
+    //             alert("Error: " + err.responseText);
+    //         }
+    //     });
+    // });
 
     $('#okEditBtn').on('click', function() {
         var id = $('#doctor_id_edit').val();
@@ -173,8 +199,8 @@ $(document).ready(function() {
                 assignDataToTable();
             },
             error: function(err) {
-                console.log(err);
-                alert("Error: " + err.responseText);
+
+                FormHandler.handleServerValidationError($('#doctorEditModal'), err)
             }
         });
     });
@@ -192,10 +218,11 @@ $(document).ready(function() {
                         "<td>" + (parseInt(i) + 1) + "</td>" +
                         "<td class='doctor-id' style='display:none;'>" + doctor[i].id + "</td>" +
                         "<td>" + doctor[i].username + "</td>" +
+                        // "<td>" + doctor[i].email + "</td>" +
                         "<td>" + doctor[i].specialty + "</td>" +
-                        "<td>" + doctor[i].diploma + "</td>" +
-                        "<td>" + doctor[i].workplace + "</td>" +
-                        "<td>" + doctor[i].introduction + "</td>" +
+                        "<td>" + (doctor[i].diploma ?? '') + "</td>" +
+                        "<td>" + (doctor[i].workplace ?? '') + "</td>" +
+                        "<td>" + (doctor[i].introduction ?? '') + "</td>" +
                         "<td class='button-cell'><div class='table-button-container'><button class='btn btn-primary' data-id='"
                         + doctor[i].id + "' id='openDoctorEditModal'>Edit</button>" +
                         "<button class='btn btn-danger' data-id='"+ doctor[i].id +"' id='delete'>Delete</button></div></td>" +
