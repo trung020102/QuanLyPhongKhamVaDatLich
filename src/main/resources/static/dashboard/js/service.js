@@ -121,7 +121,7 @@ const MedicalServiceList = (function () {
                         <button class="open-delete-service-modal-btn btn btn-sm btn-outline-danger border-0"
                                     data-toggle="modal" data-target="#delete-document-confirm-modal">
                                 <i class="fa fa-trash-alt"></i>
-                        </button>`
+                        </button>
 
                 },
             ],
