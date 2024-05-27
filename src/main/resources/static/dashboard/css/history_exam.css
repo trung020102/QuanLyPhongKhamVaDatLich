@@ -113,3 +113,22 @@ button {
 
     margin-left: 8px;
 }
+
+.is-invalid {
+    border-color: #dc3545;
+}
+.invalid-feedback {
+    color: #dc3545;
+    display: none;
+}
+
+.see-detail {
+    width: 45px;
+    height: 40px;
+    display: flex;
+    background: #007bff;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+}

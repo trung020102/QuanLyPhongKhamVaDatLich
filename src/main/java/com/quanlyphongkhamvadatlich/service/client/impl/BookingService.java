@@ -5,6 +5,7 @@ import com.quanlyphongkhamvadatlich.dto.client.DisableAppointmentDTO;
 import com.quanlyphongkhamvadatlich.entity.Appointment;
 import com.quanlyphongkhamvadatlich.entity.Patient;
 import com.quanlyphongkhamvadatlich.entity.Status;
+import com.quanlyphongkhamvadatlich.entity.User;
 import com.quanlyphongkhamvadatlich.repository.AppointmentRepository;
 import com.quanlyphongkhamvadatlich.service.client.IBookingService;
 import jakarta.mail.MessagingException;
@@ -47,7 +48,7 @@ public class BookingService implements IBookingService {
     }
 
     @Override
-    public Appointment bookAppointment(AppointmentDTO booking, Optional<Patient> patientOptional, int statusId) throws Exception {
+    public Appointment bookAppointment(AppointmentDTO booking, Optional<Patient> patientOptional, int statusId, User user) throws Exception {
         List<Appointment> appointments = getAppointmentByDateAndShift(booking.getAppointmentDate(),booking.getAppointmentShift());
         int countAppointment = appointments.size();
         int orderNumber;
@@ -71,6 +72,7 @@ public class BookingService implements IBookingService {
                 .patient(patient)
                 .status(new Status(statusId,"Chưa khám"))
                 .orderNumber(orderNumber)
+                .user(user)
                 .build();
 
         return appointmentRepository.save(appointment);

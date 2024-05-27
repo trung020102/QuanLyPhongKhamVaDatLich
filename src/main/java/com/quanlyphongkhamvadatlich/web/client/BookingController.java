@@ -13,6 +13,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,7 +41,8 @@ public class BookingController {
 
     @GetMapping("/booking")
     public String booking(Model model) {
-        model.addAttribute("patient", new Patient());
+        model.addAttribute("patient", new PatientDTO());
+        System.out.println("Hello là tôi đây");
         return "client/pages/booking";
     }
 
@@ -55,7 +57,7 @@ public class BookingController {
             return "redirect:/client/booking/appointment?patientID=" + patientId;
         }
         model.addAttribute("error", "Mã số bệnh nhân chưa có trong dữ liệu của chúng tôi !");
-        model.addAttribute("patient", new Patient());
+        model.addAttribute("patient", new PatientDTO());
         return "client/pages/booking";
     }
 
@@ -85,7 +87,7 @@ public class BookingController {
     }
 
     @PostMapping("/booking/appointment")
-    public String makeAppointment(@ModelAttribute("appointment") @Valid AppointmentDTO request, BindingResult bindingResult, Model model) throws Exception {
+    public String makeAppointment(@ModelAttribute("appointment") @Valid AppointmentDTO request, BindingResult bindingResult, Model model, @AuthenticationPrincipal UserPrincipal principal) throws Exception {
 
         if (bindingResult.hasErrors()) {
             return "client/pages/appointment";
@@ -93,20 +95,12 @@ public class BookingController {
 
         List<Appointment> list = bookingService.getAppointmentByDateAndShift(request.getAppointmentDate(),request.getAppointmentShift());
         if(list.size() >= 20){
-            String shiftText = "";
-            switch(request.getAppointmentShift()) {
-                case "sang":
-                    shiftText = "Sáng (7h - 11h)";
-                    break;
-                case "chieu":
-                    shiftText = "Chiều (13h - 17h)";
-                    break;
-                case "toi":
-                    shiftText = "Tối (17h30 - 21h)";
-                    break;
-                default:
-                    shiftText = request.getAppointmentShift();
-            }
+            String shiftText = switch (request.getAppointmentShift()) {
+                case "Sáng" -> "Sáng (7h - 11h)";
+                case "Chiều" -> "Chiều (13h - 17h)";
+                case "Tối" -> "Tối (17h30 - 21h)";
+                default -> request.getAppointmentShift();
+            };
             model.addAttribute("fullBooking", "Ca " + shiftText + " của ngày hôm nay đã hết lượt đặt. Vui lòng chọn ca khám khác hoặc ngày khám khác");
             return "client/pages/appointment";
         }
@@ -116,7 +110,7 @@ public class BookingController {
         Optional<Patient> patient = patientService.findById(request.getPatientId());
 
 
-        Appointment appointment = bookingService.bookAppointment(request, patient, statusId);
+        Appointment appointment = bookingService.bookAppointment(request, patient, statusId, principal.getUser());
         return "redirect:/client/booking/appointment/success?patientId=" + request.getPatientId() + "&appointmentId=" + appointment.getId();
 
     }
