@@ -331,7 +331,7 @@
         $(document).ready(function() {
             $(".addButton").each(function() {
                 var status = $(this).data("status");
-                if (status === 3 || status === 2) {
+                if (status === 3 || status === 2 || status === 4 ) {
                     $(this).addClass("disabled-button");
                     $(this).prop("disabled", true);
                 }
