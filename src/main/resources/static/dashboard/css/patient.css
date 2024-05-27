@@ -34,7 +34,7 @@
 }
 
 .table-button-container {
-    display: absolute;
+    /*display: absolute;*/
     top: 50%;
     transform: translateY(-10%);
     right: 0;

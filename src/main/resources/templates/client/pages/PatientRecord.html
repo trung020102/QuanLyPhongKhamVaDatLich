@@ -18,7 +18,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="patient_info">
-                            <span class="badge badge-pill badge-info mb-2"
+                            <span class="badge badge-pill badge-info mb-2 font-size"
                                   style="background-color: #f2408d; color: white">Thông tin bệnh nhân</span>
 
                         <div class="row" id="element" th:data-id="${patient.getId()}">
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="patient_appointment">
-                            <span class="badge badge-pill badge-info mt-4 mb-4"
+                            <span class="badge badge-pill badge-info mt-4 mb-4 font-size"
                                   style="background-color: #f2408d; color: white">Lịch chưa khám</span>
                         <div th:if="${#lists.isEmpty(appointments)}">
                             <div class="alert alert-danger" role="alert" style="text-align: center">
@@ -111,7 +111,7 @@
                     </div>
 
                     <div class="patient_appointment-record">
-                            <span class="badge badge-pill badge-info mt-4 mb-4"
+                            <span class="badge badge-pill badge-info mt-4 mb-4 font-size"
                                   style="background-color: #f2408d; color: white">Lịch sử lịch khám</span>
 
                         <div class="appointment_search">
@@ -250,7 +250,7 @@
 
                     <div th:unless="${#lists.isEmpty(listCancelAppointment)}">
                         <div class="patient_appointment">
-                            <span class="badge badge-pill badge-info mt-4 mb-4"
+                            <span class="badge badge-pill badge-info mt-4 mb-4 font-size"
                                   style="background-color: #f2408d; color: white">Lịch sử hủy lịch khám</span>
                        
                         <div id="unexamined-schedules" class="row" th:unless="${#lists.isEmpty(listCancelAppointment)}">
