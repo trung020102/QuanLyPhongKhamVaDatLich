@@ -1,10 +1,17 @@
+import {FormHandler} from "./form.js";
+import {App} from "./app.js";
+
 const MedicalServiceList = (function () {
     const module = {
         findAllServiceUrl: '/api/medical-service',
+        deleteServiceUrl: '/api/medical-service/{id}',
+
         serviceListTableSelector: $('#medical-service-table'),
         modalEditService: $('#serviceEditModal'),
-        modalDeleteService: $('#serviceDeleteModal')
-
+        modalDeleteService: $('#serviceDeleteModal'),
+        confirmDeleteServiceButtonSelector: $('#serviceDeleteBtn'),
+        editServiceIdSelector: $('#edit-service-id'),
+        deleteServiceIdSelector: $('#delete-service-id'),
     };
 
     module.init = () => {
@@ -12,12 +19,13 @@ const MedicalServiceList = (function () {
         openEditServiceModalButton();
         handleEditServiceButton();
         openDeleteServiceModalButton();
+        handleConfirmDeleteServiceButton();
     }
 
     const openEditServiceModalButton = () => {
         module.serviceListTableSelector.on('click', '.open-edit-service-modal-btn', function () {
             const rowData = module.serviceListTableSelector.DataTable().row($(this).closest('tr')).data();
-            $('#service-id').val(rowData.id);
+            module.editServiceIdSelector.val(rowData.id);
             renderServiceDetail(rowData);
             module.modalEditService.modal('show');
         })
@@ -26,44 +34,48 @@ const MedicalServiceList = (function () {
     const openDeleteServiceModalButton = () => {
         module.serviceListTableSelector.on('click', '.open-delete-service-modal-btn', function () {
             const rowData = module.serviceListTableSelector.DataTable().row($(this).closest('tr')).data();
-            $('#service-id').val(rowData.id);
+            module.deleteServiceIdSelector.val(rowData.id);
             module.modalDeleteService.modal('show');
             module.modalDeleteService.find('.modal-title').text(`Xác nhận xóa dịch vụ ${rowData.serviceName}`);
         })
     }
 
-    const deleteService = (serviceId, confirmDocumentCode) => {
+    const handleConfirmDeleteServiceButton = () => {
+        module.confirmDeleteServiceButtonSelector.on('click', function () {
+            const serviceId = module.deleteServiceIdSelector.val();
+            deleteService(serviceId);
+        })
+    }
+
+    const deleteService = (serviceId) => {
         $.ajax({
             type: 'DELETE',
-            data: {
-                confirmCode: confirmDocumentCode
-            },
-            url: module.deleteDocumentUrl.replace('{id}', documentCode),
+            url: module.deleteServiceUrl.replace('{id}', serviceId),
         })
             .done(() => {
+                alert("Xóa dịch vụ thành công");
                 location.reload();
             })
             .fail((jqXHR) => {
                 App.handleResponseMessageByStatusCode(jqXHR);
             })
     }
+
     const renderServiceDetail = (data) => {
         $('#service_edit_name').val(data.serviceName);
         $('#service_edit_price').val(data.price);
-        $('#service_edit_desciption').val(data.description);
+        $('#service_edit_description').val(data.description);
     }
-    // const renderDeleteServiceDetail = (data) => {
-    //     $('#service_delete_name').val(data.serviceName);
-    // }
+
     const handleEditServiceButton = () => {
         $('#okeEditServiceBtn').on('click', function () {
 
             const serviceParam = {
                 serviceName: $('#service_edit_name').val().trim(),
                 price: $('#service_edit_price').val().trim(),
-                description: $('#service_edit_desciption').val().trim(),
+                description: $('#service_edit_description').val().trim(),
             }
-            const serviceId = $('#service-id').val();
+            const serviceId = module.editServiceIdSelector.val();
             $.ajax({
                 headers: {
                     "accept": "application/json",
@@ -74,11 +86,11 @@ const MedicalServiceList = (function () {
                 data: JSON.stringify(serviceParam),
             })
                 .done(() => {
-                    alert("Sửa dịch vụ thành công")
+                    alert("Sửa dịch vụ thành công");
                     window.location.href = "/admin/service";
                 })
-                .fail((jqXhr) => {
-                    console.log(jqXhr)
+                .fail((jqXHR) => {
+                    FormHandler.handleServerValidationError(module.modalEditService, jqXHR);
                 })
         })
     }
@@ -121,7 +133,7 @@ const MedicalServiceList = (function () {
                         <button class="open-delete-service-modal-btn btn btn-sm btn-outline-danger border-0"
                                     data-toggle="modal" data-target="#delete-document-confirm-modal">
                                 <i class="fa fa-trash-alt"></i>
-                        </button>
+                        </button>`
 
                 },
             ],
@@ -168,11 +180,11 @@ const MedicalServiceCreate = (function () {
                 data: JSON.stringify(service),
             })
                 .done(() => {
-                    alert("Tạo bác sĩ thành công")
+                    alert("Tạo dịch vụ thành công")
                     window.location.href = "/admin/service";
                 })
-                .fail((jqXhr) => {
-                    console.log(jqXhr)
+                .fail((jqXHR) => {
+                    FormHandler.handleServerValidationError(module.modalCreateService, jqXHR);
                 })
         })
     }

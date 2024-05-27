@@ -2,8 +2,6 @@ export const FormHandler = (function () {
     const module = {};
 
     module.handleServerValidationError = (formSelector, jqXHR) => {
-        formSelector.trigger("form.submit.fail", jqXHR.responseJSON);
-
         const {errors, message, redirect} = jqXHR.responseJSON;
 
         if (errors) {
@@ -18,6 +16,20 @@ export const FormHandler = (function () {
                 }
             }
         }
+    }
+
+    module.clearAllInputs = (formSelector) => {
+        formSelector.find('input')
+            .val('')
+            .prop('checked', false)
+            .prop('selected', false);
+        formSelector.find('select').val('');
+        formSelector.find('textarea').val('');
+        $('.selectpicker').selectpicker('refresh');
+    }
+
+    module.clearAllErrors = (formSelector) => {
+        formSelector.find('.error-text').remove();
     }
 
     const addHidingEventToErrorText = (validationGroupSelector) => {
@@ -51,6 +63,7 @@ export const FormHandler = (function () {
         const attributes = validationName.split(".");
         return attributes.map((el, i) => (i ? "[" + el + "]" : el)).join("");
     }
+
 
     return module;
 }());

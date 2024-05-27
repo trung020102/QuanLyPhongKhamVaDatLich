@@ -43,6 +43,7 @@ public class HomeAdminController {
     }
     @GetMapping("/patient")
     public ModelAndView toPatient() {
+
         return new ModelAndView("dashboard/admin/patient");
     }
     @GetMapping("/service")
