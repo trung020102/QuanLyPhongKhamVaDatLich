@@ -24,78 +24,39 @@
 
 <th:block layout:fragment="content-body">
 
-    <button class="btn btn-success openDoctorRegister" style="margin-bottom: 10px">
-        Thêm tài khoản bác sĩ
-    </button>
-
-    <div id="example3_wrapper" class="dataTables_wrapper dt-bootstrap4">
-        <!--body-->
-        <div class="row">
-            <div class="col-sm-12">
-                <table id="example2"
-                       class="table table-bordered table-hover dataTable dtr-inline"
-                       aria-describedby="example2_info">
-                    <thead>
-                    <tr>
-                        <th class="sorting"
-                            aria-label="Rendering engine: activate to sort column descending">
-                            STT
-                        </th>
-                        <th class="sorting">Email</th>
-                        <th class="sorting">Mật khẩu</th>
-                        <th class="sorting">Operation</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
     <!-- Add doctor modal button-->
     <button class="btn btn-success openDoctorModalBtn" style="margin-bottom: 10px">
-        Thêm thông tin bác sĩ
+        Tạo bác sĩ
     </button>
 
     <!-- Add doctor modal -->
     <div id="doctorModal" class="modal">
         <div class="modal-content">
             <span class="doctorClose" data-dismiss="modal">&times;</span>
-            <p class="modal-title">Thông tin bác sĩ</p>
+            <p class="modal-title">Tạo bác sĩ</p>
             <div class="modal-content-body">
                 <hr>
 
                 <div class="input-row">
-                    <div class="input-container">
+                    <div class="input-container with-validation">
+                        <label for="doctor_name">Email</label>
+                        <input class="form-control" type="email" id="email" placeholder="Nhập email" name="email">
+                    </div>
+                    <div class="input-container with-validation">
                         <label for="doctor_name">Họ và tên</label>
-                        <input class="form-control" type="text" id="doctor_name" placeholder="Nhập họ và tên">
-                    </div>
-                    <div class="input-container">
-                        <label for="doctor_specialty">Chuyên môn</label>
-                        <input class="form-control" type="text" id="doctor_specialty" placeholder="Nhập chuyên môn">
+                        <input class="form-control" type="text" id="doctor_name" placeholder="Nhập họ và tên" name="username">
                     </div>
                 </div>
-
                 <div class="input-row">
-                    <div class="input-container">
-                        <label for="doctor_workplace">Nơi công tác</label>
-                        <input class="form-control" type="text" id="doctor_workplace" placeholder="Nhập nơi công tác">
+                    <div class="input-container with-validation">
+                        <label for="doctor_name">Mật khẩu</label>
+                        <input class="form-control" type="password" id="password" placeholder="Nhập mật khẩu" name="password">
                     </div>
-
-                    <div class="input-container">
-                        <label for="doctor_diploma">Bằng cấp</label>
-                        <input class="form-control" type="text" id="doctor_diploma" placeholder="Nhập bằng cấp">
+                    <div class="input-container with-validation">
+                        <label for="doctor_name">Chuyên ngành</label>
+                        <input class="form-control" type="text" id="specialty" placeholder="Nhập chuyên ngành" name="specialty">
                     </div>
                 </div>
-
-                <div class="input-container">
-                    <label for="doctor_introduction">Giới thiệu</label>
-                    <textarea class="form-control" rows="3" id="doctor_introduction"
-                              placeholder="Nhập giới thiệu"></textarea>
-                </div>
-
                 <div class="button-container">
                     <button id="create_Doctor_Btn" type="button" class="btn btn-primary"
                             style="margin-left: 40%; margin-top: 20px;">Xác nhận
@@ -122,11 +83,12 @@
                             STT
                         </th>
                         <th class="sorting">Họ và tên</th>
+<!--                        <th class="sorting">Email</th>-->
                         <th class="sorting">Chuyên môn</th>
                         <th class="sorting">Bằng cấp</th>
                         <th class="sorting">Nơi công tác</th>
                         <th class="sorting">Giới thiệu</th>
-                        <th class="sorting">Operation</th>
+                        <th class="sorting">Thao tác</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -222,6 +184,6 @@
 </th:block>
 
 <th:block layout:fragment="doctor-script">
-    <script src="/dashboard/js/doctor.js"></script>
+    <script type="module" src="/dashboard/js/doctor.js"></script>
 </th:block>
 </html>

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
@@ -53,17 +54,19 @@ public class HomeAdminController {
         }
         return "redirect:/admin/login"; // Điều hướng đến trang đăng nhập và thông báo đăng xuất thành công
     }
+
     @GetMapping("/doctor")
     public ModelAndView toDoctor() {
         return new ModelAndView("dashboard/admin/doctor");
     }
+
     @GetMapping("/patient")
     public ModelAndView toPatient(@RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "key", defaultValue = "") String key, Model model) {
-        Pageable pageable = PageRequest.of(-1, 5);
+        Pageable pageable = PageRequest.of(page - 1, 5);
 
         Page<Patient> listPatient = null;
 
-        if(key == null || key.isBlank()) {
+        if (key == null || key.isBlank()) {
             listPatient = patientRepository.findAll(pageable);
         } else {
             listPatient = patientRepository.search(key, pageable);
@@ -76,11 +79,12 @@ public class HomeAdminController {
 
         return new ModelAndView("dashboard/admin/patient");
     }
+
     @GetMapping("/service")
     public ModelAndView toPatientEdit() {
         return new ModelAndView("dashboard/admin/service");
     }
-    
+
     @GetMapping("/statistical")
     public String statistical() {
         return "dashboard/admin/revenue-statistics";

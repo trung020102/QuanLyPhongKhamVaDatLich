@@ -3,19 +3,22 @@ package com.quanlyphongkhamvadatlich.service.dashboard;
 import com.quanlyphongkhamvadatlich.dto.dashboard.DoctorServiceParam;
 import com.quanlyphongkhamvadatlich.dto.dashboard.DoctorServiceResult;
 import com.quanlyphongkhamvadatlich.entity.Doctor;
+import com.quanlyphongkhamvadatlich.entity.User;
 import com.quanlyphongkhamvadatlich.mapper.DoctorServiceMapper;
 import com.quanlyphongkhamvadatlich.repository.DoctorRepository;
+import com.quanlyphongkhamvadatlich.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class DoctorCRUDService{
-
-    private final DoctorServiceMapper  doctorServiceMapper;
+public class DoctorCRUDService {
+    private final UserRepository userRepository;
+    private final DoctorServiceMapper doctorServiceMapper;
     private final DoctorRepository doctorRepository;
 
     //Save operation
@@ -50,8 +53,11 @@ public class DoctorCRUDService{
     }
 
     //Delete operation
+    @Transactional
     public void deleteDoctorById(Long id) {
         Doctor doctor = doctorRepository.findById(id).orElseThrow();
+        User user = userRepository.getByDoctor(doctor);
+        userRepository.delete(user);
         doctorRepository.delete(doctor);
     }
 }
