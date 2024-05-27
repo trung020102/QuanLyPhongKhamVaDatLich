@@ -23,5 +23,21 @@ export const App = (function () {
         }
     }
 
+    module.showSuccessMessage = (message) => {
+        module.successToastSelector.find('.toast-body').text('').text(message);
+        module.successToastSelector.toast('show');
+    }
+
+    module.showErrorMessage = (message) => {
+        module.errorToastSelector.find('.toast-body').text('').text(message);
+        module.errorToastSelector.toast('show');
+    }
+
     return module;
 }());
+
+$(function () {
+    $('.modal').on(' hidden.bs.modal', function () {
+        $(this).find('.error-text').remove();
+    });
+});

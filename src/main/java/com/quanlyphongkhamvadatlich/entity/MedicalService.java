@@ -32,5 +32,4 @@ public class MedicalService extends BaseEntity{
     @JsonManagedReference
     @OneToMany(mappedBy = "medicalService", fetch = FetchType.EAGER)
     private List<ServiceDetail> serviceDetails;
-
 }
