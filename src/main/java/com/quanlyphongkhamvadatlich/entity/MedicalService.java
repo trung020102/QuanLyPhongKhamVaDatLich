@@ -32,7 +32,6 @@ public class MedicalService extends BaseEntity{
     @JsonManagedReference
     @OneToMany(mappedBy = "medicalService", fetch = FetchType.EAGER)
     private List<ServiceDetail> serviceDetails;
-
 }
 //    INSERT INTO medicines (medicine_name, description) VALUES
 //('Paracetamol', 'Thuốc giảm đau và hạ sốt'),

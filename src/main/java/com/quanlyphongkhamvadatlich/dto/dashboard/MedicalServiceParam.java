@@ -12,13 +12,15 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 public class MedicalServiceParam {
-    @NotBlank
-    @Size(max = 255)
+    @NotBlank(message = "Tên dịch vụ không được trống")
+    @Size(max = 255, message = "Tên dịch vụ tối đa 255 kí tự")
     private String serviceName;
-    @NotNull
-    @DecimalMin(value = "0.0", inclusive = false)
+
+    @NotNull(message = "Giá dịch vụ không được trống")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Giá dịch vụ không được âm")
     private BigDecimal price;
-    @NotBlank
-    @Size(max= 1000)
+
+    @NotBlank(message = "Mô tả dịch vụ không được trống")
+    @Size(max= 1000, message = "Mô tả dịch vụ tối đa 1000 kí tự")
     private String description;
 }

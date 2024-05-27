@@ -4,6 +4,7 @@ import com.quanlyphongkhamvadatlich.dto.client.PatientDTO;
 import com.quanlyphongkhamvadatlich.dto.dashboard.HistoryAppointmentDTO;
 import com.quanlyphongkhamvadatlich.entity.Patient;
 import com.quanlyphongkhamvadatlich.entity.PatientRecord;
+import com.quanlyphongkhamvadatlich.repository.HistoryAppointmentRepository;
 import com.quanlyphongkhamvadatlich.security.UserPrincipal;
 import com.quanlyphongkhamvadatlich.service.dashboard.impl.HistoryAppointmentService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,10 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
@@ -90,20 +88,25 @@ public class DoctorController {
             model.addAttribute("searchDate", strToday + " - " + strTwoDateLater);
 
             startDate = LocalDate.parse(strToday,formatter);
-            endDate = LocalDate.parse(strToday,formatter);
+            endDate = LocalDate.parse(strTwoDateLater,formatter);
         }
 ;
         SimpleDateFormat sp = new SimpleDateFormat("yyyy-MM-dd");
 
         List<HistoryAppointmentDTO> listOfHistoryAppointment = historyAppointmentService.ListOfHistoryAppointmentByDates(sp.parse(startDate.toString()),sp.parse(endDate.toString()));
-//        List<PatientRecord> listOfPatientRecord = historyAppointmentService.getPatientRecordByDates(sp.parse(startDate.toString()),sp.parse(endDate.toString()));
 
         model.addAttribute("history", new HistoryAppointmentDTO());
         model.addAttribute("historyAppointment", listOfHistoryAppointment);
-//        model.addAttribute("listOfPatientRecord", listOfPatientRecord);
         return "dashboard/doctor/history_exam";
     }
 
+    @GetMapping("history_exam/patientRecord/{patientRecordId}")
+    public String getHistoryExam(@PathVariable Long patientRecordId, Model model){
+        PatientRecord patientRecord = historyAppointmentService.getPatientRecordById(patientRecordId);
+        model.addAttribute("patientRecord", patientRecord);
+        return "dashboard/doctor/history";
+
+    }
 
     @GetMapping("/appointment_schedule")
     public ModelAndView appointmentSchedule() {

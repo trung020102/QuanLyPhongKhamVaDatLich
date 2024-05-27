@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/medical-service")
 @RequiredArgsConstructor
 public class MedicalServiceAPI {
-    private MedicalServiceBusiness medicalServiceBusiness;
+    /* Khi nãy em thiếu final cho medicalServiceBusiness nên khi khởi tạo controller medicalServiceBusiness không nhận được giá trị */
+    /* Do mình đang sử dụng @RequiredArgsConstructor nó khác với sử dụng @Autowire */
+    private final MedicalServiceBusiness medicalServiceBusiness;
 
     @PostMapping
     public ResponseEntity<?> createService(@Valid @RequestBody MedicalServiceParam serviceParam) {
