@@ -59,7 +59,7 @@ public class HomeAdminController {
     }
     @GetMapping("/patient")
     public ModelAndView toPatient(@RequestParam(value = "page", defaultValue = "1") Integer page, @RequestParam(value = "key", defaultValue = "") String key, Model model) {
-        Pageable pageable = PageRequest.of(0, 5);
+        Pageable pageable = PageRequest.of(-1, 5);
 
         Page<Patient> listPatient = null;
 
